@@ -12,4 +12,9 @@ public class TestController {
     public ResponseEntity <?> test() {
         return ResponseEntity.ok("OK");
     }
+
+    @RequestMapping(path = "/favicon.ico", method = RequestMethod.GET)
+    public ResponseEntity <?> test2() {
+        return ResponseEntity.ok("OK");
+    }
 }
