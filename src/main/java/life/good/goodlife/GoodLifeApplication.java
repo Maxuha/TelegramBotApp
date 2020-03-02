@@ -20,6 +20,7 @@ public class GoodLifeApplication implements TelegramMvcConfiguration {
 
     @Override
     public void configuration(TelegramBotBuilder telegramBotBuilder) {
-        telegramBotBuilder.token(environment.getProperty("telegram.bot.token")).alias("BotBean");
+        telegramBotBuilder.token(System.getenv().get("telegram_bot_token")).alias("BotBean");
+        //telegramBotBuilder.token(environment.getProperty("telegram.bot.token")).alias("BotBean");
     }
 }
