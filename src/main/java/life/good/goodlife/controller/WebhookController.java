@@ -8,6 +8,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController(value = "/webhook/")
 public class WebhookController {
+    @RequestMapping(path = "test/get", method = RequestMethod.GET)
+    public ResponseEntity <?> testGet() {
+        return ResponseEntity.ok("get");
+    }
+
+    @RequestMapping(path = "test/post", method = RequestMethod.POST)
+    public ResponseEntity <?> testPost() {
+        return ResponseEntity.ok("post");
+    }
+
     @RequestMapping(path = "monobank/", method = RequestMethod.POST)
     public ResponseEntity <?> monobank(@RequestBody String webHookUrl) {
         System.out.println(webHookUrl);
