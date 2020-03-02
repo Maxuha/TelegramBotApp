@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "webhook")
+@RequestMapping(path = "webhook/")
 public class WebhookController {
     @RequestMapping(path = "test/get", method = RequestMethod.GET)
     public ResponseEntity <?> testGet() {
