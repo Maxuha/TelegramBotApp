@@ -1,15 +1,15 @@
 package life.good.goodlife.controller;
 
-import com.github.telegram.mvc.api.BotController;
-import com.github.telegram.mvc.api.BotRequest;
-import com.pengrad.telegrambot.request.BaseRequest;
-import com.pengrad.telegrambot.request.SendMessage;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@BotController
+@RestController
 public class TestController {
 
-    @BotRequest("/test **")
-    BaseRequest test(Long chatId, String message) {
-        return new SendMessage(chatId, message.split(" ")[1]);
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ResponseEntity <?> test() {
+        return ResponseEntity.ok("OK");
     }
 }
