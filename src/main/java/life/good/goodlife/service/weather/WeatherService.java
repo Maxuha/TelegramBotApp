@@ -10,12 +10,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WeatherService {
-    private final Environment environment;
     private String token;
 
-    public WeatherService(Environment environment) {
-        token = environment.getProperty("weather.openweather.token");
-        this.environment = environment;
+    public WeatherService() {
+        token = System.getenv().get("weather_openweather_token");
     }
 
     public String weatherByCity(String city) {
