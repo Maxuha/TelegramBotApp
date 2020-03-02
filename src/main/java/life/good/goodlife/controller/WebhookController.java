@@ -29,10 +29,10 @@ public class WebhookController {
         return ResponseEntity.ok("post");
     }
 
-    @RequestMapping(path = "monobank/", method = RequestMethod.POST)
+    @RequestMapping(path = "monobank", method = RequestMethod.POST)
     public ResponseEntity <?> monobank(@RequestBody String webHookUrl) {
         System.out.println(webHookUrl);
-        telegramBotExecuteComponent.sendMessage(userService.findById(1).getId(), webHookUrl);
+        telegramBotExecuteComponent.sendMessage(userService.findById(1).getChatId(), webHookUrl);
         return ResponseEntity.ok("ok");
     }
 
