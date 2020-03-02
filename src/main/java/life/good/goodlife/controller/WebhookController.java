@@ -3,10 +3,7 @@ package life.good.goodlife.controller;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.service.bot.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "webhook/")
@@ -30,8 +27,9 @@ public class WebhookController {
     }
 
     @RequestMapping(path = "monobank", method = RequestMethod.POST)
-    public ResponseEntity <?> monobank(@RequestBody String raw) {
+    public ResponseEntity <?> monobank(@RequestBody String raw, @RequestHeader("Content-Type") String type) {
         System.out.println(raw);
+        System.out.println(type);
         telegramBotExecuteComponent.sendMessage(userService.findById(1).getChatId(), raw);
         return ResponseEntity.ok("ok");
     }
