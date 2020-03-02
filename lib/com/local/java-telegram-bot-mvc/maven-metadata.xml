@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.local</groupId>
+  <artifactId>java-telegram-bot-mvc</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20200302090356</lastUpdated>
+  </versioning>
+</metadata>
