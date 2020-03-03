@@ -130,11 +130,11 @@ public class ForecastWeather {
                 avg_wind /= iteration;
                 avg_humidity /= iteration;
                 int hourZone = city.getTimezone() / 3600;
-                result.append("Днём: ").append(((int) (max_temp - 273.15) > 0 ? "+" : "")).append((int) (max_temp - 273.15)).append("°\n")
-                        .append("Ночью: ").append(((int) (min_temp - 273.15) > 0 ? "+" : "")).append((int) (min_temp - 273.15)).append("°\n")
+                result.append("Днём: ").append((Math.round(max_temp - 273.15) > 0 ? "+" : "")).append(Math.round(max_temp - 273.15)).append("°\n")
+                        .append("Ночью: ").append((Math.round(min_temp - 273.15) > 0 ? "+" : "")).append(Math.round(min_temp - 273.15)).append("°\n")
                         .append(list[i - 1].getCodeEmoji(max(image.toString().trim()))).append(" ").append(max(description.toString().trim())).append("\n")
                         .append("🌬 ").append(String.format("%.2f", avg_wind)).append(" м/c ")
-                        .append("💧 ").append((int) avg_humidity).append("%").append("\nВосход: ").append(LocalDateTime.ofEpochSecond(city.getSunrise(),
+                        .append("💧 ").append(Math.round(avg_humidity)).append("%").append("\nВосход: ").append(LocalDateTime.ofEpochSecond(city.getSunrise(),
                         0, ZoneOffset.ofHours(hourZone)).format(DateTimeFormatter.ofPattern("HH:mm:ss")))
                         .append("\nЗакат: " + LocalDateTime.ofEpochSecond(city.getSunset(), 0, ZoneOffset.ofHours(hourZone))
                                 .format(DateTimeFormatter.ofPattern("HH:mm:ss"))).append("::");

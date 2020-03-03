@@ -137,9 +137,9 @@ public class CurrentWeather {
         int hour = timezone / 3600;
         return "Погода в " + city + ", " + ParseCountry.getNameCountryByCode(sys.getCountry()) + "\n" +
                 "Сейчас " + LocalDateTime.now(ZoneOffset.ofHours(hour)).format(DateTimeFormatter.ofPattern("HH:mm")) + "\n" +
-                ((int)(main.getTemp() - 273.15) > 0 ? "+" : "") + (int)(main.getTemp() - 273.15) + "° " +
+                (Math.round(main.getTemp() - 273.15) > 0 ? "+" : "") + Math.round(main.getTemp() - 273.15) + "° " +
                 getCodeEmoji(weather[0].getIcon()) + " " + weather[0].getDescription() +
-                "\nОщущается как: " + ((int)(main.getFeels_like() - 273.15) > 0 ? "+" : "") + (int)(main.getFeels_like() - 273.15)
+                "\nОщущается как: " + (Math.round(main.getFeels_like() - 273.15) > 0 ? "+" : "") + Math.round(main.getFeels_like() - 273.15)
                 + "°\n" + "🌬" + wind.getSpeed() + " м/c " + "💧" + main.getHumidity() + "%\n" +
                 "Восход: " + LocalDateTime.ofEpochSecond(sys.getSunrise(), 0, ZoneOffset.ofHours(hour)).format(DateTimeFormatter.ofPattern("HH:mm:ss")) +
                 "\nЗакат: " + LocalDateTime.ofEpochSecond(sys.getSunset(), 0, ZoneOffset.ofHours(hour)).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
