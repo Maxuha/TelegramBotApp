@@ -135,7 +135,7 @@ public class CurrentWeather {
         String data = Request.get("https://ws3.morpher.ru/russian/declension?s=" + name + "&format=json");
         String city = gson.fromJson(data, Declension.class).getП();
         return "Погода в " + city + ", " + ParseCountry.getNameCountryByCode(sys.getCountry()) + "\n" +
-                "Сейчас " + LocalDateTime.now().atZone(ZoneOffset.ofHours(timezone / 3600)) + "\n" +
+                "Сейчас " + LocalDateTime.now().atZone(ZoneOffset.ofHours(timezone / 3600)).format(DateTimeFormatter.ofPattern("HH:mm")) + "\n" +
                 ((int)(main.getTemp() - 273.15) > 0 ? "+" : "") + (int)(main.getTemp() - 273.15) + "° " +
                 getCodeEmoji(weather[0].getIcon()) + " " + weather[0].getDescription() +
                 "\nОщущается как: " + ((int)(main.getFeels_like() - 273.15) > 0 ? "+" : "") + (int)(main.getFeels_like() - 273.15)
