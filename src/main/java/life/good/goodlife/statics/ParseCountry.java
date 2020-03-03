@@ -9,6 +9,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class ParseCountry {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new File(Objects.requireNonNull(ParseCountry.class.getClassLoader().getResource("data/country.xml")).getFile()));
+            Document document = builder.parse(Objects.requireNonNull(ParseCountry.class.getClassLoader().getResourceAsStream("data/country.xml")));
             NodeList countryNodeList = document.getElementsByTagName("country");
             for (int i = 0; i < countryNodeList.getLength(); i++) {
                 Element countryElement = (Element) countryNodeList.item(i);
@@ -28,8 +29,8 @@ public class ParseCountry {
                 }
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            System.out.println("Неудалось получить информацию об стране - " + e.getMessage());
+            System.out.println("Неудалось получить информацию о стране - " + e.getMessage());
         }
-        return "Not Found";
+        return code;
     }
 }
