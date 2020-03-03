@@ -5,8 +5,42 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 public class Request {
+    public static String get(String address, Map<String, String> headers) {
+        StringBuffer result;
+        BufferedReader reader = null;
+        try {
+            URL url = new URL(address);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                connection.setRequestProperty(entry.getKey(), entry.getValue());
+            }
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String resultLine;
+            result = new StringBuffer();
+            while ((resultLine = reader.readLine()) != null) {
+                result.append(resultLine);
+            }
+        } catch (IOException e) {
+            System.out.println("Stream input error - " + e.getMessage());
+            result = new StringBuffer(address);
+        }
+        finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    System.out.println("Stream close error - " + e.getMessage());
+                    result = new StringBuffer(address);
+                }
+            }
+        }
+        return result.toString();
+    }
+
     public static String get(String address) {
         StringBuffer result;
         BufferedReader reader = null;
