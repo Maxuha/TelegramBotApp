@@ -70,7 +70,7 @@ public class ForecastWeather {
         } else {
             cityName = data;
         }
-        return "Погода на 6️⃣дней в " + cityName + ", " + ParseCountry.getNameCountryByCode(city.getCountry()) + "\n" +
+        return "Погода на 6️⃣ дней в " + cityName + ", " + ParseCountry.getNameCountryByCode(city.getCountry()) + "\n" +
                 getDataInDays();
     }
 
