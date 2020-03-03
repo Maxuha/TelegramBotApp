@@ -44,6 +44,7 @@ public class SystemController {
         UserHistory userHistory = userHistoryComponent.findLastUserHistoryByUserId(userService.findByChatId(chatId).getId());
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/set_location");
         Location location = message.location();
+        System.out.println(location.latitude() + " " + location.latitude());
         String response = "Локация не пригодилась.";
         if (userHistory.getCommandsId() == 10) {
             response = weatherService.weather(location);
