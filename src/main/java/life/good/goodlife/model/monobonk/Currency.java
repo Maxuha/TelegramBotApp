@@ -49,7 +49,11 @@ public class Currency {
 
     @Override
     public String toString() {
-        return getFlagByCurrencyCode(currencyCodeA) + "    " + rateBuy + "грн    " + rateSell + "грн";
+        String flag = getFlagByCurrencyCode(currencyCodeA);
+        if (flag != null) {
+            return flag + "    " + String.format("%.2f", rateBuy) + " грн    " + String.format("%.2f", rateSell)  + " грн";
+        } else
+            return "";
     }
 
     private String getFlagByCurrencyCode(int code) {
@@ -64,7 +68,8 @@ public class Currency {
             case 643: result = "\uD83C\uDDF7\uD83C\uDDFA";
             break;
             case 985: result = "\uD83C\uDDF5\uD83C\uDDF1";
-            default: result = "not found";
+            break;
+            default: result = null;
         }
         return result;
     }
