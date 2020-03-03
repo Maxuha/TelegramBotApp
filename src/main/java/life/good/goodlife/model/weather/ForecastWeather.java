@@ -88,7 +88,6 @@ public class ForecastWeather {
         MONTH month = null;
         DAYS days = null;
         int daysOfMonth = 0;
-        int hourZone = city.getTimezone() / 3600;
         for (int i = 1; i < list.length + 1; i++) {
             if (i < list.length) {
                 dateTime = LocalDateTime.parse(list[i].getDt_txt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -130,6 +129,7 @@ public class ForecastWeather {
                 }
                 avg_wind /= iteration;
                 avg_humidity /= iteration;
+                int hourZone = city.getTimezone() / 3600;
                 result.append("Днём: ").append(((int) (max_temp - 273.15) > 0 ? "+" : "")).append((int) (max_temp - 273.15)).append("°\n")
                         .append("Ночью: ").append(((int) (min_temp - 273.15) > 0 ? "+" : "")).append((int) (min_temp - 273.15)).append("°\n")
                         .append(list[i - 1].getCodeEmoji(max(image.toString().trim()))).append(" ").append(max(description.toString().trim())).append("\n")
