@@ -4,6 +4,7 @@ import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.KeyboardButton;
+import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
@@ -39,7 +40,7 @@ public class WeatherController {
     BaseRequest weather(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Погода");
         String msg = commandService.findCommandsByName("Погода").getFullDescription();
-        SendMessage sendMessage = new SendMessage(chatId, msg);
+        SendMessage sendMessage = new SendMessage(chatId, msg).parseMode(ParseMode.HTML);
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Предоставить местоположение").requestLocation(true),
