@@ -22,10 +22,10 @@ public class CurrencyService {
         String data = Request.get("https://api.monobank.ua/bank/currency", headers);
         Gson gson = new Gson();
         Currency[] currencies = gson.fromJson(data, Currency[].class);
-        String result = "Курс валют\n     Купить    Продать\n";
+        StringBuilder result = new StringBuilder("Курс валют\n     Купить    Продать\n");
         for (Currency currency : currencies) {
-            result += currency.toString() + "\n";
+            result.append(currency.toString()).append("\n");
         }
-        return result;
+        return result.toString();
     }
 }
