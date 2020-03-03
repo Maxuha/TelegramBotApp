@@ -135,9 +135,8 @@ public class ForecastWeather {
                         .append(list[i - 1].getCodeEmoji(max(image.toString().trim()))).append(" ").append(max(description.toString().trim())).append("\n")
                         .append("🌬 ").append(String.format("%.2f", avg_wind)).append(" м/c ")
                         .append("💧 ").append(Math.round(avg_humidity)).append("%").append("\nВосход: ").append(LocalDateTime.ofEpochSecond(city.getSunrise(),
-                        0, ZoneOffset.ofHours(hourZone)).format(DateTimeFormatter.ofPattern("HH:mm:ss")))
-                        .append("\nЗакат: " + LocalDateTime.ofEpochSecond(city.getSunset(), 0, ZoneOffset.ofHours(hourZone))
-                                .format(DateTimeFormatter.ofPattern("HH:mm:ss"))).append("::");
+                        0, ZoneOffset.ofHours(hourZone)).format(DateTimeFormatter.ofPattern("HH:mm:ss"))).append("\nЗакат: ").append(LocalDateTime.ofEpochSecond(city.getSunset(), 0, ZoneOffset.ofHours(hourZone))
+                        .format(DateTimeFormatter.ofPattern("HH:mm:ss"))).append("::");
                 iteration = 1;
                 if (i < list.length) {
                     min_temp = list[i].getMain().getTemp();
