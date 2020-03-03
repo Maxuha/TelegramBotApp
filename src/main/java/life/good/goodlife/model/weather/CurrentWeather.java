@@ -134,12 +134,15 @@ public class CurrentWeather {
         Gson gson = new Gson();
         String data = Request.get("https://ws3.morpher.ru/russian/declension?s=" + name + "&format=json");
         String city = gson.fromJson(data, Declension.class).getП();
+        int hour = timezone / 3600;
         return "Погода в " + city + ", " + ParseCountry.getNameCountryByCode(sys.getCountry()) + "\n" +
-                "Сейчас " + LocalDateTime.now(ZoneOffset.ofHours(timezone / 3600)).format(DateTimeFormatter.ofPattern("HH:mm")) + "\n" +
+                "Сейчас " + LocalDateTime.now(ZoneOffset.ofHours(hour)).format(DateTimeFormatter.ofPattern("HH:mm")) + "\n" +
                 ((int)(main.getTemp() - 273.15) > 0 ? "+" : "") + (int)(main.getTemp() - 273.15) + "° " +
                 getCodeEmoji(weather[0].getIcon()) + " " + weather[0].getDescription() +
                 "\nОщущается как: " + ((int)(main.getFeels_like() - 273.15) > 0 ? "+" : "") + (int)(main.getFeels_like() - 273.15)
-                + "°\n" + "🌬" + wind.getSpeed() + " м/c " + "💧" + main.getHumidity() + "%";
+                + "°\n" + "🌬" + wind.getSpeed() + " м/c " + "💧" + main.getHumidity() + "%\n" +
+                "Восход: " + LocalDateTime.ofEpochSecond(sys.getSunrise(), 0, ZoneOffset.ofHours(hour)).format(DateTimeFormatter.ofPattern("HH:mm:ss")) +
+                "\nЗакат: " + LocalDateTime.ofEpochSecond(sys.getSunset(), 0, ZoneOffset.ofHours(hour)).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 
     public String getCodeEmoji(String path) {
