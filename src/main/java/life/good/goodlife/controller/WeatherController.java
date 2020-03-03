@@ -69,7 +69,7 @@ public class WeatherController {
 
     @BotRequest("/weather6 **")
     BaseRequest weatherFiveByCity(Long chatId, String text) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/weather5");
+        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/weather6");
         String[] results = text.split(" ");
         StringBuilder city = new StringBuilder();
         String[] data;
