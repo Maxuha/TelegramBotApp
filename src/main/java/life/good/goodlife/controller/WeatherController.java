@@ -39,6 +39,7 @@ public class WeatherController {
     BaseRequest weather(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Погода");
         String msg = commandService.findCommandsByName("Погода").getFullDescription();
+        System.out.println(msg);
         SendMessage sendMessage = new SendMessage(chatId, msg);
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
