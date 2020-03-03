@@ -40,7 +40,7 @@ public class WeatherController {
     BaseRequest weather(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Погода");
         String msg = commandService.findCommandsByName("Погода").getFullDescription();
-        msg = "<b>bold</b>, <strong>bold</strong>\n" +
+        msg = "<b style=\"text-align: center\">bold</b>, <strong>bold</strong>\n" +
                 "<i>italic</i>, <em>italic</em>\n" +
                 "<u>underline</u>, <ins>underline</ins>\n" +
                 "<s>strikethrough</s>, <strike>strikethrough</strike>, <del>strikethrough</del>\n" +
