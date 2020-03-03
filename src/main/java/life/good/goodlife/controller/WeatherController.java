@@ -40,6 +40,12 @@ public class WeatherController {
     BaseRequest weather(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Погода");
         String msg = commandService.findCommandsByName("Погода").getFullDescription();
+        msg = "<b>bold</b>, <strong>bold</strong>\n" +
+                "<i>italic</i>, <em>italic</em>\n" +
+                "<u>underline</u>, <ins>underline</ins>\n" +
+                "<s>strikethrough</s>, <strike>strikethrough</strike>, <del>strikethrough</del>\n" +
+                "<b>bold <i>italic bold <s>italic bold strikethrough</s> <u>underline italic bold</u></i> bold</b>\n" +
+                "<a href=\"http://www.example.com/\">inline URL</a>";
         SendMessage sendMessage = new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
