@@ -67,7 +67,7 @@ public class WeatherController {
         return mainMenuComponent.showMainMenu(chatId, response);
     }
 
-    @BotRequest("/weather5 **")
+    @BotRequest("/weather6 **")
     BaseRequest weatherFiveByCity(Long chatId, String text) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/weather5");
         String[] results = text.split(" ");
@@ -79,7 +79,6 @@ public class WeatherController {
                 city.append(results[i]).append(" ");
             }
             data = weatherService.weatherFiveByCity(city.toString().trim());
-            System.out.println(data.length);
             for (int i = 0; i < data.length; i++) {
                 telegramBotExecuteComponent.sendMessage(chatId, data[i]);
             }
