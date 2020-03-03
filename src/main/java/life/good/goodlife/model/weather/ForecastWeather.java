@@ -10,6 +10,7 @@ import life.good.goodlife.statics.ParseCountry;
 import life.good.goodlife.statics.Request;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 public class ForecastWeather {
@@ -87,6 +88,7 @@ public class ForecastWeather {
         MONTH month = null;
         DAYS days = null;
         int daysOfMonth = 0;
+        int hourZone = city.getTimezone() / 3600;
         for (int i = 1; i < list.length + 1; i++) {
             if (i < list.length) {
                 dateTime = LocalDateTime.parse(list[i].getDt_txt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -130,9 +132,12 @@ public class ForecastWeather {
                 avg_humidity /= iteration;
                 result.append("Днём: ").append(((int) (max_temp - 273.15) > 0 ? "+" : "")).append((int) (max_temp - 273.15)).append("°\n")
                         .append("Ночью: ").append(((int) (min_temp - 273.15) > 0 ? "+" : "")).append((int) (min_temp - 273.15)).append("°\n")
-                        .append(list[i-1].getCodeEmoji(max(image.toString().trim()))).append(" ").append(max(description.toString().trim())).append("\n")
+                        .append(list[i - 1].getCodeEmoji(max(image.toString().trim()))).append(" ").append(max(description.toString().trim())).append("\n")
                         .append("🌬 ").append(String.format("%.2f", avg_wind)).append(" м/c ")
-                        .append("💧 ").append((int) avg_humidity).append("%").append("::");
+                        .append("💧 ").append((int) avg_humidity).append("%").append("\nВосход: ").append(LocalDateTime.ofEpochSecond(city.getSunrise(),
+                        0, ZoneOffset.ofHours(hourZone)).format(DateTimeFormatter.ofPattern("HH:mm:ss")))
+                        .append("\nЗакат: " + LocalDateTime.ofEpochSecond(city.getSunset(), 0, ZoneOffset.ofHours(hourZone))
+                                .format(DateTimeFormatter.ofPattern("HH:mm:ss"))).append("::");
                 iteration = 1;
                 if (i < list.length) {
                     min_temp = list[i].getMain().getTemp();
