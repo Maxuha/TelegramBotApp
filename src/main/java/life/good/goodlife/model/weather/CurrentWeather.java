@@ -7,6 +7,7 @@ import life.good.goodlife.statics.Request;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 public class CurrentWeather {
@@ -134,7 +135,7 @@ public class CurrentWeather {
         String data = Request.get("https://ws3.morpher.ru/russian/declension?s=" + name + "&format=json");
         String city = gson.fromJson(data, Declension.class).getП();
         return "Погода в " + city + ", " + ParseCountry.getNameCountryByCode(sys.getCountry()) + "\n" +
-                "Сейчас " + LocalDateTime.parse(dt, DateTimeFormatter.ofPattern("HH:mm")).atZone(ZoneId.of(timezone)) + "\n" +
+                "Сейчас " + LocalDateTime.ofEpochSecond(Long.parseLong(dt), 0, ZoneOffset.of(ZoneId.of(timezone).getId())) + "\n" +
                 ((int)(main.getTemp() - 273.15) > 0 ? "+" : "") + (int)(main.getTemp() - 273.15) + "° " +
                 getCodeEmoji(weather[0].getIcon()) + " " + weather[0].getDescription() +
                 "\nОщущается как: " + ((int)(main.getFeels_like() - 273.15) > 0 ? "+" : "") + (int)(main.getFeels_like() - 273.15)
