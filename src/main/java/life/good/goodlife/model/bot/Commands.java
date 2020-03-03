@@ -15,6 +15,9 @@ public class Commands {
     @Column
     private String description;
 
+    @Column(name = "full_description")
+    private String fullDescription;
+
     public long getId() {
         return id;
     }
@@ -37,5 +40,13 @@ public class Commands {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
     }
 }
