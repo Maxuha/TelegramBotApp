@@ -10,6 +10,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.MainMenuComponent;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.component.UserHistoryComponent;
+import life.good.goodlife.service.bot.CommandService;
 import life.good.goodlife.service.bot.UserService;
 import life.good.goodlife.service.weather.WeatherService;
 import org.springframework.core.env.Environment;
@@ -19,14 +20,16 @@ public class WeatherController {
     private final WeatherService weatherService;
     private final UserHistoryComponent userHistoryComponent;
     private final UserService userService;
+    private final CommandService commandService;
     private final Environment environment;
     private final MainMenuComponent mainMenuComponent;
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
 
-    public WeatherController(WeatherService weatherService, UserHistoryComponent userHistoryComponent, UserService userService, Environment environment, MainMenuComponent mainMenuComponent, TelegramBotExecuteComponent telegramBotExecuteComponent) {
+    public WeatherController(WeatherService weatherService, UserHistoryComponent userHistoryComponent, UserService userService, CommandService commandService, Environment environment, MainMenuComponent mainMenuComponent, TelegramBotExecuteComponent telegramBotExecuteComponent) {
         this.weatherService = weatherService;
         this.userHistoryComponent = userHistoryComponent;
         this.userService = userService;
+        this.commandService = commandService;
         this.environment = environment;
         this.mainMenuComponent = mainMenuComponent;
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
@@ -35,7 +38,8 @@ public class WeatherController {
     @BotRequest("Погода")
     BaseRequest weather(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Погода");
-        SendMessage sendMessage = new SendMessage(chatId, "Предоставьте доступ к текущему местоположению или введите команду /weather и через пробел укажите город.");
+        String msg = commandService.findCommandsByName("Погода").getFullDescription();
+        SendMessage sendMessage = new SendMessage(chatId, msg);
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Предоставить местоположение").requestLocation(true),
