@@ -131,7 +131,7 @@ public class ForecastWeather {
                 result.append("Днём: ").append(((int) (max_temp - 273.15) > 0 ? "+" : "")).append((int) (max_temp - 273.15)).append("°\n")
                         .append("Ночью: ").append(((int) (min_temp - 273.15) > 0 ? "+" : "")).append((int) (min_temp - 273.15)).append("°\n")
                         .append(list[i-1].getCodeEmoji(max(image.toString().trim()))).append(" ").append(max(description.toString().trim())).append("\n")
-                        .append("🌬 ").append(String.format("%.2f", avg_wind)).append(" м/c\n")
+                        .append("🌬 ").append(String.format("%.2f", avg_wind)).append(" м/c ")
                         .append("💧 ").append((int) avg_humidity).append("%").append("::");
                 iteration = 1;
                 if (i < list.length) {
