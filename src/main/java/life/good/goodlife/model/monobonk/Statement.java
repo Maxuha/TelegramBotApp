@@ -124,15 +124,15 @@ public class Statement {
         Balance operationAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = commissionRate / 100.0f;
-        values = String.valueOf(value).split("\\.");
+        values = String.format("%.2f", value).split("\\.");
         Balance commissionRateCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = balance / 100.0f;
-        values = String.valueOf(String.format("%,2f", value)).split("\\.");
+        values = String.format("%.2f", value).split("\\.");
         Balance balanceCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = cashbackAmount / 100.0f;
-        values = String.valueOf(String.format("%,2f", value)).split("\\.");
+        values = String.format("%.2f", value).split("\\.");
         Balance cashbackAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
 
