@@ -20,7 +20,7 @@ public class MainMenuComponent {
 
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
-                        new KeyboardButton("Банкинг\n Баланс: " + currentData.get("Monobank")),
+                        new KeyboardButton("Банкинг"),
                         new KeyboardButton("Погода"),
                         new KeyboardButton("Новости")
                 }
