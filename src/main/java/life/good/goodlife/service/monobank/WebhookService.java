@@ -7,9 +7,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WebhookService {
+    Webhook webhook;
     public String createOperation(String data) {
         Gson gson = new Gson();
-        Webhook webhook = gson.fromJson(data, Webhook.class);
+        webhook = gson.fromJson(data, Webhook.class);
         return webhook.toString();
+    }
+
+    public String getBalance() {
+        return webhook.getData().getStatementItem().getBalanceCount().toString();
     }
 }
