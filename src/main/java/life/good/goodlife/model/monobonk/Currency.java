@@ -1,5 +1,7 @@
 package life.good.goodlife.model.monobonk;
 
+import life.good.goodlife.statics.CurrencyCode;
+
 public class Currency {
     private Integer currencyCodeA;
     private Integer currencyCodeB;
@@ -49,28 +51,10 @@ public class Currency {
 
     @Override
     public String toString() {
-        String flag = getFlagByCurrencyCode(currencyCodeA);
+        String flag = CurrencyCode.getFlagByCurrencyCode(currencyCodeA);
         if (flag != null) {
             return flag + "    " + String.format("%.2f", rateBuy) + "         " + String.format("%.2f", rateSell);
         } else
             return "";
-    }
-
-    private String getFlagByCurrencyCode(int code) {
-        String result;
-        switch (code) {
-            case 980: result = "\uD83C\uDDFA\uD83C\uDDE6";
-            break;
-            case 840: result = "\uD83C\uDDFA\uD83C\uDDF8";
-            break;
-            case 978: result = "\uD83C\uDDEA\uD83C\uDDFA";
-            break;
-            case 643: result = "\uD83C\uDDF7\uD83C\uDDFA";
-            break;
-            case 985: result = "\uD83C\uDDF5\uD83C\uDDF1";
-            break;
-            default: result = null;
-        }
-        return result;
     }
 }
