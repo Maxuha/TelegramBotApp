@@ -120,7 +120,7 @@ public class Statement {
     @Override
     public String toString() {
         float value = operationAmount / 100.0f;
-        String[] values = String.format("%,2f", value).split("\\.");
+        String[] values = String.format("%.2f", value).split("\\.");
         Balance operationAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = commissionRate / 100.0f;
