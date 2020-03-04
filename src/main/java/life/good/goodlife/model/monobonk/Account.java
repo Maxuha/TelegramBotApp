@@ -70,7 +70,7 @@ public class Account {
     @Override
     public String toString() {
         System.out.println((balance / 100.0));
-        String[] balanceCount = String.valueOf(balance / 100.0).split(",");
+        String[] balanceCount = String.valueOf(balance / 100.0).split(".");
         Balance balance = new Balance(Integer.parseInt(balanceCount[0]), Integer.parseInt(balanceCount[1]), CurrencyCode.getCurrencyNameByCurrencyCode(currencyCode));
         return "Баланс: " + balance.toString();
     }
