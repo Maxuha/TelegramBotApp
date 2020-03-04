@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class WebhookService {
     public String createOperation(String data) {
         Gson gson = new Gson();
-        Webhook webhook = new Webhook();
+        Webhook webhook = gson.fromJson(data, Webhook.class);
         return webhook.toString();
     }
 }

@@ -1,6 +1,5 @@
 package life.good.goodlife.model.monobonk;
 
-import java.util.Arrays;
 
 public class Webhook {
     private String type;
