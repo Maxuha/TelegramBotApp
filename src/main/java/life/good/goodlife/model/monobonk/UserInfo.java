@@ -35,6 +35,7 @@ public class UserInfo {
         result.append("<b>Мой Баланс:</b>\n");
         for (Account account: accounts) {
             result.append(account.toString());
+            result.append("\n------------------------------\n");
         }
         return result.toString();
     }
