@@ -71,11 +71,11 @@ public class Account {
     public String toString() {
         float value = balance / 100.0f;
         String[] balanceCount = Float.toString(value).split("\\.");
-        Balance balance = new Balance(Integer.parseInt(balanceCount[0]), Integer.parseInt(balanceCount[1]),
+        Balance balance = new Balance(balanceCount[0], balanceCount[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = creditLimit / 100.0f;
         balanceCount = Float.toString(value).split("\\.");
-        Balance balanceCreditLimit = new Balance(Integer.parseInt(balanceCount[0]), Integer.parseInt(balanceCount[1]),
+        Balance balanceCreditLimit = new Balance(balanceCount[0], balanceCount[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < maskedPan.length; i++) {
