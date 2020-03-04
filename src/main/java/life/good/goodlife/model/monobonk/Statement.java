@@ -110,20 +110,20 @@ public class Statement {
     @Override
     public String toString() {
         float value = operationAmount / 100.0f;
-        String[] values = String.valueOf(value).split("\\.");
-        Balance operationAmountCount = new Balance(Integer.parseInt(values[0]), Integer.parseInt(values[1]),
+        String[] values = String.valueOf(String.format("%,2f", value)).split("\\.");
+        Balance operationAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = commissionRate / 100.0f;
         values = String.valueOf(value).split("\\.");
-        Balance commissionRateCount = new Balance(Integer.parseInt(values[0]), Integer.parseInt(values[1]),
+        Balance commissionRateCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = balance / 100.0f;
-        values = String.valueOf(value).split("\\.");
-        Balance balanceCount = new Balance(Integer.parseInt(values[0]), Integer.parseInt(values[1]),
+        values = String.valueOf(String.format("%,2f", value)).split("\\.");
+        Balance balanceCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = cashbackAmount / 100.0f;
-        values = String.valueOf(value).split("\\.");
-        Balance cashbackAmountCount = new Balance(Integer.parseInt(values[0]), Integer.parseInt(values[1]),
+        values = String.valueOf(String.format("%,2f", value)).split("\\.");
+        Balance cashbackAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
 
         return description + "\n"
