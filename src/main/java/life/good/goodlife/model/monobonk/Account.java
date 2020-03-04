@@ -71,10 +71,7 @@ public class Account {
 
     @Override
     public String toString() {
-        System.out.println(balance);
-        Float value = balance / 100.0f;
-        System.out.println("value: " + value);
-        System.out.println("FloatValue: " + Arrays.toString(value.toString().split("\\.")));
+        float value = balance / 100.0f;
         String[] balanceCount = Float.toString(value).split(".");
         Balance balance = new Balance(Integer.parseInt(balanceCount[0]), Integer.parseInt(balanceCount[1]), CurrencyCode.getCurrencyNameByCurrencyCode(currencyCode));
         return "Баланс: " + balance.toString();
