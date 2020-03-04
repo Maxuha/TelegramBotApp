@@ -51,7 +51,7 @@ public class Currency {
     public String toString() {
         String flag = getFlagByCurrencyCode(currencyCodeA);
         if (flag != null) {
-            return flag + "    " + String.format("%.2f", rateBuy) + " грн    " + String.format("%.2f", rateSell)  + " грн";
+            return flag + "    " + String.format("%.2f", rateBuy) + "    " + String.format("%.2f", rateSell);
         } else
             return "";
     }
