@@ -71,6 +71,7 @@ public class Account {
 
     @Override
     public String toString() {
+        System.out.println(balance);
         Float value = balance / 100.0f;
         System.out.println("value: " + value);
         System.out.println("FloatValue: " + Arrays.toString(value.toString().split("\\.")));
