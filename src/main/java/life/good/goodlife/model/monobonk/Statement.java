@@ -120,7 +120,7 @@ public class Statement {
     @Override
     public String toString() {
         float value = operationAmount / 100.0f;
-        String[] values = String.valueOf(String.format("%,2f", value)).split("\\.");
+        String[] values = String.format("%,2f", value).split("\\.");
         Balance operationAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = commissionRate / 100.0f;
@@ -135,9 +135,8 @@ public class Statement {
         values = String.format("%.2f", value).split("\\.");
         Balance cashbackAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
-
         return description + "\n" + comment + '\n'
-                + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm", Locale.getDefault())) + "\n"
+                + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm", new Locale("ua"))) + "\n"
                 + operationAmountCount + "\nКомиссия: " + commissionRateCount + "\nОстаток: " + balanceCount + "\nКешбек: " + cashbackAmountCount;
     }
 }
