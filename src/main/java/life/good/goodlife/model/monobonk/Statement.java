@@ -136,7 +136,7 @@ public class Statement {
         Balance cashbackAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         return description + "\n" + comment + '\n'
-                + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm", new Locale("ua"))) + "\n"
+                + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.ofHours(2)).format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm", new Locale("ua"))) + "\n"
                 + operationAmountCount + "\nКомиссия: " + commissionRateCount + "\nОстаток: " + balanceCount + "\nКешбек: " + cashbackAmountCount;
     }
 }
