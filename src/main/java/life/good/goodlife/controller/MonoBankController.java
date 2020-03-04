@@ -26,6 +26,7 @@ public class MonoBankController {
     BaseRequest getCurrency(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/currency");
         String msg = currencyService.currency();
-        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        System.out.println(msg);
+        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(false);
     }
 }
