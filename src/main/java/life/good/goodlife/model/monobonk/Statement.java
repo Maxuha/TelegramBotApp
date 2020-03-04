@@ -5,11 +5,13 @@ import life.good.goodlife.statics.CurrencyCode;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Statement {
     private String id;
     private long time;
     private String description;
+    private String comment;
     private int mcc;
     private int amount;
     private int operationAmount;
@@ -107,6 +109,14 @@ public class Statement {
         this.hold = hold;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         float value = operationAmount / 100.0f;
@@ -126,8 +136,8 @@ public class Statement {
         Balance cashbackAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
 
-        return description + "\n"
-                + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm")) + "\n"
-                + operationAmountCount + "\nКомиссия: " + commissionRateCount + "\nОстаток: " + balanceCount + "\n" + cashbackAmountCount;
+        return description + "\n" + comment + '\n'
+                + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm", Locale.getDefault())) + "\n"
+                + operationAmountCount + "\nКомиссия: " + commissionRateCount + "\nОстаток: " + balanceCount + "\nКешбек: " + cashbackAmountCount;
     }
 }
