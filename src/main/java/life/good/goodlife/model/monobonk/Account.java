@@ -69,6 +69,7 @@ public class Account {
 
     @Override
     public String toString() {
+        float etst = (float) balance / 100;
         String balanceStr = String.valueOf(balance / 100.0);
         System.out.println(balanceStr);
         String[] balanceCount = balanceStr.split(".");
