@@ -1,6 +1,7 @@
 package life.good.goodlife.component;
 
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class TelegramBotExecuteComponent {
     }
 
     public void sendMessage(Long chatId, String message) {
-        sendMessage = new SendMessage(chatId, message);
+        sendMessage = new SendMessage(chatId, message).parseMode(ParseMode.HTML).disableWebPagePreview(true);
         telegramBot.execute(sendMessage);
     }
 }
