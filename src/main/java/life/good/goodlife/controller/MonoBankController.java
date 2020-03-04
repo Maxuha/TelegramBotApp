@@ -24,7 +24,6 @@ public class MonoBankController {
         this.balanceService = balanceService;
     }
 
-
     @BotRequest("/currency")
     BaseRequest getCurrency(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/currency");

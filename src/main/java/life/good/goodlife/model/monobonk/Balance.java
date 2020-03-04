@@ -3,12 +3,12 @@ package life.good.goodlife.model.monobonk;
 public class Balance {
     private int main;
     private int cent;
-    private String name;
+    private String symbol;
 
-    public Balance(int main, int cent, String name) {
+    public Balance(int main, int cent, String symbol) {
         this.main = main;
         this.cent = cent;
-        this.name = name;
+        this.symbol = symbol;
     }
 
     public int getMain() {
@@ -27,16 +27,16 @@ public class Balance {
         this.cent = cent;
     }
 
-    public String getName() {
-        return name;
+    public String getSymbol() {
+        return symbol;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
     @Override
     public String toString() {
-        return main + "." + cent;
+        return main + "." + cent + " " + symbol;
     }
 }
