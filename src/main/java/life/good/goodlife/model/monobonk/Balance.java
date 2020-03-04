@@ -37,6 +37,6 @@ public class Balance {
 
     @Override
     public String toString() {
-        return main + "." + cent + " " + symbol;
+        return main + "." + (cent == 0 ? "00" : cent) + " " + symbol;
     }
 }
