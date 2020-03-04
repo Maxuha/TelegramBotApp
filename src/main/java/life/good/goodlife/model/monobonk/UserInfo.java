@@ -33,10 +33,6 @@ public class UserInfo {
 
     @Override
     public String toString() {
-        return "UserInfo{" +
-                "chatId='" + chatId + '\'' +
-                ", name='" + name + '\'' +
-                ", accounts=" + Arrays.toString(accounts) +
-                '}';
+        return Arrays.toString(accounts);
     }
 }
