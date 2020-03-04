@@ -35,7 +35,7 @@ public class MonoBankController {
     BaseRequest getBalance(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/balance");
         String msg = balanceService.balance();
-        return new SendMessage(chatId, msg);
+        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 
 }

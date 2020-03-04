@@ -2,8 +2,6 @@ package life.good.goodlife.model.monobonk;
 
 import life.good.goodlife.statics.CurrencyCode;
 
-import java.util.Arrays;
-
 public class Account {
     private String id;
     private int currencyCode;
@@ -74,7 +72,17 @@ public class Account {
         float value = balance / 100.0f;
         String[] balanceCount = Float.toString(value).split("\\.");
         Balance balance = new Balance(Integer.parseInt(balanceCount[0]), Integer.parseInt(balanceCount[1]),
-                CurrencyCode.getCurrencyNameByCurrencyCode(currencyCode));
-        return "Баланс: " + balance.toString();
+                CurrencyCode.getSymbolByCurrencyCode(currencyCode));
+        value = creditLimit / 100.0f;
+        balanceCount = Float.toString(value).split("\\.");
+        Balance balanceCreditLimit = new Balance(Integer.parseInt(balanceCount[0]), Integer.parseInt(balanceCount[1]),
+                CurrencyCode.getSymbolByCurrencyCode(currencyCode));
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < maskedPan.length; i++) {
+            result.append("Карта: ").append(maskedPan[i]).append("\nТип: ")
+                    .append(type).append("\nБаланс: ").append(balance)
+                    .append("\nКредитный лимит: ").append(balanceCreditLimit).append("\n");
+        }
+        return result.toString();
     }
 }

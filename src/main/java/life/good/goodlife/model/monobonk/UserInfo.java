@@ -1,18 +1,16 @@
 package life.good.goodlife.model.monobonk;
 
-import java.util.Arrays;
-
 public class UserInfo {
-    private String chatId;
+    private String clientId;
     private String name;
     private Account[] accounts;
 
     public String getChatId() {
-        return chatId;
+        return clientId;
     }
 
     public void setChatId(String chatId) {
-        this.chatId = chatId;
+        this.clientId = chatId;
     }
 
     public String getName() {
@@ -33,6 +31,11 @@ public class UserInfo {
 
     @Override
     public String toString() {
-        return Arrays.toString(accounts);
+        StringBuilder result = new StringBuilder();
+        result.append("<b>Мой Баланс:</b>\n");
+        for (Account account: accounts) {
+            result.append(account.toString());
+        }
+        return result.toString();
     }
 }

@@ -36,4 +36,22 @@ public class CurrencyCode {
         }
         return result;
     }
+
+    public static String getSymbolByCurrencyCode(int code) {
+        String result;
+        switch (code) {
+            case 980: result = "₴";
+                break;
+            case 840: result = "$";
+                break;
+            case 978: result = "€";
+                break;
+            case 643: result = "₽";
+                break;
+            case 985: result = "zł";
+                break;
+            default: result = null;
+        }
+        return result;
+    }
 }
