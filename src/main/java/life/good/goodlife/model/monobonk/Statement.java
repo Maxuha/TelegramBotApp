@@ -135,7 +135,7 @@ public class Statement {
         values = String.format("%.2f", value).split("\\.");
         Balance cashbackAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(880));
-        return (operationAmount < 0 ? "<b>Списание с карты<b/>" : "<b>Пополнение карты</b>") + "\n" + description + "\n" + (comment != null ? comment + "\n" : "")
+        return (operationAmount < 0 ? "<b>Списание с карты<b/>" : "<b>Пополнение на карту</b>") + "\n" + description + "\n" + (comment != null ? comment + "\n" : "")
                 + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.ofHours(2)).format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm", new Locale("ru"))) + "\n"
                 + operationAmountCount + "\nКомиссия: " + commissionRateCount + "\nОстаток: " + balanceCount + "\nКешбек: " + cashbackAmountCount;
     }
