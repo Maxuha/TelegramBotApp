@@ -86,6 +86,6 @@ public class WeatherController {
         } else {
             response = "Укажите город или предоставьте своё местопложение.";
         }
-        return mainMenuComponent.showMainMenu(chatId, response);
+        return mainMenuComponent.showMainMenu(chatId, response).disableNotification(true);
     }
 }
