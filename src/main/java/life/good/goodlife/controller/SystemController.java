@@ -35,7 +35,7 @@ public class SystemController {
     @BotRequest("Главное меню")
     BaseRequest mainMenu(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Главное меню");
-        return mainMenuComponent.showMainMenu(chatId, "");
+        return mainMenuComponent.showMainMenu(chatId, "", null);
     }
 
 
@@ -49,7 +49,7 @@ public class SystemController {
         if (userHistory.getCommandsId() == 10) {
             response = weatherService.weather(location);
         }
-        return mainMenuComponent.showMainMenu(chatId, response);
+        return mainMenuComponent.showMainMenu(chatId, response, null);
     }
 
     @BotRequest(messageType = MessageType.CONTACT)

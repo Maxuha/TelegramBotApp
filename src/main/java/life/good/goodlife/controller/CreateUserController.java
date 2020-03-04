@@ -194,7 +194,7 @@ public class CreateUserController {
         if (userHistory.getCommandsId() == 4) {
             return lastStepRegister(chatId);
         } else {
-            return mainMenuComponent.showMainMenu(chatId, "");
+            return mainMenuComponent.showMainMenu(chatId, "", null);
         }
     }
 
@@ -206,11 +206,11 @@ public class CreateUserController {
         if (userHistory.getCommandsId() == 4) {
             return lastStepRegister(chatId);
         } else {
-            return mainMenuComponent.showMainMenu(chatId, "");
+            return mainMenuComponent.showMainMenu(chatId, "", null);
         }
     }
 
     SendMessage lastStepRegister(Long chatId) {
-        return mainMenuComponent.showMainMenu(chatId, "Спасибо за регистрацию. Начнём.");
+        return mainMenuComponent.showMainMenu(chatId, "Спасибо за регистрацию. Начнём.", null);
     }
 }

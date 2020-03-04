@@ -20,6 +20,7 @@ public class Statement {
     private int cashbackAmount;
     private int balance;
     private boolean hold;
+    private Balance balanceCount;
 
     public String getId() {
         return id;
@@ -117,6 +118,14 @@ public class Statement {
         this.comment = comment;
     }
 
+    public Balance getBalanceCount() {
+        return balanceCount;
+    }
+
+    public void setBalanceCount(Balance balanceCount) {
+        this.balanceCount = balanceCount;
+    }
+
     @Override
     public String toString() {
         float value = operationAmount / 100.0f;
@@ -129,7 +138,7 @@ public class Statement {
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
         value = balance / 100.0f;
         values = String.format("%.2f", value).split("\\.");
-        Balance balanceCount = new Balance(values[0], values[1],
+        balanceCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(980));
         value = cashbackAmount / 100.0f;
         values = String.format("%.2f", value).split("\\.");
