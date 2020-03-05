@@ -96,14 +96,16 @@ public class MonoBankController {
     }
 
     private SendMessage showBalance(Long chatId) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/balance");
-        String msg = balanceService.balance();
+        User user = userService.findByChatId(chatId);
+        userHistoryComponent.createUserHistory(user.getId(), "/balance");
+        String msg = balanceService.balance(loginService.getToken(user.getId()));
         return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 
     private SendMessage showCurrency(Long chatId) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/currency");
-        String msg = currencyService.currency();
+        User user = userService.findByChatId(chatId);
+        userHistoryComponent.createUserHistory(user.getId(), "/currency");
+        String msg = currencyService.currency(loginService.getToken(user.getId()));
         return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 }
