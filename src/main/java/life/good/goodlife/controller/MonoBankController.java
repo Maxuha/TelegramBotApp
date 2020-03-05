@@ -60,7 +60,8 @@ public class MonoBankController {
                 new KeyboardButton[] {
                         new KeyboardButton("Мой баланс"),
                         new KeyboardButton("Курс валют"),
-                        new KeyboardButton("Транзакции"),
+                        new KeyboardButton("Выписка"),
+                        new KeyboardButton("Контроль расходами"),
                         new KeyboardButton("Главное меню")
                 }
         );
