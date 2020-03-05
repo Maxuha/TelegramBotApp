@@ -14,6 +14,9 @@ public class LoginService {
 
     public String getToken(Long userId) {
         UserMonobank user = loginRepository.findByUserId(userId);
+        if (user == null) {
+            return null;
+        }
         return user.getToken();
     }
 }
