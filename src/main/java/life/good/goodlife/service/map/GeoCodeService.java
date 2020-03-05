@@ -6,6 +6,9 @@ import life.good.goodlife.model.map.GeoCodeMain;
 import life.good.goodlife.statics.Request;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +22,13 @@ public class GeoCodeService {
     }
 
     public String getInfoPlace(String place) {
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/x-www-form-urlencoded");
-        String data = Request.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + place + "&key=" + token + "&language=ru", headers);
+        try {
+            place = URLEncoder.encode(place, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String data = Request.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + place + "&key=" + token
+                + "&language=ru");
         Gson gson = new Gson();
         GeoCodeMain geoCode = gson.fromJson(data, GeoCodeMain.class);
         return geoCode.toString();
