@@ -33,9 +33,12 @@ public class MonoBankController {
 
     @BotRequest("/currency")
     BaseRequest getCurrency(Long chatId) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/currency");
-        String msg = currencyService.currency();
-        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        return showCurrency(chatId);
+    }
+
+    @BotRequest("Курс валют")
+    BaseRequest getCurrencyBtn(Long chatId) {
+        return showCurrency(chatId);
     }
 
     @BotRequest("/balance")
@@ -56,7 +59,7 @@ public class MonoBankController {
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Мой баланс"),
-                        new KeyboardButton("Курсы валют"),
+                        new KeyboardButton("Курс валют"),
                         new KeyboardButton("Транзакции"),
                         new KeyboardButton("Главное меню")
                 }
@@ -68,6 +71,12 @@ public class MonoBankController {
     private SendMessage showBalance(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/balance");
         String msg = balanceService.balance();
+        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+    }
+
+    private SendMessage showCurrency(Long chatId) {
+        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/currency");
+        String msg = currencyService.currency();
         return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 }
