@@ -26,7 +26,7 @@ public class MapController {
         StringBuilder place = new StringBuilder();
         String[] partPlace = text.split(" ");
         for (int i = 1; i < partPlace.length; i++) {
-            place.append(partPlace[i]).append(" ");
+            place.append(partPlace[i]).append("%20");
         }
         return new SendMessage(chatId, geoCodeService.getInfoPlace(place.toString().trim()));
     }
