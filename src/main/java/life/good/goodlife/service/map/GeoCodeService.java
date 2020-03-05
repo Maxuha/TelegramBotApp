@@ -20,7 +20,7 @@ public class GeoCodeService {
 
     public String getInfoPlace(String place) {
         Map<String, String> headers = new HashMap<>();
-        headers.put("content-type", "application/x-www-form-urlencoded");
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
         String data = Request.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + place + "&key=" + token + "&language=ru", headers);
         Gson gson = new Gson();
         GeoCodeMain geoCode = gson.fromJson(data, GeoCodeMain.class);
