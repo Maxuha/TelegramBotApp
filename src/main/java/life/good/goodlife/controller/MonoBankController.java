@@ -5,6 +5,8 @@ import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.response.BaseResponse;
+import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.component.UserHistoryComponent;
 import life.good.goodlife.service.bot.UserService;
 import life.good.goodlife.service.monobank.BalanceService;
@@ -16,12 +18,14 @@ public class MonoBankController {
     private final UserService userService;
     private final CurrencyService currencyService;
     private final BalanceService balanceService;
+    private final TelegramBotExecuteComponent telegramBotExecuteComponent;
 
-    public MonoBankController(UserHistoryComponent userHistoryComponent, UserService userService, CurrencyService currencyService, BalanceService balanceService) {
+    public MonoBankController(UserHistoryComponent userHistoryComponent, UserService userService, CurrencyService currencyService, BalanceService balanceService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
         this.userHistoryComponent = userHistoryComponent;
         this.userService = userService;
         this.currencyService = currencyService;
         this.balanceService = balanceService;
+        this.telegramBotExecuteComponent = telegramBotExecuteComponent;
     }
 
     @BotRequest("/currency")
@@ -42,7 +46,8 @@ public class MonoBankController {
     BaseRequest bankBtn(Long chatId) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Банкинг");
         String msg = "...";
-        return new SendMessage(chatId, msg);
+        BaseResponse baseResponse = telegramBotExecuteComponent.sendMessageWithResponse(chatId, msg);
+        return new SendMessage(chatId, baseResponse.description());
     }
 
 }
