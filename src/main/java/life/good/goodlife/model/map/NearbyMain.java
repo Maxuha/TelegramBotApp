@@ -1,6 +1,5 @@
 package life.good.goodlife.model.map;
 
-import java.util.Arrays;
 
 public class NearbyMain {
     private Nearby[] results;
