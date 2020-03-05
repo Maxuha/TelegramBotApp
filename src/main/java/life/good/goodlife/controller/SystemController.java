@@ -63,6 +63,7 @@ public class SystemController {
                 telegramBotExecuteComponent.sendMessage(chatId, data[i]);
                 locationPlace = nearbyMain.getResults()[i].getGeometry().getLocation();
                 telegramBotExecuteComponent.sendLocation(chatId, locationPlace.getLat(), locationPlace.getLng());
+                response = "";
             }
         }
 
