@@ -80,8 +80,6 @@ public class Nearby {
         for (String temp : types) {
             type.append(temp).append(", ");
         }
-        System.out.println("name: " + name + "\n vic: " + vicinity + "\n oh: " + opening_hours + "type: " + type);
-
         return name + "\n" + vicinity + "\n" + (opening_hours != null ? (opening_hours.isOpen_now() ? "Открыто" : "Закрыто") + "\n" : "") + type +
                 "\nРейтинг: " + rating + "\nОтзывов: " + user_ratings_total;
     }
