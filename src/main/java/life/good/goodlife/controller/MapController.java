@@ -24,9 +24,10 @@ public class MapController {
     BaseRequest getSearchPlace(Long chatId, String text) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/search_places");
         StringBuilder place = new StringBuilder();
-        for (int i = 1; i < text.length(); i++) {
-            place.append(text.charAt(i)).append(" ");
+        String[] partPlace = text.split(" ");
+        for (int i = 1; i < partPlace.length; i++) {
+            place.append(partPlace[i]).append(" ");
         }
-        return new SendMessage(chatId, geoCodeService.getInfoPlace(place.toString()));
+        return new SendMessage(chatId, geoCodeService.getInfoPlace(place.toString().trim()));
     }
 }
