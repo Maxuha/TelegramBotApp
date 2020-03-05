@@ -22,9 +22,4 @@ public class TelegramBotExecuteComponent {
         sendMessage = new SendMessage(chatId, message);
         telegramBot.execute(sendMessage);
     }
-
-    public BaseResponse sendMessageWithResponse(Long chatId, String message) {
-        sendMessage = new SendMessage(chatId, message);
-        return telegramBot.execute(sendMessage);
-    }
 }
