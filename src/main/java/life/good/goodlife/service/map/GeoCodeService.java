@@ -24,6 +24,6 @@ public class GeoCodeService {
         String data = Request.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + place + "&key=" + token + "&language=ru", headers);
         Gson gson = new Gson();
         GeoCodeMain geoCode = gson.fromJson(data, GeoCodeMain.class);
-        return place + ", " + geoCode;
+        return geoCode.toString();
     }
 }
