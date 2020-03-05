@@ -8,12 +8,13 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.response.BaseResponse;
 import life.good.goodlife.component.UserHistoryComponent;
+import life.good.goodlife.model.bot.User;
 import life.good.goodlife.service.bot.CommandService;
 import life.good.goodlife.service.bot.UserService;
 import life.good.goodlife.service.monobank.BalanceService;
 import life.good.goodlife.service.monobank.CurrencyService;
+import life.good.goodlife.service.monobank.LoginService;
 
 @BotController
 public class MonoBankController {
@@ -22,13 +23,15 @@ public class MonoBankController {
     private final CurrencyService currencyService;
     private final BalanceService balanceService;
     private final CommandService commandService;
+    private final LoginService loginService;
 
-    public MonoBankController(UserHistoryComponent userHistoryComponent, UserService userService, CurrencyService currencyService, BalanceService balanceService, CommandService commandService) {
+    public MonoBankController(UserHistoryComponent userHistoryComponent, UserService userService, CurrencyService currencyService, BalanceService balanceService, CommandService commandService, LoginService loginService) {
         this.userHistoryComponent = userHistoryComponent;
         this.userService = userService;
         this.currencyService = currencyService;
         this.balanceService = balanceService;
         this.commandService = commandService;
+        this.loginService = loginService;
     }
 
     @BotRequest("/currency")
@@ -53,9 +56,17 @@ public class MonoBankController {
 
     @BotRequest("Банкинг")
     BaseRequest bankBtn(Long chatId) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Банкинг");
-        String msg = commandService.findCommandsByName("Банкинг").getFullDescription();
+        User user = userService.findByChatId(chatId);
+        userHistoryComponent.createUserHistory(user.getId(), "Банкинг");
+        String token = loginService.getToken(user.getId());
+        String msg = "Перейдите по адресу и скопируйте токен, вставьте его командой /set_mono_token";
         SendMessage sendMessage = new SendMessage(chatId, msg);
+
+        if (token == null) {
+            return sendMessage;
+        }
+
+        msg = commandService.findCommandsByName("Банкинг").getFullDescription();
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Мой баланс"),
