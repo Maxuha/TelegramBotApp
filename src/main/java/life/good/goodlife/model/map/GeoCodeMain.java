@@ -1,6 +1,5 @@
 package life.good.goodlife.model.map;
 
-import java.util.Arrays;
 
 public class GeoCodeMain {
     private GeoCode[] results;
@@ -24,10 +23,10 @@ public class GeoCodeMain {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
+        StringBuilder data = new StringBuilder();
         for (GeoCode geoCode : results) {
-            result.append(geoCode.toString()).append(",\n");
+            data.append(geoCode).append("::");
         }
-        return result.toString();
+        return data.toString();
     }
 }
