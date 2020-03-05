@@ -15,6 +15,7 @@ public class GeoCodeService {
 
     public String getInfoPlace(String place) {
         String data = Request.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + place + "&key=" + token + "&language=ru");
+        System.out.println(data);
         Gson gson = new Gson();
         GeoCode geoCode = gson.fromJson(data, GeoCode.class);
         return place + ", " + geoCode.toString();
