@@ -38,9 +38,7 @@ public class WebhookController {
     @RequestMapping(path = "monobank", method = RequestMethod.POST)
     public ResponseEntity <?> monobank(@RequestBody String raw, @RequestHeader("Content-Type") String type) {
         String info = webhookService.createOperation(raw);
-        Map<String, String> map = new HashMap<>();
-        map.put("Monobank", webhookService.getBalance());
-        mainMenuComponent.showMainMenu(userService.findById(1).getChatId(), info, null);
+        telegramBotExecuteComponent.sendMessage(userService.findById(1).getChatId(), info);
         return ResponseEntity.ok("ok");
     }
 
