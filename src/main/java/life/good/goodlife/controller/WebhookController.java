@@ -40,7 +40,7 @@ public class WebhookController {
         String info = webhookService.createOperation(raw);
         Map<String, String> map = new HashMap<>();
         map.put("Monobank", webhookService.getBalance());
-        mainMenuComponent.showMainMenu(userService.findById(1).getChatId(), info, map);
+        mainMenuComponent.showMainMenu(userService.findById(1).getChatId(), info, null);
         return ResponseEntity.ok("ok");
     }
 
