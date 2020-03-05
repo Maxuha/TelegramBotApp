@@ -1,6 +1,5 @@
 package life.good.goodlife.service.monobank;
 
-import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.monobonk.UserMonobank;
 import life.good.goodlife.repos.monobank.LoginRepository;
 import org.springframework.stereotype.Service;

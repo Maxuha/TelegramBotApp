@@ -10,13 +10,7 @@ import java.util.Map;
 
 @Service
 public class StatementService {
-    private String token;
-
-    public StatementService() {
-        token = System.getenv().get("bank_monobank_token");
-    }
-
-    public String currency() {
+    public String currency(String token) {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Token", token);
         String data = Request.get("https://api.monobank.ua/personal/statement", headers);
