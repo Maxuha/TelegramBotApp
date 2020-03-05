@@ -59,7 +59,7 @@ public class MonoBankController {
         User user = userService.findByChatId(chatId);
         userHistoryComponent.createUserHistory(user.getId(), "Банкинг");
         String token = loginService.getToken(user.getId());
-        String msg = "Перейдите по адресу https://api.monobank.ua/ и скопируйте токен, вставьте его командой /set_mono_token";
+        String msg = "Перейдите по адресу https://api.monobank.ua/ и скопируйте токен, вставьте его командой /set_mono_token {token}";
         SendMessage sendMessage = new SendMessage(chatId, msg);
 
         if (token == null) {
