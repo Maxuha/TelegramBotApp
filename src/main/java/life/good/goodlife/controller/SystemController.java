@@ -9,10 +9,13 @@ import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.MainMenuComponent;
+import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.component.UserHistoryComponent;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.bot.UserHistory;
+import life.good.goodlife.model.map.NearbyMain;
 import life.good.goodlife.service.bot.UserService;
+import life.good.goodlife.service.map.NearbyService;
 import life.good.goodlife.service.weather.WeatherService;
 import org.springframework.core.env.Environment;
 
@@ -23,13 +26,17 @@ public class SystemController {
     private final UserService userService;
     private final Environment environment;
     private final WeatherService weatherService;
+    private final NearbyService nearbyService;
+    private final TelegramBotExecuteComponent telegramBotExecuteComponent;
 
-    public SystemController(UserHistoryComponent userHistoryComponent, MainMenuComponent mainMenuComponent, UserService userService, Environment environment, WeatherService weatherService) {
+    public SystemController(UserHistoryComponent userHistoryComponent, MainMenuComponent mainMenuComponent, UserService userService, Environment environment, WeatherService weatherService, NearbyService nearbyService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
         this.userHistoryComponent = userHistoryComponent;
         this.mainMenuComponent = mainMenuComponent;
         this.userService = userService;
         this.environment = environment;
         this.weatherService = weatherService;
+        this.nearbyService = nearbyService;
+        this.telegramBotExecuteComponent = telegramBotExecuteComponent;
     }
 
     @BotRequest("Главное меню")
@@ -48,7 +55,17 @@ public class SystemController {
         String response = "Локация не пригодилась.";
         if (userHistory.getCommandsId() == 10) {
             response = weatherService.weather(location);
+        } else if (userHistory.getCommandsId() == 22) {
+            NearbyMain nearbyMain = nearbyService.getNearbyPlaces(location, 500);
+            String[] data = nearbyMain.toString().split("::");
+            life.good.goodlife.model.map.Location locationPlace;
+            for (int i = 0; i < nearbyMain.getResults().length; i++) {
+                telegramBotExecuteComponent.sendMessage(chatId, data[i]);
+                locationPlace = nearbyMain.getResults()[i].getGeometry().getLocation();
+                telegramBotExecuteComponent.sendLocation(chatId, locationPlace.getLat(), locationPlace.getLng());
+            }
         }
+
         return mainMenuComponent.showMainMenu(chatId, response, null);
     }
 

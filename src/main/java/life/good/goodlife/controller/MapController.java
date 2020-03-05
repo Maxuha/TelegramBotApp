@@ -2,6 +2,9 @@ package life.good.goodlife.controller;
 
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
+import com.pengrad.telegrambot.model.request.Keyboard;
+import com.pengrad.telegrambot.model.request.KeyboardButton;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.MainMenuComponent;
@@ -50,5 +53,17 @@ public class MapController {
         }
 
         return mainMenuComponent.showMainMenu(chatId, "", null);
+    }
+
+    @BotRequest("/nearby")
+    BaseRequest getNearbyPlace(Long chatId) {
+        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/nearby");
+        Keyboard replayKeyboard = new ReplyKeyboardMarkup(
+                new KeyboardButton[] {
+                        new KeyboardButton("Предоставить местоположение").requestLocation(true),
+                        new KeyboardButton("Главное меню")
+                }
+        );
+        return new SendMessage(chatId, "Предоставьте свое местоположение").replyMarkup(replayKeyboard);
     }
 }
