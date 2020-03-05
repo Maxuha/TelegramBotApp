@@ -24,6 +24,10 @@ public class GeoCodeMain {
 
     @Override
     public String toString() {
-        return Arrays.toString(results);
+        StringBuilder result = new StringBuilder();
+        for (GeoCode geoCode : results) {
+            result.append(geoCode.toString()).append(",\n");
+        }
+        return result.toString();
     }
 }
