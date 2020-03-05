@@ -1,6 +1,6 @@
 package life.good.goodlife.service.monobank;
 
-import life.good.goodlife.model.monobonk.User;
+import life.good.goodlife.model.monobonk.UserMonobank;
 import life.good.goodlife.repos.monobank.LoginRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class LoginService {
     }
 
     public String getToken(Long userId) {
-        User user = loginRepository.findByUserId(userId);
+        UserMonobank user = loginRepository.findByUserId(userId);
         return user.getToken();
     }
 }

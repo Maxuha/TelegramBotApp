@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users_monobank")
-public class User {
+public class UserMonobank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
