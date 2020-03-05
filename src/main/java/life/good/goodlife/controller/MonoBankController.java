@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.response.BaseResponse;
 import life.good.goodlife.component.UserHistoryComponent;
 import life.good.goodlife.service.bot.CommandService;
 import life.good.goodlife.service.bot.UserService;
@@ -39,9 +40,12 @@ public class MonoBankController {
 
     @BotRequest("/balance")
     BaseRequest getBalance(Long chatId) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/balance");
-        String msg = balanceService.balance();
-        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        return showBalance(chatId);
+    }
+
+    @BotRequest("Мой баланс")
+    BaseRequest getBalanceBtn(Long chatId) {
+        return showBalance(chatId);
     }
 
     @BotRequest("Банкинг")
@@ -61,4 +65,9 @@ public class MonoBankController {
         return sendMessage;
     }
 
+    private SendMessage showBalance(Long chatId) {
+        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/balance");
+        String msg = balanceService.balance();
+        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+    }
 }
