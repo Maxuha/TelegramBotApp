@@ -2,6 +2,7 @@ package life.good.goodlife.service.map;
 
 import com.google.gson.Gson;
 import life.good.goodlife.model.map.GeoCode;
+import life.good.goodlife.model.map.GeoCodeMain;
 import life.good.goodlife.statics.Request;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class GeoCodeService {
         String data = Request.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + place + "&key=" + token + "&language=ru");
         System.out.println(data);
         Gson gson = new Gson();
-        GeoCode[] geoCode = gson.fromJson(data, GeoCode[].class);
-        return place + ", " + Arrays.toString(geoCode);
+        GeoCodeMain geoCode = gson.fromJson(data, GeoCodeMain.class);
+        return place + ", " + geoCode;
     }
 }
