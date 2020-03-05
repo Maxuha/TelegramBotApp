@@ -43,7 +43,7 @@ public class MapController {
 
         Location location;
 
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < geoCodeMain.getResults().length; i++) {
             telegramBotExecuteComponent.sendMessage(chatId, data[i]);
             location = geoCodeMain.getResults()[i].getGeometry().getLocation();
             telegramBotExecuteComponent.sendLocation(chatId, location.getLat(), location.getLng());
