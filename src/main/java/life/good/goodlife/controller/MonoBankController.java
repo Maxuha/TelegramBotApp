@@ -10,6 +10,7 @@ import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.UserHistoryComponent;
 import life.good.goodlife.model.bot.User;
+import life.good.goodlife.model.monobonk.UserMonobank;
 import life.good.goodlife.service.bot.CommandService;
 import life.good.goodlife.service.bot.UserService;
 import life.good.goodlife.service.monobank.BalanceService;
@@ -65,9 +66,22 @@ public class MonoBankController {
         if (token == null) {
             return sendMessage;
         }
+        return showMonoBankMenu(chatId);
+    }
 
-        msg = commandService.findCommandsByName("Банкинг").getFullDescription();
-        sendMessage = new SendMessage(chatId, msg);
+    @BotRequest("/set_mono_token **")
+    BaseRequest setToken(Long chatId, String text) {
+        String token = text.split(" ")[1];
+        UserMonobank userMonobank = new UserMonobank();
+        userMonobank.setUserId(userService.findByChatId(chatId).getId());
+        userMonobank.setToken(token);
+        loginService.createUser(userMonobank);
+        return showMonoBankMenu(chatId);
+    }
+
+    private SendMessage showMonoBankMenu(Long chatId) {
+        String msg = commandService.findCommandsByName("Банкинг").getFullDescription();
+        SendMessage sendMessage = new SendMessage(chatId, msg);
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Мой баланс"),

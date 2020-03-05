@@ -1,5 +1,6 @@
 package life.good.goodlife.service.monobank;
 
+import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.monobonk.UserMonobank;
 import life.good.goodlife.repos.monobank.LoginRepository;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,10 @@ public class LoginService {
 
     public LoginService(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
+    }
+
+    public void createUser(UserMonobank userMonobank) {
+        loginRepository.save(userMonobank);
     }
 
     public String getToken(Long userId) {
