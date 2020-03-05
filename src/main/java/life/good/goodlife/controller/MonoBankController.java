@@ -67,6 +67,7 @@ public class MonoBankController {
         }
 
         msg = commandService.findCommandsByName("Банкинг").getFullDescription();
+        sendMessage = new SendMessage(chatId, msg);
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Мой баланс"),
