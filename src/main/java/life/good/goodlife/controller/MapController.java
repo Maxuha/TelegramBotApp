@@ -3,6 +3,7 @@ package life.good.goodlife.controller;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.request.BaseRequest;
+import com.pengrad.telegrambot.request.SendLocation;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.UserHistoryComponent;
 import life.good.goodlife.service.bot.UserService;
@@ -26,8 +27,9 @@ public class MapController {
         StringBuilder place = new StringBuilder();
         String[] partPlace = text.split(" ");
         for (int i = 1; i < partPlace.length; i++) {
-            place.append(partPlace[i]).append("%20");
+            place.append(partPlace[i]).append(" ");
         }
+        //SendLocation sendLocation = new SendLocation(chatId, );
         return new SendMessage(chatId, geoCodeService.getInfoPlace(place.toString().trim()));
     }
 }
