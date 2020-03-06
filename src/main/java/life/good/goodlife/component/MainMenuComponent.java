@@ -22,7 +22,8 @@ public class MainMenuComponent {
                 new KeyboardButton[] {
                         new KeyboardButton("Банкинг"),
                         new KeyboardButton("Погода"),
-                        new KeyboardButton("Новости")
+                        new KeyboardButton("Новости"),
+                        new KeyboardButton("Карта")
                 }
         );
         sendMessage.replyMarkup(replayKeyboard);
