@@ -12,8 +12,10 @@ import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
 import com.pengrad.telegrambot.request.AnswerInlineQuery;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.GetUpdates;
+import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
+import com.pengrad.telegrambot.response.SendResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
@@ -27,8 +29,8 @@ public class TestBotController {
     @BotRequest("/test_inline")
     BaseRequest testInlineQuery(Long chatId) {
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
+        SendResponse updatesResponse = bot.execute(new SendMessage(chatId, "Test"));
+        /*List<Update> updates = updatesResponse.updates();
         for (Update update : updates) {
             InlineQuery inlineQuery = update.inlineQuery();
             ChosenInlineResult chosenInlineResult = update.chosenInlineResult();
@@ -36,7 +38,7 @@ public class TestBotController {
             InlineQueryResult r2 = new InlineQueryResultArticle("id", "title", "message text").thumbUrl("url");
             BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r2));
             System.out.println(response.isOk() + " " + response.description());
-        }
-        return null;
+        }*/
+        return new SendMessage(chatId, updatesResponse.message().text());
     }
 }
