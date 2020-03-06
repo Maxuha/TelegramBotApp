@@ -6,7 +6,6 @@ import life.good.goodlife.component.LocationComponent;
 import life.good.goodlife.model.map.LocationType;
 import life.good.goodlife.model.weather.CurrentWeather;
 import life.good.goodlife.model.weather.ForecastWeather;
-import life.good.goodlife.repos.map.LocationRepository;
 import life.good.goodlife.statics.Request;
 import org.springframework.stereotype.Service;
 
