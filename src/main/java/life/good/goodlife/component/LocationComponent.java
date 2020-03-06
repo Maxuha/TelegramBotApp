@@ -17,7 +17,7 @@ public class LocationComponent {
         Location location = locationRepository.getByUserId(userId);
         System.out.println("location: " + location);
 
-        if (location == null || !location.getType().equals(type.toString())) {
+        if (location == null) {
             location = new Location();
             location.setLat(lat);
             location.setLng(lng);
