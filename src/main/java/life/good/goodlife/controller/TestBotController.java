@@ -24,16 +24,18 @@ import java.util.List;
 
 @BotController
 public class TestBotController {
-    @Autowired
-    Environment environment;
-
     @BotRequest(messageType = MessageType.INLINE_QUERY)
     BaseRequest testInlineQuery(Long chatId, Update update) {
         System.out.println(chatId);
-        TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
+        System.out.println(update);
         InlineQuery inlineQuery = update.inlineQuery();
-        InlineQueryResult r2 = new InlineQueryResultArticle(inlineQuery.id(), "title", "/weather Сумы");
-        return new AnswerInlineQuery(inlineQuery.id(), r2);
+        InlineQueryResult[] results = new InlineQueryResult[1];
+        results[0] = new InlineQueryResultArticle(inlineQuery.id(), "search_places", "/search_places");
+        if (update.inlineQuery().query().equals("search_places")) {
+            return null;
+        } else {
+            return new AnswerInlineQuery(inlineQuery.id(), results[0]);
+        }
     }
 
     /*@BotRequest(messageType = MessageType.INLINE_CHOSEN)
