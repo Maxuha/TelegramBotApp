@@ -21,10 +21,11 @@ public class LocationComponent {
             location.setLng(lng);
             location.setUserId(userId);
             location.setType(type.toString());
+            locationRepository.save(location);
         } else {
             location.setLat(lat);
             location.setLng(lng);
+            locationRepository.updateLocation(lat, lng, location.getId());
         }
-        locationRepository.save(location);
     }
 }
