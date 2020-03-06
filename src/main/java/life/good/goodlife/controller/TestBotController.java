@@ -32,7 +32,7 @@ public class TestBotController {
         System.out.println(chatId);
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
         InlineQuery inlineQuery = update.inlineQuery();
-        System.out.println(update.message().text());
+        System.out.println(update);
         ChosenInlineResult chosenInlineResult = update.chosenInlineResult();
         System.out.println("res: " + chosenInlineResult);
         CallbackQuery callbackQuery = update.callbackQuery();
