@@ -8,5 +8,5 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     Location getByUserId(Long userId);
 
     @Query(value = "UPDATE user_location SET latitude = ?1, longitude = ?2 WHERE id = ?3;", nativeQuery = true)
-    Location updateLocation(float lat, float lng, Long id);
+    void updateLocation(float lat, float lng, Long id);
 }
