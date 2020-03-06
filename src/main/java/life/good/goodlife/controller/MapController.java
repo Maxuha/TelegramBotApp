@@ -36,8 +36,8 @@ public class MapController {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/map");
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
-                        new KeyboardButton("Поиск места").requestLocation(true),
-                        new KeyboardButton("Что поблизости?").requestLocation(true),
+                        new KeyboardButton("Поиск места"),
+                        new KeyboardButton("Что поблизости?"),
                         new KeyboardButton("Главное меню")
                 }
         );
