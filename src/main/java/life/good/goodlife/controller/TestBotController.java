@@ -24,7 +24,7 @@ public class TestBotController {
     @Autowired
     Environment environment;
 
-    @BotRequest
+    @BotRequest("/test_inline")
     BaseRequest testInlineQuery(Long chatId) {
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
         GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
