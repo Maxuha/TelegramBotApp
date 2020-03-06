@@ -31,6 +31,19 @@ public class MapController {
         this.mainMenuComponent = mainMenuComponent;
     }
 
+    @BotRequest("Карта")
+    BaseRequest mapBtn(Long chatId) {
+        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/map");
+        Keyboard replayKeyboard = new ReplyKeyboardMarkup(
+                new KeyboardButton[] {
+                        new KeyboardButton("Поиск места").requestLocation(true),
+                        new KeyboardButton("Что поблизости?").requestLocation(true),
+                        new KeyboardButton("Главное меню")
+                }
+        );
+        return mainMenuComponent.showMainMenu(chatId, "", null);
+    }
+
     @BotRequest("/search_places **")
     BaseRequest getSearchPlace(Long chatId, String text) {
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/search_places");

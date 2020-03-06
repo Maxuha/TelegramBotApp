@@ -3,8 +3,12 @@ package life.good.goodlife.controller;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.github.telegram.mvc.api.MessageType;
+import com.github.telegram.mvc.api.TelegramRequest;
+import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.Location;
 import com.pengrad.telegrambot.model.Message;
+import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
@@ -47,7 +51,22 @@ public class SystemController {
 
 
     @BotRequest(messageType = MessageType.LOCATION)
-    BaseRequest location(Long chatId, Message message) {
+    BaseRequest location(String text,
+                         Long chatId,
+                         TelegramRequest telegramRequest,
+                         TelegramBot telegramBot,
+                         Update update,
+                         Message message,
+                         Chat chat,
+                         User user) {
+        System.out.println(text);
+        System.out.println(chatId);
+        System.out.println(telegramRequest);
+        System.out.println(telegramBot);
+        System.out.println(update);
+        System.out.println(message);
+        System.out.println(chat);
+        System.out.println(user);
         UserHistory userHistory = userHistoryComponent.findLastUserHistoryByUserId(userService.findByChatId(chatId).getId());
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/set_location");
         Location location = message.location();
