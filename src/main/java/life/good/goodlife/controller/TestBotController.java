@@ -26,19 +26,19 @@ public class TestBotController {
     @Autowired
     Environment environment;
 
-    @BotRequest("/test_inline")
+    @BotRequest("@my_good_life_bot")
     BaseRequest testInlineQuery(Long chatId) {
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
-        BaseResponse response = bot.execute(new SendMessage(chatId, "Test"));
-        /*List<Update> updates = updatesResponse.updates();
+        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
+        List<Update> updates = updatesResponse.updates();
         for (Update update : updates) {
             InlineQuery inlineQuery = update.inlineQuery();
             ChosenInlineResult chosenInlineResult = update.chosenInlineResult();
             CallbackQuery callbackQuery = update.callbackQuery();
-            InlineQueryResult r2 = new InlineQueryResultArticle("id", "title", "message text").thumbUrl("url");
+            InlineQueryResult r2 = new InlineQueryResultArticle(inlineQuery.id(), "title", "message text").thumbUrl("url");
             BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r2));
             System.out.println(response.isOk() + " " + response.description());
-        }*/
-        return new SendMessage(chatId, response.description());
+        }
+        return null;
     }
 }
