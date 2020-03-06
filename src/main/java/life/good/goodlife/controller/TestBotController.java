@@ -32,7 +32,7 @@ public class TestBotController {
         InlineQueryResult[] results = new InlineQueryResult[1];
         results[0] = new InlineQueryResultArticle(inlineQuery.id(), "search_places", "/search_places");
         if (update.inlineQuery().query().equals("search_places")) {
-            return null;
+            return new SendMessage(chatId, "Введите, что ищете?");
         } else {
             return new AnswerInlineQuery(inlineQuery.id(), results[0]);
         }
