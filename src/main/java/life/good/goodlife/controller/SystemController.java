@@ -57,8 +57,7 @@ public class SystemController {
                          TelegramBot telegramBot,
                          Update update,
                          Message message,
-                         Chat chat,
-                         User user) {
+                         Chat chat) {
         System.out.println(text);
         System.out.println(chatId);
         System.out.println(telegramRequest);
@@ -66,7 +65,6 @@ public class SystemController {
         System.out.println(update);
         System.out.println(message);
         System.out.println(chat);
-        System.out.println(user);
         UserHistory userHistory = userHistoryComponent.findLastUserHistoryByUserId(userService.findByChatId(chatId).getId());
         userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/set_location");
         Location location = message.location();
