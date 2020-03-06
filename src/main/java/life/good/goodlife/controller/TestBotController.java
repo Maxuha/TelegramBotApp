@@ -36,7 +36,7 @@ public class TestBotController {
         System.out.println("res: " + chosenInlineResult);
         CallbackQuery callbackQuery = update.callbackQuery();
         System.out.println("callback: " + callbackQuery);
-        InlineQueryResult r2 = new InlineQueryResultArticle(inlineQuery.id(), "title", "message text").thumbUrl("url");
+        InlineQueryResult r2 = new InlineQueryResultArticle(inlineQuery.id(), "title", "message text");
         BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r2));
         System.out.println(response.isOk() + " " + response.description());
         return null;
