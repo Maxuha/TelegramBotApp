@@ -15,6 +15,8 @@ public class LocationComponent {
 
     public void createNewLocation(Long userId, float lat, float lng, LocationType type) {
         Location location = locationRepository.getByUserId(userId);
+        System.out.println("location: " + location);
+
         if (location == null || !location.getType().equals(type.toString())) {
             location = new Location();
             location.setLat(lat);
@@ -25,7 +27,6 @@ public class LocationComponent {
         } else {
             location.setLat(lat);
             location.setLng(lng);
-            System.out.println("location: " + location);
             locationRepository.updateLocation(lat, lng, location.getId());
         }
     }
