@@ -14,11 +14,17 @@ public class LocationComponent {
     }
 
     public void createNewLocation(Long userId, float lat, float lng, LocationType type) {
-        Location location = new Location();
-        location.setLat(lat);
-        location.setLng(lng);
-        location.setUserId(userId);
-        location.setType(type.toString());
+        Location location = locationRepository.getByUserId(userId);
+        if (location == null || !location.getType().equals(type.toString())) {
+            location = new Location();
+            location.setLat(lat);
+            location.setLng(lng);
+            location.setUserId(userId);
+            location.setType(type.toString());
+        } else {
+            location.setLat(lat);
+            location.setLng(lng);
+        }
         locationRepository.save(location);
     }
 }
