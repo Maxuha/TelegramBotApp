@@ -12,14 +12,17 @@ public class Location {
     @Column
     private Long id;
 
-    @Column
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "latitude")
     private float lat;
 
     @Column(name = "longitude")
     private float lng;
+
+    @Column
+    private String type;
 
     public float getLat() {
         return lat;
@@ -45,11 +48,19 @@ public class Location {
         this.id = id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long user_id) {
+        this.userId = user_id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

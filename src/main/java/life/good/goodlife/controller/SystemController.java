@@ -49,14 +49,15 @@ public class SystemController {
     @BotRequest(messageType = MessageType.LOCATION)
     BaseRequest location(Long chatId, Message message) {
         UserHistory userHistory = userHistoryComponent.findLastUserHistoryByUserId(userService.findByChatId(chatId).getId());
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/set_location");
+        User user = userService.findByChatId(chatId);
+        userHistoryComponent.createUserHistory(user.getId(), "/set_location");
         Location location = message.location();
         System.out.println(location.latitude() + " " + location.longitude());
         String response = "Локация не пригодилась.";
         if (userHistory.getCommandsId() == 10) {
-            response = weatherService.weather(location);
+            response = weatherService.weather(location, user.getId());
         } else if (userHistory.getCommandsId() == 22) {
-            NearbyMain nearbyMain = nearbyService.getNearbyPlaces(location, 500);
+            NearbyMain nearbyMain = nearbyService.getNearbyPlaces(location, 500, user.getId());
             String[] data = nearbyMain.toString().split("::");
             life.good.goodlife.model.map.Location locationPlace;
             for (int i = 0; i < nearbyMain.getResults().length; i++) {
