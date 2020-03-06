@@ -29,7 +29,7 @@ public class TestBotController {
     @BotRequest("/test_inline")
     BaseRequest testInlineQuery(Long chatId) {
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
-        SendResponse updatesResponse = bot.execute(new SendMessage(chatId, "Test"));
+        BaseResponse response = bot.execute(new SendMessage(chatId, "Test"));
         /*List<Update> updates = updatesResponse.updates();
         for (Update update : updates) {
             InlineQuery inlineQuery = update.inlineQuery();
@@ -39,6 +39,6 @@ public class TestBotController {
             BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r2));
             System.out.println(response.isOk() + " " + response.description());
         }*/
-        return new SendMessage(chatId, updatesResponse.message().text());
+        return new SendMessage(chatId, response.description());
     }
 }
