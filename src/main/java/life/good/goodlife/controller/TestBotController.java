@@ -28,19 +28,17 @@ public class TestBotController {
     Environment environment;
 
     @BotRequest(messageType = MessageType.INLINE_QUERY)
-    BaseRequest testInlineQuery(Long chatId) {
+    BaseRequest testInlineQuery(Long chatId, Update update) {
         System.out.println(chatId);
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
-        for (Update update : updates) {
-            InlineQuery inlineQuery = update.inlineQuery();
-            ChosenInlineResult chosenInlineResult = update.chosenInlineResult();
-            CallbackQuery callbackQuery = update.callbackQuery();
-            InlineQueryResult r2 = new InlineQueryResultArticle(inlineQuery.id(), "title", "message text").thumbUrl("url");
-            BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r2));
-            System.out.println(response.isOk() + " " + response.description());
-        }
+        InlineQuery inlineQuery = update.inlineQuery();
+        ChosenInlineResult chosenInlineResult = update.chosenInlineResult();
+        System.out.println("res: " + chosenInlineResult);
+        CallbackQuery callbackQuery = update.callbackQuery();
+        System.out.println("callback: " + callbackQuery);
+        InlineQueryResult r2 = new InlineQueryResultArticle(inlineQuery.id(), "title", "message text").thumbUrl("url");
+        BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r2));
+        System.out.println(response.isOk() + " " + response.description());
         return null;
     }
 }
