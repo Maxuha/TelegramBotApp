@@ -25,7 +25,7 @@ public class LocationComponent {
         } else {
             location.setLat(lat);
             location.setLng(lng);
-            System.out.println(location);
+            System.out.println("location: " + location);
             locationRepository.updateLocation(lat, lng, location.getId());
         }
     }
