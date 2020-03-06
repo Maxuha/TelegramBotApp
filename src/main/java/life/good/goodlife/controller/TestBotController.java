@@ -27,7 +27,7 @@ public class TestBotController {
     @Autowired
     Environment environment;
 
-    /*@BotRequest(messageType = MessageType.INLINE_QUERY)
+    @BotRequest(messageType = MessageType.INLINE_QUERY)
     BaseRequest testInlineQuery(Long chatId, Update update) {
         System.out.println(chatId);
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
@@ -40,9 +40,9 @@ public class TestBotController {
         BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r2));
         System.out.println(response.isOk() + " " + response.description());
         return null;
-    }*/
+    }
 
-    @BotRequest(messageType = MessageType.INLINE_CHOSEN)
+    /*@BotRequest(messageType = MessageType.INLINE_CHOSEN)
     BaseRequest testInlineChosen(Long chatId, Update update) {
         System.out.println(chatId);
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
@@ -55,5 +55,5 @@ public class TestBotController {
         BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r2));
         System.out.println(response.isOk() + " " + response.description());
         return null;
-    }
+    }*/
 }
