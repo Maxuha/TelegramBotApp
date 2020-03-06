@@ -32,15 +32,8 @@ public class TestBotController {
         System.out.println(chatId);
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
         InlineQuery inlineQuery = update.inlineQuery();
-        System.out.println(update);
-        ChosenInlineResult chosenInlineResult = update.chosenInlineResult();
-        System.out.println("res: " + chosenInlineResult);
-        CallbackQuery callbackQuery = update.callbackQuery();
-        System.out.println("callback: " + callbackQuery);
         InlineQueryResult r2 = new InlineQueryResultArticle(inlineQuery.id(), "title", "/weather Сумы");
-        BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r2));
-        System.out.println(response.isOk() + " " + response.description());
-        return null;
+        return new AnswerInlineQuery(inlineQuery.id(), r2);
     }
 
     /*@BotRequest(messageType = MessageType.INLINE_CHOSEN)
