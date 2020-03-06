@@ -2,6 +2,7 @@ package life.good.goodlife.controller;
 
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
+import com.github.telegram.mvc.api.MessageType;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.CallbackQuery;
 import com.pengrad.telegrambot.model.ChosenInlineResult;
@@ -26,8 +27,9 @@ public class TestBotController {
     @Autowired
     Environment environment;
 
-    @BotRequest("@my_good_life_bot **")
+    @BotRequest(messageType = MessageType.INLINE_QUERY)
     BaseRequest testInlineQuery(Long chatId) {
+        System.out.println(chatId);
         TelegramBot bot = new TelegramBot(environment.getProperty("telegram.bot.token"));
         GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
         List<Update> updates = updatesResponse.updates();
