@@ -144,7 +144,7 @@ public class Statement {
         values = String.format("%.2f", value).split("\\.");
         Balance cashbackAmountCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(980));
-        value = operationAmount / amount / 100.0f;
+        value = amount / operationAmount / 100.0f;
         values = String.format("%.4f", value).split("\\.");
         Balance currencyCount = new Balance(values[0], values[1],
                 CurrencyCode.getSymbolByCurrencyCode(currencyCode));
