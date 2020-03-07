@@ -11,7 +11,6 @@ import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.UserHistoryComponent;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.monobonk.Account;
-import life.good.goodlife.model.monobonk.MonobankAccountUser;
 import life.good.goodlife.model.monobonk.UserInfo;
 import life.good.goodlife.model.monobonk.UserMonobank;
 import life.good.goodlife.service.bot.CommandService;
@@ -81,15 +80,10 @@ public class MonoBankController {
         userMonobank.setToken(token);
         userMonobank.setClientId(userInfo.getClientId());
         userMonobank.setName(userInfo.getName());
-        Long userId = loginService.createUser(userMonobank);
+        loginService.createUser(userMonobank);
         Account[] accounts = userInfo.getAccounts();
-        MonobankAccountUser monobankAccountUser;
         for (Account account : accounts) {
-            monobankAccountUser = new MonobankAccountUser();
-            monobankAccountUser.setUserMonobankId(userId);
-            monobankAccountUser.setAccountMonobankId(account.getId());
             loginService.createAccount(account);
-            loginService.createAccountOfUser(monobankAccountUser);
         }
         return showMonoBankMenu(chatId);
     }

@@ -2,11 +2,9 @@ package life.good.goodlife.service.monobank;
 
 import com.google.gson.Gson;
 import life.good.goodlife.model.monobonk.Account;
-import life.good.goodlife.model.monobonk.MonobankAccountUser;
 import life.good.goodlife.model.monobonk.UserInfo;
 import life.good.goodlife.model.monobonk.UserMonobank;
 import life.good.goodlife.repos.monobank.AccountRepository;
-import life.good.goodlife.repos.monobank.MonobankAccountUserRepository;
 import life.good.goodlife.repos.monobank.UserMonobankRepository;
 import life.good.goodlife.statics.Request;
 import org.springframework.stereotype.Service;
@@ -18,24 +16,18 @@ import java.util.Map;
 public class LoginService {
     private final UserMonobankRepository userMonobankRepository;
     private final AccountRepository accountRepository;
-    private final MonobankAccountUserRepository monobankAccountUserRepository;
 
-    public LoginService(UserMonobankRepository userMonobankRepository, AccountRepository accountRepository, MonobankAccountUserRepository monobankAccountUserRepository) {
+    public LoginService(UserMonobankRepository userMonobankRepository, AccountRepository accountRepository) {
         this.userMonobankRepository = userMonobankRepository;
         this.accountRepository = accountRepository;
-        this.monobankAccountUserRepository = monobankAccountUserRepository;
     }
 
-    public Long createUser(UserMonobank userMonobank) {
-        return userMonobankRepository.save(userMonobank).getId();
+    public void createUser(UserMonobank userMonobank) {
+        userMonobankRepository.save(userMonobank);
     }
 
     public void createAccount(Account account) {
          accountRepository.save(account);
-    }
-
-    public void createAccountOfUser(MonobankAccountUser monobankAccountUser) {
-        monobankAccountUserRepository.save(monobankAccountUser);
     }
 
     public String getToken(Long userId) {
