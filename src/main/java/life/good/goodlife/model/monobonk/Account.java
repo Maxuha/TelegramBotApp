@@ -22,7 +22,6 @@ public class Account {
     private int balance;
     private int creditLimit;
 
-    @Column(name = "masked_pan")
     private String[] maskedPan;
 
     @Column
