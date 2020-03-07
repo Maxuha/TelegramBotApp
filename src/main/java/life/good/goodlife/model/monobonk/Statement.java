@@ -154,6 +154,6 @@ public class Statement {
                 CurrencyCode.getSymbolByCurrencyCode(980));
         return (operationAmount < 0 ? "Списание с карты" : "Пополнение на карту") + "\n" + description + "\n" + (comment != null ? comment + "\n" : "")
                 + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.ofHours(2)).format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm", new Locale("ru"))) + "\n"
-                + operationAmountCount + " * " + currencyCount + " = " + amountCount + "\nКомиссия: " + commissionRateCount + "\nНа балансе: " + balanceCount + "\nКешбек: " + cashbackAmountCount;
+                + operationAmountCount + (currencyCode != 980 ? " * " + currencyCount + " = " + amountCount : "") + "\nКомиссия: " + commissionRateCount + "\nНа балансе: " + balanceCount + "\nКешбек: " + cashbackAmountCount;
     }
 }
