@@ -1,26 +1,56 @@
 package life.good.goodlife.service.monobank;
 
+import com.google.gson.Gson;
+import life.good.goodlife.model.monobonk.Account;
+import life.good.goodlife.model.monobonk.MonobankAccountUser;
+import life.good.goodlife.model.monobonk.UserInfo;
 import life.good.goodlife.model.monobonk.UserMonobank;
-import life.good.goodlife.repos.monobank.LoginRepository;
+import life.good.goodlife.repos.monobank.AccountRepository;
+import life.good.goodlife.repos.monobank.MonobankAccountUserRepository;
+import life.good.goodlife.repos.monobank.UserMonobankRepository;
+import life.good.goodlife.statics.Request;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class LoginService {
-    private final LoginRepository loginRepository;
+    private final UserMonobankRepository userMonobankRepository;
+    private final AccountRepository accountRepository;
+    private final MonobankAccountUserRepository monobankAccountUserRepository;
 
-    public LoginService(LoginRepository loginRepository) {
-        this.loginRepository = loginRepository;
+    public LoginService(UserMonobankRepository userMonobankRepository, AccountRepository accountRepository, MonobankAccountUserRepository monobankAccountUserRepository) {
+        this.userMonobankRepository = userMonobankRepository;
+        this.accountRepository = accountRepository;
+        this.monobankAccountUserRepository = monobankAccountUserRepository;
     }
 
-    public void createUser(UserMonobank userMonobank) {
-        loginRepository.save(userMonobank);
+    public Long createUser(UserMonobank userMonobank) {
+        return userMonobankRepository.save(userMonobank).getId();
+    }
+
+    public void createAccount(Account account) {
+         accountRepository.save(account);
+    }
+
+    public void createAccountOfUser(MonobankAccountUser monobankAccountUser) {
+        monobankAccountUserRepository.save(monobankAccountUser);
     }
 
     public String getToken(Long userId) {
-        UserMonobank user = loginRepository.findByUserId(userId);
+        UserMonobank user = userMonobankRepository.findByUserId(userId);
         if (user == null) {
             return null;
         }
         return user.getToken();
+    }
+
+    public UserInfo getUserInfo(String token) {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("X-Token", token);
+        String data = Request.get("https://api.monobank.ua/personal/client-info", headers);
+        Gson gson = new Gson();
+        return gson.fromJson(data, UserInfo.class);
     }
 }

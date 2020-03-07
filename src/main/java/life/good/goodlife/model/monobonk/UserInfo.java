@@ -5,11 +5,11 @@ public class UserInfo {
     private String name;
     private Account[] accounts;
 
-    public String getChatId() {
+    public String getClientId() {
         return clientId;
     }
 
-    public void setChatId(String chatId) {
+    public void setClientId(String chatId) {
         this.clientId = chatId;
     }
 

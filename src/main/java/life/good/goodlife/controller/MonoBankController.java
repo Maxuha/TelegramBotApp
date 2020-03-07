@@ -10,6 +10,9 @@ import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.UserHistoryComponent;
 import life.good.goodlife.model.bot.User;
+import life.good.goodlife.model.monobonk.Account;
+import life.good.goodlife.model.monobonk.MonobankAccountUser;
+import life.good.goodlife.model.monobonk.UserInfo;
 import life.good.goodlife.model.monobonk.UserMonobank;
 import life.good.goodlife.service.bot.CommandService;
 import life.good.goodlife.service.bot.UserService;
@@ -72,10 +75,22 @@ public class MonoBankController {
     @BotRequest("/set_mono_token **")
     BaseRequest setToken(Long chatId, String text) {
         String token = text.split(" ")[1];
+        UserInfo userInfo = loginService.getUserInfo(token);
         UserMonobank userMonobank = new UserMonobank();
         userMonobank.setUserId(userService.findByChatId(chatId).getId());
         userMonobank.setToken(token);
-        loginService.createUser(userMonobank);
+        userMonobank.setClientId(userInfo.getClientId());
+        userMonobank.setName(userInfo.getName());
+        Long userId = loginService.createUser(userMonobank);
+        Account[] accounts = userInfo.getAccounts();
+        MonobankAccountUser monobankAccountUser;
+        for (Account account : accounts) {
+            monobankAccountUser = new MonobankAccountUser();
+            monobankAccountUser.setUserMonobankId(userId);
+            monobankAccountUser.setAccountMonobankId(account.getId());
+            loginService.createAccount(account);
+            loginService.createAccountOfUser(monobankAccountUser);
+        }
         return showMonoBankMenu(chatId);
     }
 

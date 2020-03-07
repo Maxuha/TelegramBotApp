@@ -15,6 +15,12 @@ public class UserMonobank {
     @Column
     private String token;
 
+    @Column(name = "client_id")
+    private String clientId;
+
+    @Column
+    private String name;
+
     public Long getId() {
         return id;
     }
@@ -37,5 +43,21 @@ public class UserMonobank {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
