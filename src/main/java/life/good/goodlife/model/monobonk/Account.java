@@ -2,10 +2,7 @@ package life.good.goodlife.model.monobonk;
 
 import life.good.goodlife.statics.CurrencyCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "monobank_account")
@@ -19,9 +16,13 @@ public class Account {
     @Column(name = "cashback_type")
     private String cashbackType;
 
+    @Transient
     private int balance;
+
+    @Transient
     private int creditLimit;
 
+    @Transient
     private String[] maskedPan;
 
     @Column
