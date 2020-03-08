@@ -128,8 +128,7 @@ public class MonoBankController {
                         new KeyboardButton("Курс валют"),
                         new KeyboardButton("Выписка"),
                         new KeyboardButton("Контроль расходами"),
-                        new KeyboardButton("Синхроннизация выписки"),
-                        new KeyboardButton("Главное меню")
+                        new KeyboardButton("Синхроннизация выписки")
                 }
         );
         sendMessage.replyMarkup(replayKeyboard);
