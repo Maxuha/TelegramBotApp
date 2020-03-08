@@ -24,7 +24,7 @@ public class WebhookServiceImpl implements WebhookService {
 
     private String replenishment(){
         String result = "";
-        result += "Пополнение на карту\n";
+        result += "<b>Пополнение на карту</b>\n";
         result += webhook.getData().getStatementItem().getDescription() + "\n";
         if (webhook.getData().getStatementItem().getComment() != null) {
             result += webhook.getData().getStatementItem().getComment() + "\n";
@@ -48,7 +48,7 @@ public class WebhookServiceImpl implements WebhookService {
 
     private String writeOff() {
         String result = "";
-        result += "Списание с карты";
+        result += "<b>Списание с карты</b>\n";
         result += webhook.getData().getStatementItem().getDescription() + "\n";
         if (webhook.getData().getStatementItem().getComment() != null) {
             result += webhook.getData().getStatementItem().getComment() + "\n";
