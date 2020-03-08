@@ -69,7 +69,7 @@ public class SystemController {
         String response = "Локация не пригодилась.";
         if (userHistory.getCommandsId() == 10) {
             logger.info("Get weather");
-            response = weatherService.weather(location, user.getId());
+            response = weatherService.weather(location.latitude(), location.longitude(), user.getId());
         } else if (userHistory.getCommandsId() == 22) {
             logger.info("Get nearby places");
             NearbyMain nearbyMain = nearbyService.getNearbyPlaces(location, 500, user.getId());
