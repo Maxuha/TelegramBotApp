@@ -39,7 +39,7 @@ public class StatementServiceImpl implements StatementService {
 
     @Override
     public Long getLastTimeByAccountId(String accountId) {
-        return statementRepository.findByAccountIdFirstOrderByTimeDesc(accountId).getTime();
+        return statementRepository.findFirstByAccountIdOrderOrderByTimeDesc(accountId).getTime();
     }
 
     @Override
