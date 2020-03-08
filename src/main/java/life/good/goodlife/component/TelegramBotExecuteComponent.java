@@ -25,6 +25,11 @@ public class TelegramBotExecuteComponent {
         telegramBot.execute(sendMessage);
     }
 
+    public void sendMessageHtml(Long chatId, String message) {
+        sendMessage = new SendMessage(chatId, message).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        telegramBot.execute(sendMessage);
+    }
+
     public void sendLocation(Long chatId, float lat, float lon) {
         sendLocation = new SendLocation(chatId, lat, lon);
         telegramBot.execute(sendLocation);
