@@ -1,18 +1,49 @@
 package life.good.goodlife.model.monobonk;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "monobank_statement")
 public class Statement {
+    @Id
     private String id;
+
+    @Column
     private Long time;
+
+    @Column
     private String description;
+
+    @Column
     private String comment;
+
+    @Column
     private Integer mcc;
+
+    @Column
     private Integer amount;
+
+    @Column
     private Integer operationAmount;
+
+    @Column
     private Integer currencyCode;
+
+    @Column
     private Integer commissionRate;
+
+    @Column
     private Integer cashbackAmount;
+
+    @Column
     private Integer balance;
+
+    @Column
     private Boolean hold;
+
     private Balance balanceCount;
 
     public String getId() {
@@ -117,5 +148,24 @@ public class Statement {
 
     public void setBalanceCount(Balance balanceCount) {
         this.balanceCount = balanceCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Statement{" +
+                "id='" + id + '\'' +
+                ", time=" + time +
+                ", description='" + description + '\'' +
+                ", comment='" + comment + '\'' +
+                ", mcc=" + mcc +
+                ", amount=" + amount +
+                ", operationAmount=" + operationAmount +
+                ", currencyCode=" + currencyCode +
+                ", commissionRate=" + commissionRate +
+                ", cashbackAmount=" + cashbackAmount +
+                ", balance=" + balance +
+                ", hold=" + hold +
+                ", balanceCount=" + balanceCount +
+                '}';
     }
 }

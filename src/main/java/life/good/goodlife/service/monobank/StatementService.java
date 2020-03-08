@@ -1,5 +1,6 @@
 package life.good.goodlife.service.monobank;
 
 public interface StatementService {
-    public String currency(String token);
+    String currency(String token);
+    void CreateStatements(String token);
 }
