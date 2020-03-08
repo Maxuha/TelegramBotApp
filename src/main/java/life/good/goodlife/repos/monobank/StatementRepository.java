@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StatementRepository extends JpaRepository<Statement, String> {
     Statement findByAmount(String id);
-    Long findFirstOrderByTimeDescByAccountId(String accountId);
+    Statement findFirstByAccountIdOrderByTimeDesc(String accountId);
 }
