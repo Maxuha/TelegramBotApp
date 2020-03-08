@@ -22,17 +22,23 @@ public class WebhookServiceImpl implements WebhookService {
         }
         result += "\n" + webhook.getData().getStatementItem().getDescription() + "\n";
         if (webhook.getData().getStatementItem().getComment() != null) {
-            result += webhook.getData().getStatementItem().getComment();
+            result += webhook.getData().getStatementItem().getComment() + "\n";
         }
-        Balance balance = Balance.getBalanceFactory(webhook.getData().getStatementItem().getOperationAmount(), 980);
+        Balance balance = Balance.getBalanceFactory(webhook.getData().getStatementItem().getBalance(), 980);
         int operationAmount = webhook.getData().getStatementItem().getOperationAmount();
         Balance operationAmountBalance = Balance.getBalanceFactory(operationAmount,
                 webhook.getData().getStatementItem().getCurrencyCode());
         int amount = webhook.getData().getStatementItem().getAmount();
         Balance amountBalance = Balance.getBalanceFactory(amount, 980);
-        Balance currency = Balance.getBalanceFactory((amount / operationAmount), 980);
-        result += "<b>" + operationAmountBalance + "</b>" + " * " + currency + " = " + amountBalance;
-        result += "На балансе: " + balance;
+        result += "<b>" + operationAmountBalance + "</b>" + " * " + (amount / operationAmount) + " " +
+                CurrencyCodeFactory.getSymbolByCurrencyCode(webhook.getData().getStatementItem().getCurrencyCode()) +
+                " = " + amountBalance + "\n";
+        Balance commission = Balance.getBalanceFactory(webhook.getData().getStatementItem().getCommissionRate(),
+                webhook.getData().getStatementItem().getCurrencyCode());
+        result += "Комиссия: " + commission + "\n";
+        Balance cashback = Balance.getBalanceFactory(webhook.getData().getStatementItem().getCashbackAmount(), 980);
+        result += "Кешбек: " + cashback + "\n";
+        result += "На балансе: " + balance + "\n";
         return result;
     }
 
