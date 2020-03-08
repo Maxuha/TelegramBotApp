@@ -2,12 +2,14 @@ package life.good.goodlife.controller;
 
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
+import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.KeyboardButton;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
+import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.Command;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.monobonk.Account;
@@ -27,16 +29,20 @@ public class MonoBankController {
     private final BalanceService balanceService;
     private final CommandService commandService;
     private final LoginService loginService;
+    private final TelegramBotExecuteComponent telegramBotExecuteComponent;
+    private final StatementService statementService;
 
     public MonoBankController(UserHistoryService userHistoryService, UserService userService,
                               CurrencyService currencyService, BalanceService balanceService, CommandService commandService,
-                              LoginService loginService) {
+                              LoginService loginService, TelegramBotExecuteComponent telegramBotExecuteComponent, StatementService statementService) {
         this.userHistoryService = userHistoryService;
         this.userService = userService;
         this.currencyService = currencyService;
         this.balanceService = balanceService;
         this.commandService = commandService;
         this.loginService = loginService;
+        this.telegramBotExecuteComponent = telegramBotExecuteComponent;
+        this.statementService = statementService;
     }
 
     @BotRequest("/currency")
@@ -96,6 +102,21 @@ public class MonoBankController {
         }
         return showMonoBankMenu(chatId);
     }
+    @BotRequest("Синхроннизация выписки")
+    BaseRequest synchronizeBtn(Long chatId, Message message) {
+        User user = userService.findByChatId(chatId);
+        logger.info("Find command: 'Синхроннизация выписки'");
+        Command command = commandService.findCommandsByName("Синхроннизация выписки");
+        logger.info("Creating history command 'Синхроннизация выписки'");
+        userHistoryService.createUserHistory(user.getId(), command);
+        String token = loginService.getToken(user.getId());
+        String msg = "Синхроннизация...";
+        telegramBotExecuteComponent.sendMessage(chatId, msg);
+        statementService.CreateStatements(token);
+        msg = "Синхроннизация успешна";
+        return new SendMessage(chatId, msg);
+    }
+
 
     private SendMessage showMonoBankMenu(Long chatId) {
         logger.info("Openning monobank menu");
@@ -107,6 +128,7 @@ public class MonoBankController {
                         new KeyboardButton("Курс валют"),
                         new KeyboardButton("Выписка"),
                         new KeyboardButton("Контроль расходами"),
+                        new KeyboardButton("Синхроннизация выписки"),
                         new KeyboardButton("Главное меню")
                 }
         );
