@@ -37,7 +37,7 @@ public class WebhookController {
     public ResponseEntity <?> monobank(@RequestBody String raw, @RequestHeader("Content-Type") String type) {
         String info = webhookService.createOperation(raw);
         logger.info("Get webhook: {}", raw);
-        telegramBotExecuteComponent.sendMessageHtml(userService.findById(4).getChatId(), raw);
+        telegramBotExecuteComponent.sendMessageHtml(userService.findById(4).getChatId(), info);
         return ResponseEntity.ok("ok");
     }
 }
