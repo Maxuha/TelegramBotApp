@@ -20,9 +20,4 @@ public class Webhook {
     public void setData(WebhookInfo data) {
         this.data = data;
     }
-
-    @Override
-    public String toString() {
-        return data.toString();
-    }
 }

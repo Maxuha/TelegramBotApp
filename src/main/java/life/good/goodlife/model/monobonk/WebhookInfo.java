@@ -21,9 +21,4 @@ public class WebhookInfo {
     public void setStatementItem(Statement statementItem) {
         this.statementItem = statementItem;
     }
-
-    @Override
-    public String toString() {
-        return statementItem.toString();
-    }
 }

@@ -2,7 +2,7 @@ package life.good.goodlife.model.date;
 
 import java.time.DayOfWeek;
 
-public class DayOfWeekToDays {
+public class DayOfWeekToDaysFactory {
     public static DAYS getDaysByDayOfWeek(DayOfWeek dayOfWeek) {
         DAYS days;
         switch (dayOfWeek) {

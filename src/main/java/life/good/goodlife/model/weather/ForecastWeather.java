@@ -2,9 +2,9 @@ package life.good.goodlife.model.weather;
 
 import com.google.gson.Gson;
 import life.good.goodlife.model.date.DAYS;
-import life.good.goodlife.model.date.DayOfWeekToDays;
+import life.good.goodlife.model.date.DayOfWeekToDaysFactory;
 import life.good.goodlife.model.date.MONTH;
-import life.good.goodlife.model.date.MonthToMonth;
+import life.good.goodlife.model.date.MonthToMonthFactory;
 import life.good.goodlife.model.declension.Declension;
 import life.good.goodlife.statics.ParseCountry;
 import life.good.goodlife.statics.Request;
@@ -106,8 +106,8 @@ public class ForecastWeather {
                 avg_humidity += list[i].getMain().getHumidity();
                 description.append(list[i].getWeather()[0].getDescription()).append(" ");
                 image.append(list[i].getWeather()[0].getIcon()).append(" ");
-                month = MonthToMonth.getMonthByMonth(dateTime.getMonth());
-                days = DayOfWeekToDays.getDaysByDayOfWeek(dateTime.getDayOfWeek());
+                month = MonthToMonthFactory.getMonthByMonth(dateTime.getMonth());
+                days = DayOfWeekToDaysFactory.getDaysByDayOfWeek(dateTime.getDayOfWeek());
                 daysOfMonth = dateTime.getDayOfMonth();
                 iteration++;
             } else {
@@ -120,7 +120,7 @@ public class ForecastWeather {
                 } else {
                     monthText = data;
                 }
-                if (DayOfWeekToDays.getDaysByDayOfWeek(LocalDateTime.now().getDayOfWeek()).equals(days)) {
+                if (DayOfWeekToDaysFactory.getDaysByDayOfWeek(LocalDateTime.now().getDayOfWeek()).equals(days)) {
                     result.append(DAYS.Сегодня).append(", ")
                             .append(daysOfMonth).append(" ").append(monthText).append("\n");
                 } else {

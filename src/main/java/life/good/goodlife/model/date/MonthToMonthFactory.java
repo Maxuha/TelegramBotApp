@@ -2,7 +2,7 @@ package life.good.goodlife.model.date;
 
 import java.time.Month;
 
-public class MonthToMonth {
+public class MonthToMonthFactory {
     public static MONTH getMonthByMonth(Month month) {
         MONTH monthRu;
         switch (month) {

@@ -1,4 +1,4 @@
-package life.good.goodlife.statics;
+package life.good.goodlife.model.bank;
 
 public class CurrencyCodeFactory {
     public static String getFlagByCurrencyCode(int code) {

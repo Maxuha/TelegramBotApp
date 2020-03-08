@@ -1,6 +1,6 @@
 package life.good.goodlife.model.monobonk;
 
-import life.good.goodlife.statics.CurrencyCodeFactory;
+import life.good.goodlife.model.bank.CurrencyCodeFactory;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -9,17 +9,17 @@ import java.util.Locale;
 
 public class Statement {
     private String id;
-    private long time;
+    private Long time;
     private String description;
     private String comment;
-    private int mcc;
-    private int amount;
-    private int operationAmount;
-    private int currencyCode;
-    private int commissionRate;
-    private int cashbackAmount;
-    private int balance;
-    private boolean hold;
+    private Integer mcc;
+    private Integer amount;
+    private Integer operationAmount;
+    private Integer currencyCode;
+    private Integer commissionRate;
+    private Integer cashbackAmount;
+    private Integer balance;
+    private Boolean hold;
     private Balance balanceCount;
 
     public String getId() {
@@ -30,11 +30,11 @@ public class Statement {
         this.id = id;
     }
 
-    public long getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
@@ -46,67 +46,67 @@ public class Statement {
         this.description = description;
     }
 
-    public int getMcc() {
+    public Integer getMcc() {
         return mcc;
     }
 
-    public void setMcc(int mcc) {
+    public void setMcc(Integer mcc) {
         this.mcc = mcc;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
-    public int getOperationAmount() {
+    public Integer getOperationAmount() {
         return operationAmount;
     }
 
-    public void setOperationAmount(int operationAmount) {
+    public void setOperationAmount(Integer operationAmount) {
         this.operationAmount = operationAmount;
     }
 
-    public int getCurrencyCode() {
+    public Integer getCurrencyCode() {
         return currencyCode;
     }
 
-    public void setCurrencyCode(int currencyCode) {
+    public void setCurrencyCode(Integer currencyCode) {
         this.currencyCode = currencyCode;
     }
 
-    public int getCommissionRate() {
+    public Integer getCommissionRate() {
         return commissionRate;
     }
 
-    public void setCommissionRate(int commissionRate) {
+    public void setCommissionRate(Integer commissionRate) {
         this.commissionRate = commissionRate;
     }
 
-    public int getCashbackAmount() {
+    public Integer getCashbackAmount() {
         return cashbackAmount;
     }
 
-    public void setCashbackAmount(int cashbackAmount) {
+    public void setCashbackAmount(Integer cashbackAmount) {
         this.cashbackAmount = cashbackAmount;
     }
 
-    public int getBalance() {
+    public Integer getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(Integer balance) {
         this.balance = balance;
     }
 
-    public boolean isHold() {
+    public Boolean isHold() {
         return hold;
     }
 
-    public void setHold(boolean hold) {
+    public void setHold(Boolean hold) {
         this.hold = hold;
     }
 
@@ -124,36 +124,5 @@ public class Statement {
 
     public void setBalanceCount(Balance balanceCount) {
         this.balanceCount = balanceCount;
-    }
-
-    @Override
-    public String toString() {
-        float value = operationAmount / 100.0f;
-        String[] values = String.format("%.2f", value).split("\\.");
-        Balance operationAmountCount = new Balance(values[0], values[1],
-                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
-        value = commissionRate / 100.0f;
-        values = String.format("%.2f", value).split("\\.");
-        Balance commissionRateCount = new Balance(values[0], values[1],
-                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
-        value = balance / 100.0f;
-        values = String.format("%.2f", value).split("\\.");
-        balanceCount = new Balance(values[0], values[1],
-                CurrencyCodeFactory.getSymbolByCurrencyCode(980));
-        value = cashbackAmount / 100.0f;
-        values = String.format("%.2f", value).split("\\.");
-        Balance cashbackAmountCount = new Balance(values[0], values[1],
-                CurrencyCodeFactory.getSymbolByCurrencyCode(980));
-        value = (float) amount / operationAmount;
-        values = String.format("%.4f", value).split("\\.");
-        Balance currencyCount = new Balance(values[0], values[1],
-                CurrencyCodeFactory.getSymbolByCurrencyCode(980));
-        value = amount / 100.0f;
-        values = String.format("%.2f", value).split("\\.");
-        Balance amountCount = new Balance(values[0], values[1],
-                CurrencyCodeFactory.getSymbolByCurrencyCode(980));
-        return (operationAmount < 0 ? "Списание с карты" : "Пополнение на карту") + "\n" + description + "\n" + (comment != null ? comment + "\n" : "")
-                + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.ofHours(2)).format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm", new Locale("ru"))) + "\n"
-                + operationAmountCount + (currencyCode != 980 ? " * " + currencyCount + " = " + amountCount : "") + "\nКомиссия: " + commissionRateCount + "\nНа балансе: " + balanceCount + "\nКешбек: " + cashbackAmountCount;
     }
 }

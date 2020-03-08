@@ -28,15 +28,4 @@ public class UserInfo {
     public void setAccounts(Account[] accounts) {
         this.accounts = accounts;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("<b>Мой Баланс:</b>\n");
-        for (Account account: accounts) {
-            result.append(account.toString());
-            result.append("\n------------------------------\n\n");
-        }
-        return result.toString();
-    }
 }

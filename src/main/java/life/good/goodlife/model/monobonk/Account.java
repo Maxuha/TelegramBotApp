@@ -1,6 +1,6 @@
 package life.good.goodlife.model.monobonk;
 
-import life.good.goodlife.statics.CurrencyCodeFactory;
+import life.good.goodlife.model.bank.CurrencyCodeFactory;
 
 import javax.persistence.*;
 
@@ -11,16 +11,16 @@ public class Account {
     private String id;
 
     @Column(name = "currency_code")
-    private int currencyCode;
+    private Integer currencyCode;
 
     @Column(name = "cashback_type")
     private String cashbackType;
 
     @Transient
-    private int balance;
+    private Integer balance;
 
     @Transient
-    private int creditLimit;
+    private Integer creditLimit;
 
     @Column(name = "masked_pan")
     private String[] maskedPan;
@@ -36,11 +36,11 @@ public class Account {
         this.id = id;
     }
 
-    public int getCurrencyCode() {
+    public Integer getCurrencyCode() {
         return currencyCode;
     }
 
-    public void setCurrencyCode(int currencyCode) {
+    public void setCurrencyCode(Integer currencyCode) {
         this.currencyCode = currencyCode;
     }
 
@@ -52,19 +52,19 @@ public class Account {
         this.cashbackType = cashbackType;
     }
 
-    public int getBalance() {
+    public Integer getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(Integer balance) {
         this.balance = balance;
     }
 
-    public int getCreditLimit() {
+    public Integer getCreditLimit() {
         return creditLimit;
     }
 
-    public void setCreditLimit(int creditLimit) {
+    public void setCreditLimit(Integer creditLimit) {
         this.creditLimit = creditLimit;
     }
 
@@ -82,24 +82,5 @@ public class Account {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        float value = balance / 100.0f;
-        String[] balanceCount = Float.toString(value).split("\\.");
-        Balance balance = new Balance(balanceCount[0], balanceCount[1],
-                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
-        value = creditLimit / 100.0f;
-        balanceCount = Float.toString(value).split("\\.");
-        Balance balanceCreditLimit = new Balance(balanceCount[0], balanceCount[1],
-                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < maskedPan.length; i++) {
-            result.append("Карта: ").append(maskedPan[i]).append("\nТип: ")
-                    .append(type).append("\nБаланс: ").append(balance)
-                    .append("\nКредитный лимит: ").append(balanceCreditLimit).append("\n");
-        }
-        return result.toString();
     }
 }

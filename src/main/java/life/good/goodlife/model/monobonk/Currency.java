@@ -1,6 +1,6 @@
 package life.good.goodlife.model.monobonk;
 
-import life.good.goodlife.statics.CurrencyCodeFactory;
+import life.good.goodlife.model.bank.CurrencyCodeFactory;
 
 public class Currency {
     private Integer currencyCodeA;
@@ -47,14 +47,5 @@ public class Currency {
 
     public void setRateSell(Float rateSell) {
         this.rateSell = rateSell;
-    }
-
-    @Override
-    public String toString() {
-        String flag = CurrencyCodeFactory.getFlagByCurrencyCode(currencyCodeA);
-        if (flag != null) {
-            return flag + "    " + String.format("%.2f", rateBuy) + "         " + String.format("%.2f", rateSell);
-        } else
-            return "";
     }
 }
