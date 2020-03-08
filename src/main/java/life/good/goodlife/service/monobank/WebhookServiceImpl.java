@@ -30,15 +30,14 @@ public class WebhookServiceImpl implements WebhookService {
                 webhook.getData().getStatementItem().getCurrencyCode());
         int amount = webhook.getData().getStatementItem().getAmount();
         Balance amountBalance = Balance.getBalanceFactory(amount, 980);
-        result += "<b>" + operationAmountBalance + "</b>" + " * " + (amount / operationAmount) + " " +
-                CurrencyCodeFactory.getSymbolByCurrencyCode(webhook.getData().getStatementItem().getCurrencyCode()) +
+        result += operationAmountBalance + " * " + (amount / operationAmount) + " " +
+                CurrencyCodeFactory.getSymbolByCurrencyCode(980) +
                 " = " + amountBalance + "\n";
-        Balance commission = Balance.getBalanceFactory(webhook.getData().getStatementItem().getCommissionRate(),
-                webhook.getData().getStatementItem().getCurrencyCode());
+        Balance commission = Balance.getBalanceFactory(webhook.getData().getStatementItem().getCommissionRate(), 980);
         result += "Комиссия: " + commission + "\n";
         Balance cashback = Balance.getBalanceFactory(webhook.getData().getStatementItem().getCashbackAmount(), 980);
         result += "Кешбек: " + cashback + "\n";
-        result += "На балансе: " + balance + "\n";
+        result += "<b>На балансе: " + balance + "</b>\n";
         return result;
     }
 
