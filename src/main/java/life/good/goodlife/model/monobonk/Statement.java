@@ -23,16 +23,16 @@ public class Statement {
     @Column
     private Integer amount;
 
-    @Column
+    @Column(name = "operation_amount")
     private Integer operationAmount;
 
-    @Column
+    @Column(name = "currency_code")
     private Integer currencyCode;
 
-    @Column
+    @Column(name = "commission_rate")
     private Integer commissionRate;
 
-    @Column
+    @Column(name = "cashback_amount")
     private Integer cashbackAmount;
 
     @Column
