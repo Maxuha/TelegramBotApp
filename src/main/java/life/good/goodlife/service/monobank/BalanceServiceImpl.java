@@ -23,13 +23,11 @@ public class BalanceServiceImpl implements BalanceService {
         StringBuilder result = new StringBuilder("<b>Мой баланс: <b>\n\n");
         Account[] accounts = userInfo.getAccounts();
         for (Account account : accounts) {
-            result.append("Карта: ").append(account.getMaskedPan()[0])
-                    .append("Тип: ").append(account.getType())
-                    .append("Баланс: ").append(getBalance(account.getBalance(), account.getCurrencyCode()))
-                    .append("Кредитный лимит: ").append(getBalance(account.getCreditLimit(), account.getCurrencyCode()))
-                    .append("\n")
-                    .append("------------------------------------------")
-                    .append("\n");
+            result.append("Карта: ").append(account.getMaskedPan()[0]).append("\n")
+                    .append("Тип: ").append(account.getType()).append("\n")
+                    .append("Баланс: ").append(getBalance(account.getBalance(), account.getCurrencyCode())).append("\n")
+                    .append("Кредитный лимит: ").append(getBalance(account.getCreditLimit(), account.getCurrencyCode())).append("\n")
+                    .append("\n------------------------------------------\n");
         }
         return result.toString();
     }
@@ -44,6 +42,7 @@ public class BalanceServiceImpl implements BalanceService {
             balances[1] = balanceStr.substring(0, balanceStr.length()-2);
         } else {
             balances[0] = balanceStr;
+            balances[1] = "0";
         }
         return new Balance(balances[1], balances[0],
                 CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
