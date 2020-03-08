@@ -23,11 +23,13 @@ public class BalanceServiceImpl implements BalanceService {
         StringBuilder result = new StringBuilder("<b>Мой баланс: <b>\n\n");
         Account[] accounts = userInfo.getAccounts();
         for (Account account : accounts) {
-            result.append("Карта: ").append(account.getMaskedPan()[0]).append("\n")
-                    .append("Тип: ").append(account.getType()).append("\n")
-                    .append("Баланс: ").append(getBalance(account.getBalance(), account.getCurrencyCode())).append("\n")
-                    .append("Кредитный лимит: ").append(getBalance(account.getCreditLimit(), account.getCurrencyCode())).append("\n")
-                    .append("\n------------------------------------------\n");
+            for (int i = 0; i < account.getMaskedPan().length; i++) {
+                result.append("Карта: ").append(account.getMaskedPan()[i]).append("\n")
+                        .append("Тип: ").append(account.getType()).append("\n")
+                        .append("Баланс: ").append(getBalance(account.getBalance(), account.getCurrencyCode())).append("\n")
+                        .append("Кредитный лимит: ").append(getBalance(account.getCreditLimit(), account.getCurrencyCode())).append("\n")
+                        ;
+            }
         }
         return result.toString();
     }
