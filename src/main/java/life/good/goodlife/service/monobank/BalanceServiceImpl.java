@@ -20,7 +20,7 @@ public class BalanceServiceImpl implements BalanceService {
         String data = Request.get("https://api.monobank.ua/personal/client-info", headers);
         Gson gson = new Gson();
         UserInfo userInfo = gson.fromJson(data, UserInfo.class);
-        StringBuilder result = new StringBuilder("<b>Мой баланс: <b>\n\n");
+        StringBuilder result = new StringBuilder("<b>Мой баланс: </b>\n\n");
         Account[] accounts = userInfo.getAccounts();
         for (Account account : accounts) {
             for (int i = 0; i < account.getMaskedPan().length; i++) {
