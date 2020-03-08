@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "webhook/")
 public class WebhookController {
-    private static Logger logger = LoggerFactory.getLogger(WeatherController.class);
+    private static Logger logger = LoggerFactory.getLogger(WebhookController.class);
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
     private final UserService userService;
     private final WebhookServiceImpl webhookService;
@@ -37,7 +37,7 @@ public class WebhookController {
     public ResponseEntity <?> monobank(@RequestBody String raw, @RequestHeader("Content-Type") String type) {
         String info = webhookService.createOperation(raw);
         logger.info("Get webhook: {}", raw);
-        //telegramBotExecuteComponent.sendMessageHtml(userService.findById(1).getChatId(), raw);
+        telegramBotExecuteComponent.sendMessageHtml(userService.findById(1).getChatId(), raw);
         return ResponseEntity.ok("ok");
     }
 }
