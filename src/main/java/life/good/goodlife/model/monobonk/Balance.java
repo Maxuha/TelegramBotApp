@@ -47,7 +47,7 @@ public class Balance {
         String balanceStr;
 
         balanceStr = balance.toString();
-        if (balance > 99) {
+        if (Math.abs(balance) > 99) {
             balances[0] = balanceStr.substring(balanceStr.length()-2);
             balances[1] = balanceStr.substring(0, balanceStr.length()-2);
         } else {
