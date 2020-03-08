@@ -39,7 +39,7 @@ public class StatementServiceImpl implements StatementService {
 
     @Override
     public Long getLastTimeByAccountId(String accountId) {
-        return statementRepository.findByAccountIdFirstOrderByTimeDesc(accountId);
+        return statementRepository.findFirstByAccountIdOrderByTimeDesc(accountId).getTime();
     }
 
     @Override
@@ -48,8 +48,8 @@ public class StatementServiceImpl implements StatementService {
         headers.put("X-Token", token);
         Long prevSecond = second;
         logger.info("Get Statements to second: {}", second);
-        Boolean response = true;
-        Integer failedResponse = 0;
+        boolean response = true;
+        int failedResponse = 0;
         Gson gson;
         String data;
         Statement[] statements;
