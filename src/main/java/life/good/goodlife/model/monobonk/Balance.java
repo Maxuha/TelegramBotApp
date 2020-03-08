@@ -51,8 +51,13 @@ public class Balance {
             balances[0] = balanceStr.substring(balanceStr.length()-2);
             balances[1] = balanceStr.substring(0, balanceStr.length()-2);
         } else {
-            balances[0] = balanceStr;
-            balances[1] = "0";
+            if (Math.abs(balance) > 9) {
+                balances[0] = balanceStr;
+                balances[1] = "0";
+            } else {
+                balances[0] = "0" + balanceStr;
+                balances[1] = "0";
+            }
         }
         return new Balance(balances[1], balances[0],
                 CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
