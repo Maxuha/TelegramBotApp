@@ -10,12 +10,14 @@ import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.MainMenuComponent;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.Command;
+import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.map.GeoCodeMain;
 import life.good.goodlife.model.map.Location;
 import life.good.goodlife.service.bot.CommandService;
 import life.good.goodlife.service.bot.UserHistoryService;
 import life.good.goodlife.service.bot.UserService;
 import life.good.goodlife.service.map.GeoCodeService;
+import life.good.goodlife.service.map.UserLocationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,27 +30,30 @@ public class MapController {
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
     private final MainMenuComponent mainMenuComponent;
     private final CommandService commandService;
+    private final UserLocationService userLocationService;
 
     public MapController(GeoCodeService geoCodeService, UserHistoryService userHistoryService, UserService userService,
                          TelegramBotExecuteComponent telegramBotExecuteComponent, MainMenuComponent mainMenuComponent,
-                         CommandService commandService) {
+                         CommandService commandService, UserLocationService userLocationService) {
         this.geoCodeService = geoCodeService;
         this.userHistoryService = userHistoryService;
         this.userService = userService;
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
         this.mainMenuComponent = mainMenuComponent;
         this.commandService = commandService;
+        this.userLocationService = userLocationService;
     }
 
     @BotRequest("Карта")
     BaseRequest mapBtn(Long chatId) {
         logger.info("Find command: 'Карта'");
         Command command = commandService.findCommandsByName("Карта");
+        User user = userService.findByChatId(chatId);
         logger.info("Creating history command 'Карта'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        userHistoryService.createUserHistory(user.getId(), command);
         String msg = commandService.findCommandsByName("Карта").getFullDescription();
-        /*logger.info("Get weather");
-        response = weatherService.weather(location, user.getId());*/
+        Location location = userLocationService.getUserLocationByUserId(user.getId());
+        KeyboardButton searchPlace;
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Поиск места"),
@@ -56,8 +61,8 @@ public class MapController {
                         new KeyboardButton("Главное меню")
                 }
         );
-        SendMessage sendMessage = new SendMessage(chatId, msg).replyMarkup(replayKeyboard);
-        return mainMenuComponent.showMainMenu(chatId, "", null);
+
+        return new SendMessage(chatId, msg).replyMarkup(replayKeyboard);
     }
 
     @BotRequest("/search_places **")
