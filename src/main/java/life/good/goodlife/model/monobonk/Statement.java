@@ -1,9 +1,6 @@
 package life.good.goodlife.model.monobonk;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "monobank_statement")
@@ -44,6 +41,7 @@ public class Statement {
     @Column
     private Boolean hold;
 
+    @Transient
     private Balance balanceCount;
 
     public String getId() {
