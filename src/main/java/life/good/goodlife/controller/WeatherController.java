@@ -53,6 +53,7 @@ public class WeatherController {
         if (location != null) {
             logger.info("Get weather");
             msg += "\n" + weatherService.weather(location.getLat(), location.getLng(), user.getId());
+
         }
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
