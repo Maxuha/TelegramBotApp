@@ -10,7 +10,10 @@ import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.MainMenuComponent;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.Command;
+import life.good.goodlife.model.bot.User;
+import life.good.goodlife.model.map.Location;
 import life.good.goodlife.service.bot.*;
+import life.good.goodlife.service.map.UserLocationService;
 import life.good.goodlife.service.weather.WeatherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,34 +27,40 @@ public class WeatherController {
     private final CommandService commandService;
     private final MainMenuComponent mainMenuComponent;
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
+    private final UserLocationService userLocationService;
 
     public WeatherController(WeatherService weatherService, UserHistoryService userHistoryService, UserService userService,
                              CommandService commandService, MainMenuComponent mainMenuComponent,
-                             TelegramBotExecuteComponent telegramBotExecuteComponent) {
+                             TelegramBotExecuteComponent telegramBotExecuteComponent, UserLocationService userLocationService) {
         this.weatherService = weatherService;
         this.userHistoryService = userHistoryService;
         this.userService = userService;
         this.commandService = commandService;
         this.mainMenuComponent = mainMenuComponent;
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
+        this.userLocationService = userLocationService;
     }
 
     @BotRequest("Погода")
     BaseRequest weather(Long chatId) {
         logger.info("Find command: 'Погода'");
         Command command = commandService.findCommandsByName("Погода");
+        User user = userService.findByChatId(chatId);
         logger.info("Creating history command 'Погода'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        userHistoryService.createUserHistory(user.getId(), command);
         String msg = commandService.findCommandsByName("Погода").getFullDescription();
-        SendMessage sendMessage = new SendMessage(chatId, msg);
+        Location location = userLocationService.getUserLocationByUserId(user.getId());
+        if (location != null) {
+            logger.info("Get weather");
+            msg += "\n" + weatherService.weather(location.getLat(), location.getLng(), user.getId());
+        }
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Предоставить местоположение").requestLocation(true),
                         new KeyboardButton("Главное меню")
                 }
         );
-        sendMessage.replyMarkup(replayKeyboard);
-        return sendMessage;
+        return new SendMessage(chatId, msg).replyMarkup(replayKeyboard);
     }
 
     @BotRequest("/weather **")

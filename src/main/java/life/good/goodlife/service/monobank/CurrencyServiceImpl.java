@@ -18,7 +18,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         String data = Request.get("https://api.monobank.ua/bank/currency", headers);
         Gson gson = new Gson();
         Currency[] currencies = gson.fromJson(data, Currency[].class);
-        StringBuilder result = new StringBuilder("<b>Курс валют</b>\n            Покупка     Продажа\n");
+        StringBuilder result = new StringBuilder("<b>Курс валют</b>\n\n            Покупка     Продажа\n");
         String flag;
         for (Currency currency : currencies) {
             flag = CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA());

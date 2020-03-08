@@ -46,6 +46,9 @@ public class MapController {
         Command command = commandService.findCommandsByName("Карта");
         logger.info("Creating history command 'Карта'");
         userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        String msg = commandService.findCommandsByName("Карта").getFullDescription();
+        /*logger.info("Get weather");
+        response = weatherService.weather(location, user.getId());*/
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Поиск места"),
@@ -53,6 +56,7 @@ public class MapController {
                         new KeyboardButton("Главное меню")
                 }
         );
+        SendMessage sendMessage = new SendMessage(chatId, msg).replyMarkup(replayKeyboard);
         return mainMenuComponent.showMainMenu(chatId, "", null);
     }
 

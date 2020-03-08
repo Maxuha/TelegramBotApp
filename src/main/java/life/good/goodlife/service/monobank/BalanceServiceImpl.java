@@ -28,7 +28,7 @@ public class BalanceServiceImpl implements BalanceService {
                         .append("Тип: ").append(account.getType()).append("\n")
                         .append("Баланс: ").append(getBalance(account.getBalance(), account.getCurrencyCode())).append("\n")
                         .append("Кредитный лимит: ").append(getBalance(account.getCreditLimit(), account.getCurrencyCode())).append("\n")
-                        .append("\n------------------------------------------------------\n");
+                        .append("\n------------------------------------------------------\n\n");
             }
         }
         return result.toString();
