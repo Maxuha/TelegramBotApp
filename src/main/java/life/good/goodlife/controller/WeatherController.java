@@ -4,41 +4,44 @@ import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.KeyboardButton;
-import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.MainMenuComponent;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
-import life.good.goodlife.component.UserHistoryComponent;
-import life.good.goodlife.service.bot.CommandService;
-import life.good.goodlife.service.bot.UserService;
+import life.good.goodlife.model.bot.Command;
+import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.weather.WeatherService;
-import org.springframework.core.env.Environment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @BotController
 public class WeatherController {
+    private static Logger logger = LoggerFactory.getLogger(WeatherController.class);
     private final WeatherService weatherService;
-    private final UserHistoryComponent userHistoryComponent;
+    private final UserHistoryService userHistoryService;
     private final UserService userService;
     private final CommandService commandService;
-    private final Environment environment;
     private final MainMenuComponent mainMenuComponent;
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
 
-    public WeatherController(WeatherService weatherService, UserHistoryComponent userHistoryComponent, UserService userService, CommandService commandService, Environment environment, MainMenuComponent mainMenuComponent, TelegramBotExecuteComponent telegramBotExecuteComponent) {
+    public WeatherController(WeatherService weatherService, UserHistoryService userHistoryService, UserService userService,
+                             CommandService commandService, MainMenuComponent mainMenuComponent,
+                             TelegramBotExecuteComponent telegramBotExecuteComponent) {
         this.weatherService = weatherService;
-        this.userHistoryComponent = userHistoryComponent;
+        this.userHistoryService = userHistoryService;
         this.userService = userService;
         this.commandService = commandService;
-        this.environment = environment;
         this.mainMenuComponent = mainMenuComponent;
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
     }
 
     @BotRequest("Погода")
     BaseRequest weather(Long chatId) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Погода");
+        logger.info("Find command: 'Погода'");
+        Command command = commandService.findCommandsByName("Погода");
+        logger.info("Creating history command 'Погода'");
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
         String msg = commandService.findCommandsByName("Погода").getFullDescription();
         SendMessage sendMessage = new SendMessage(chatId, msg);
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
@@ -53,7 +56,10 @@ public class WeatherController {
 
     @BotRequest("/weather **")
     BaseRequest weatherByCity(Long chatId, String text) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/weather");
+        logger.info("Find command: '/weather'");
+        Command command = commandService.findCommandsByName("/weather");
+        logger.info("Creating history command '/weather'");
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
         String[] results = text.split(" ");
         StringBuilder city = new StringBuilder();
         String response = "";
@@ -61,6 +67,7 @@ public class WeatherController {
             for (int i = 1; i < results.length; i++) {
                 city.append(results[i]).append(" ");
             }
+            logger.info("Get weather by {}", city.toString().trim());
             response = weatherService.weatherByCity(city.toString().trim());
         } else {
             response = "Укажите город или предоставьте своё местопложение.";
@@ -70,7 +77,10 @@ public class WeatherController {
 
     @BotRequest("/weather6 **")
     BaseRequest weatherFiveByCity(Long chatId, String text) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "/weather6");
+        logger.info("Find command: '/weather6'");
+        Command command = commandService.findCommandsByName("/weather6");
+        logger.info("Creating history command '/weather6'");
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
         String[] results = text.split(" ");
         StringBuilder city = new StringBuilder();
         String[] data;

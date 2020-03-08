@@ -4,13 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Map;
 
 public class Request {
+    private static StringBuffer result;
+    private static BufferedReader reader;
+
     public static String get(String address, Map<String, String> headers) {
-        StringBuffer result;
-        BufferedReader reader = null;
         try {
             URL url = new URL(address);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -27,8 +29,7 @@ public class Request {
         } catch (IOException e) {
             System.out.println("Stream input error - " + e.getMessage());
             result = new StringBuffer(address);
-        }
-        finally {
+        } finally {
             if (reader != null) {
                 try {
                     reader.close();
@@ -42,23 +43,12 @@ public class Request {
     }
 
     public static String get(String address) {
-        StringBuffer result;
-        BufferedReader reader = null;
         try {
-            URL url = new URL(address);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String resultLine;
-            result = new StringBuffer();
-            while ((resultLine = reader.readLine()) != null) {
-                result.append(resultLine);
-            }
+            getConnect(address);
         } catch (IOException e) {
             System.out.println("Stream input error - " + e.getMessage());
             result = new StringBuffer(address);
-        }
-        finally {
+        } finally {
             if (reader != null) {
                 try {
                     reader.close();
@@ -72,23 +62,12 @@ public class Request {
     }
 
     public static String get(String address, String entity) {
-        StringBuffer result;
-        BufferedReader reader = null;
         try {
-            URL url = new URL(address);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String resultLine;
-            result = new StringBuffer();
-            while ((resultLine = reader.readLine()) != null) {
-                result.append(resultLine);
-            }
+            getConnect(address);
         } catch (IOException e) {
             System.out.println("Stream input error - " + e.getMessage());
             result = new StringBuffer(entity);
-        }
-        finally {
+        } finally {
             if (reader != null) {
                 try {
                     reader.close();
@@ -99,5 +78,17 @@ public class Request {
             }
         }
         return result.toString();
+    }
+
+    private static void getConnect(String address) throws IOException {
+        URL url = new URL(address);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String resultLine;
+        result = new StringBuffer();
+        while ((resultLine = reader.readLine()) != null) {
+            result.append(resultLine);
+        }
     }
 }

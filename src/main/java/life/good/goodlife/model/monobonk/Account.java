@@ -1,6 +1,6 @@
 package life.good.goodlife.model.monobonk;
 
-import life.good.goodlife.statics.CurrencyCode;
+import life.good.goodlife.statics.CurrencyCodeFactory;
 
 import javax.persistence.*;
 
@@ -89,11 +89,11 @@ public class Account {
         float value = balance / 100.0f;
         String[] balanceCount = Float.toString(value).split("\\.");
         Balance balance = new Balance(balanceCount[0], balanceCount[1],
-                CurrencyCode.getSymbolByCurrencyCode(currencyCode));
+                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
         value = creditLimit / 100.0f;
         balanceCount = Float.toString(value).split("\\.");
         Balance balanceCreditLimit = new Balance(balanceCount[0], balanceCount[1],
-                CurrencyCode.getSymbolByCurrencyCode(currencyCode));
+                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < maskedPan.length; i++) {
             result.append("Карта: ").append(maskedPan[i]).append("\nТип: ")

@@ -1,8 +1,8 @@
 package life.good.goodlife.repos.bot;
 
-import life.good.goodlife.model.bot.Commands;
+import life.good.goodlife.model.bot.Command;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CommandsRepository extends JpaRepository<Commands, Long> {
-    Commands getByTitle(String title);
+public interface CommandsRepository extends JpaRepository<Command, Long> {
+    Command getByTitle(String title);
 }

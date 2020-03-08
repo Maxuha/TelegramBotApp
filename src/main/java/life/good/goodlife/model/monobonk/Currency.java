@@ -1,6 +1,6 @@
 package life.good.goodlife.model.monobonk;
 
-import life.good.goodlife.statics.CurrencyCode;
+import life.good.goodlife.statics.CurrencyCodeFactory;
 
 public class Currency {
     private Integer currencyCodeA;
@@ -51,7 +51,7 @@ public class Currency {
 
     @Override
     public String toString() {
-        String flag = CurrencyCode.getFlagByCurrencyCode(currencyCodeA);
+        String flag = CurrencyCodeFactory.getFlagByCurrencyCode(currencyCodeA);
         if (flag != null) {
             return flag + "    " + String.format("%.2f", rateBuy) + "         " + String.format("%.2f", rateSell);
         } else

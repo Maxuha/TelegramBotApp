@@ -10,53 +10,68 @@ import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.MainMenuComponent;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
-import life.good.goodlife.component.UserHistoryComponent;
+import life.good.goodlife.model.bot.Command;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.bot.UserHistory;
 import life.good.goodlife.model.map.NearbyMain;
+import life.good.goodlife.service.bot.CommandService;
+import life.good.goodlife.service.bot.UserHistoryService;
 import life.good.goodlife.service.bot.UserService;
-import life.good.goodlife.service.map.NearbyService;
-import life.good.goodlife.service.weather.WeatherService;
-import org.springframework.core.env.Environment;
+import life.good.goodlife.service.map.NearbyServiceImpl;
+import life.good.goodlife.service.weather.WeatherServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @BotController
 public class SystemController {
-    private final UserHistoryComponent userHistoryComponent;
+    private static Logger logger = LoggerFactory.getLogger(SystemController.class);
+    private final UserHistoryService userHistoryService;
     private final MainMenuComponent mainMenuComponent;
     private final UserService userService;
-    private final Environment environment;
-    private final WeatherService weatherService;
-    private final NearbyService nearbyService;
+    private final WeatherServiceImpl weatherService;
+    private final NearbyServiceImpl nearbyService;
+    private final CommandService commandService;
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
 
-    public SystemController(UserHistoryComponent userHistoryComponent, MainMenuComponent mainMenuComponent, UserService userService, Environment environment, WeatherService weatherService, NearbyService nearbyService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
-        this.userHistoryComponent = userHistoryComponent;
+    public SystemController(UserHistoryService userHistoryService, MainMenuComponent mainMenuComponent,
+                            UserService userService, WeatherServiceImpl weatherService, NearbyServiceImpl nearbyService,
+                            CommandService commandService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
+        this.userHistoryService = userHistoryService;
         this.mainMenuComponent = mainMenuComponent;
         this.userService = userService;
-        this.environment = environment;
         this.weatherService = weatherService;
         this.nearbyService = nearbyService;
+        this.commandService = commandService;
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
     }
 
     @BotRequest("Главное меню")
     BaseRequest mainMenu(Long chatId) {
-        userHistoryComponent.createUserHistory(userService.findByChatId(chatId).getId(), "Главное меню");
+        logger.info("Find command: 'Главное меню'");
+        Command command = commandService.findCommandsByName("Главное меню");
+        logger.info("Creating history command 'Главное меню'");
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
         return mainMenuComponent.showMainMenu(chatId, "", null);
     }
 
 
     @BotRequest(messageType = MessageType.LOCATION)
     BaseRequest location(Long chatId, Message message) {
-        UserHistory userHistory = userHistoryComponent.findLastUserHistoryByUserId(userService.findByChatId(chatId).getId());
+        logger.info("Finding user by chatId: {}", chatId);
         User user = userService.findByChatId(chatId);
-        userHistoryComponent.createUserHistory(user.getId(), "/set_location");
+        logger.info("Finding last history by user: {}", chatId);
+        UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(user.getId());
+        logger.info("Find command: '/set_location'");
+        Command command = commandService.findCommandsByName("/set_location");
+        logger.info("Creating history command '/set_location'");
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
         Location location = message.location();
-        System.out.println(location.latitude() + " " + location.longitude());
         String response = "Локация не пригодилась.";
         if (userHistory.getCommandsId() == 10) {
+            logger.info("Get weather");
             response = weatherService.weather(location, user.getId());
         } else if (userHistory.getCommandsId() == 22) {
+            logger.info("Get nearby places");
             NearbyMain nearbyMain = nearbyService.getNearbyPlaces(location, 500, user.getId());
             String[] data = nearbyMain.toString().split("::");
             life.good.goodlife.model.map.Location locationPlace;
@@ -67,7 +82,6 @@ public class SystemController {
                 response = "";
             }
         }
-
         return mainMenuComponent.showMainMenu(chatId, response, null);
     }
 
@@ -76,10 +90,16 @@ public class SystemController {
         User user = userService.findByChatId(chatId);
         user.setPhone(message.contact().phoneNumber());
         userService.createUser(user);
-        userHistoryComponent.createUserHistory(user.getId(), "/set_phone");
-        String msg = "Введите команду /set_email и через пробел введите ваш email. Если не хотите предоставлять почту отправьте пустую команду /set_email.";
+        UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(user.getId());
+        logger.info("Find command: '/set_phone'");
+        Command command = commandService.findCommandsByName("/set_phone");
+        logger.info("Creating history command '/set_phone'");
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        String msg = "Введите команду /set_email и через пробел введите ваш email. Если не хотите предоставлять почту " +
+                "отправьте пустую команду /set_email.";
         SendMessage sendMessage = new SendMessage(chatId, msg);
         sendMessage.replyMarkup(new ReplyKeyboardRemove());
+        logger.info("Sending message: {}", msg);
         return sendMessage;
     }
 }

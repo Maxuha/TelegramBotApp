@@ -1,6 +1,6 @@
 package life.good.goodlife.statics;
 
-public class CurrencyCode {
+public class CurrencyCodeFactory {
     public static String getFlagByCurrencyCode(int code) {
         String result;
         switch (code) {

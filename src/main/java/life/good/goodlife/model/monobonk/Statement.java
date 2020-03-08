@@ -1,6 +1,6 @@
 package life.good.goodlife.model.monobonk;
 
-import life.good.goodlife.statics.CurrencyCode;
+import life.good.goodlife.statics.CurrencyCodeFactory;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -131,27 +131,27 @@ public class Statement {
         float value = operationAmount / 100.0f;
         String[] values = String.format("%.2f", value).split("\\.");
         Balance operationAmountCount = new Balance(values[0], values[1],
-                CurrencyCode.getSymbolByCurrencyCode(currencyCode));
+                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
         value = commissionRate / 100.0f;
         values = String.format("%.2f", value).split("\\.");
         Balance commissionRateCount = new Balance(values[0], values[1],
-                CurrencyCode.getSymbolByCurrencyCode(currencyCode));
+                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
         value = balance / 100.0f;
         values = String.format("%.2f", value).split("\\.");
         balanceCount = new Balance(values[0], values[1],
-                CurrencyCode.getSymbolByCurrencyCode(980));
+                CurrencyCodeFactory.getSymbolByCurrencyCode(980));
         value = cashbackAmount / 100.0f;
         values = String.format("%.2f", value).split("\\.");
         Balance cashbackAmountCount = new Balance(values[0], values[1],
-                CurrencyCode.getSymbolByCurrencyCode(980));
+                CurrencyCodeFactory.getSymbolByCurrencyCode(980));
         value = (float) amount / operationAmount;
         values = String.format("%.4f", value).split("\\.");
         Balance currencyCount = new Balance(values[0], values[1],
-                CurrencyCode.getSymbolByCurrencyCode(980));
+                CurrencyCodeFactory.getSymbolByCurrencyCode(980));
         value = amount / 100.0f;
         values = String.format("%.2f", value).split("\\.");
         Balance amountCount = new Balance(values[0], values[1],
-                CurrencyCode.getSymbolByCurrencyCode(980));
+                CurrencyCodeFactory.getSymbolByCurrencyCode(980));
         return (operationAmount < 0 ? "Списание с карты" : "Пополнение на карту") + "\n" + description + "\n" + (comment != null ? comment + "\n" : "")
                 + LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.ofHours(2)).format(DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm", new Locale("ru"))) + "\n"
                 + operationAmountCount + (currencyCode != 980 ? " * " + currencyCount + " = " + amountCount : "") + "\nКомиссия: " + commissionRateCount + "\nНа балансе: " + balanceCount + "\nКешбек: " + cashbackAmountCount;
