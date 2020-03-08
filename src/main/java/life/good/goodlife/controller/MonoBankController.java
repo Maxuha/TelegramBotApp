@@ -115,7 +115,7 @@ public class MonoBankController {
         String token = loginService.getToken(user.getId());
         String msg = "Синхроннизация...";
         telegramBotExecuteComponent.sendMessage(chatId, msg);
-        String accountId = "cF0-POVN4umkmK1vtoPXzw";
+        String accountId = "nHyoeYqk9ZM3lc8F2yKTLw";
         Long seconds = statementService.getLastTimeByAccountId(accountId);
         if (seconds == null || seconds == 0) {
             seconds = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
