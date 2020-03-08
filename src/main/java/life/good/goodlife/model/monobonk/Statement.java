@@ -1,12 +1,5 @@
 package life.good.goodlife.model.monobonk;
 
-import life.good.goodlife.model.bank.CurrencyCodeFactory;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
 public class Statement {
     private String id;
     private Long time;

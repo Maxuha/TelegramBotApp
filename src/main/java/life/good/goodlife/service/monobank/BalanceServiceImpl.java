@@ -26,27 +26,11 @@ public class BalanceServiceImpl implements BalanceService {
             for (int i = 0; i < account.getMaskedPan().length; i++) {
                 result.append("Карта: ").append(account.getMaskedPan()[i]).append("\n")
                         .append("Тип: ").append(account.getType()).append("\n")
-                        .append("Баланс: ").append(getBalance(account.getBalance(), account.getCurrencyCode())).append("\n")
-                        .append("Кредитный лимит: ").append(getBalance(account.getCreditLimit(), account.getCurrencyCode())).append("\n")
+                        .append("Баланс: ").append(Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode())).append("\n")
+                        .append("Кредитный лимит: ").append(Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode())).append("\n")
                         .append("\n------------------------------------------------------\n\n");
             }
         }
         return result.toString();
-    }
-
-    private Balance getBalance(Integer balance, Integer currencyCode) {
-        String[] balances = new String[2];
-        String balanceStr;
-
-        balanceStr = balance.toString();
-        if (balance > 99) {
-            balances[0] = balanceStr.substring(balanceStr.length()-2);
-            balances[1] = balanceStr.substring(0, balanceStr.length()-2);
-        } else {
-            balances[0] = balanceStr;
-            balances[1] = "0";
-        }
-        return new Balance(balances[1], balances[0],
-                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
     }
 }

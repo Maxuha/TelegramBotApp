@@ -1,5 +1,7 @@
 package life.good.goodlife.model.monobonk;
 
+import life.good.goodlife.model.bank.CurrencyCodeFactory;
+
 public class Balance {
     private String main;
     private String cent;
@@ -38,5 +40,21 @@ public class Balance {
     @Override
     public String toString() {
         return main + "." + cent + " " + symbol;
+    }
+
+    public static Balance getBalanceFactory(Integer balance, Integer currencyCode) {
+        String[] balances = new String[2];
+        String balanceStr;
+
+        balanceStr = balance.toString();
+        if (balance > 99) {
+            balances[0] = balanceStr.substring(balanceStr.length()-2);
+            balances[1] = balanceStr.substring(0, balanceStr.length()-2);
+        } else {
+            balances[0] = balanceStr;
+            balances[1] = "0";
+        }
+        return new Balance(balances[1], balances[0],
+                CurrencyCodeFactory.getSymbolByCurrencyCode(currencyCode));
     }
 }
