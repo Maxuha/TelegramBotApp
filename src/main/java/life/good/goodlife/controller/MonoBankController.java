@@ -121,7 +121,7 @@ public class MonoBankController {
         logger.info("Creating history command '/balance'");
         userHistoryService.createUserHistory(user.getId(), command);
         String msg = balanceService.balance(loginService.getToken(user.getId()));
-        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        return new SendMessage(chatId, msg);
     }
 
     private SendMessage showCurrency(Long chatId) {
