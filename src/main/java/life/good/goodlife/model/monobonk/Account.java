@@ -28,6 +28,9 @@ public class Account {
     @Column
     private String type;
 
+    @Column(name = "client_id")
+    private String clientId;
+
     public String getId() {
         return id;
     }

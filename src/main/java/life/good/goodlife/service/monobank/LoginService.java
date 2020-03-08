@@ -9,4 +9,5 @@ public interface LoginService {
     void createAccount(Account account);
     String getToken(Long userId);
     UserInfo getUserInfo(String token);
+    String getClientIdByUserId(Long userId);
 }

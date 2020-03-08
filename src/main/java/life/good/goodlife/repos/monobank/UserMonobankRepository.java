@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserMonobankRepository extends JpaRepository<UserMonobank, Long> {
     UserMonobank findByUserId(Long userId);
+    UserMonobank findFirstByUserId(Long userId);
 }

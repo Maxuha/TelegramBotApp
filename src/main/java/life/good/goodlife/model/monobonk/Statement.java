@@ -44,6 +44,9 @@ public class Statement {
     @Transient
     private Balance balanceCount;
 
+    @Column(name = "account_id")
+    private String accountId;
+
     public String getId() {
         return id;
     }

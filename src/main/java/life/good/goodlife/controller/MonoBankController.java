@@ -20,6 +20,9 @@ import life.good.goodlife.service.monobank.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 @BotController
 public class MonoBankController {
     private static Logger logger = LoggerFactory.getLogger(MonoBankController.class);
@@ -112,7 +115,12 @@ public class MonoBankController {
         String token = loginService.getToken(user.getId());
         String msg = "Синхроннизация...";
         telegramBotExecuteComponent.sendMessage(chatId, msg);
-        statementService.CreateStatements(token);
+        String accountId = "cF0-POVN4umkmK1vtoPXzw";
+        Long seconds = statementService.getLastTimeByAccountId(accountId);
+        if (seconds == null || seconds == 0) {
+            seconds = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        }
+        statementService.createStatements(token, seconds);
         msg = "Синхроннизация успешна";
         return new SendMessage(chatId, msg);
     }

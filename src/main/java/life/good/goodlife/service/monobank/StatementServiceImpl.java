@@ -38,14 +38,18 @@ public class StatementServiceImpl implements StatementService {
     }
 
     @Override
-    public void CreateStatements(String token) {
+    public Long getLastTimeByAccountId(String accountId) {
+        return statementRepository.findByAccountIdFirstOrderByTimeDesc(accountId);
+    }
+
+    @Override
+    public void createStatements(String token, Long second) {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Token", token);
-        long second = LocalDateTime.now().toEpochSecond(ZoneOffset.ofHours(2));
-        long prevSecond = second;
+        Long prevSecond = second;
         logger.info("Get Statements to second: {}", second);
-        boolean response = true;
-        int failedResponse = 0;
+        Boolean response = true;
+        Integer failedResponse = 0;
         Gson gson;
         String data;
         Statement[] statements;
@@ -67,6 +71,7 @@ public class StatementServiceImpl implements StatementService {
             if (failedResponse == 5) {
                 response = false;
             }
+            logger.info("Failed response: " + failedResponse);
             try {
                 Thread.sleep(60000);
             } catch (InterruptedException e) {

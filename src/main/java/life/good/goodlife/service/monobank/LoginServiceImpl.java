@@ -49,4 +49,9 @@ public class LoginServiceImpl implements LoginService {
         Gson gson = new Gson();
         return gson.fromJson(data, UserInfo.class);
     }
+
+    @Override
+    public String getClientIdByUserId(Long userId) {
+        return userMonobankRepository.findFirstByUserId(userId).getClientId();
+    }
 }
