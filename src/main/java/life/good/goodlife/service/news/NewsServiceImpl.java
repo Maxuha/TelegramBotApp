@@ -20,11 +20,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public Article[] getNews(int count, int offset, String category) {
+    public Article[] getNews(int page, String category) {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Api-Key", token);
-        String data = Request.get("https://newsapi.org/v2/top-headlines?country=ua&category=" + category +
-                "&pageSize=" + count + "&page=" + offset, headers);
+        String data = Request.get("https://newsapi.org/v2/top-headlines?country=ua&category=" + category
+                + "&page=" + page, headers);
         Gson gson = new Gson();
         News news = gson.fromJson(data, News.class);
         return news.getArticles();
