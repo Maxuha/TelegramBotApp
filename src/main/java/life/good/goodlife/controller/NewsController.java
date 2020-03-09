@@ -9,12 +9,16 @@ import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.news.Article;
 import life.good.goodlife.service.news.NewsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.*;
 
 @BotController
 public class NewsController {
+    private static Logger logger = LoggerFactory.getLogger(NewsController.class);
     private final NewsService newsService;
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
     private int page = 1;
@@ -51,7 +55,18 @@ public class NewsController {
     }
 
     private void sendFiveNews(Long chatId) {
-        Article[] articles = newsService.getNews(1, "general");
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        CompletionService<Article[]> completionService = new ExecutorCompletionService<>(executorService);
+        Future<Article[]> submit = completionService.submit(() -> newsService.getNews(page, "general"));
+
+        Article[] articles = new Article[0];
+        try {
+            articles = submit.get();
+        } catch (InterruptedException e) {
+            logger.error("Interrupted thread - " + e.getMessage());
+        } catch (ExecutionException e) {
+            logger.error("Failed execution thread - " + e.getMessage());
+        }
         StringBuilder result = new StringBuilder("Главные новости: \n");
         for (int i = offset; i < size + offset; i++) {
             result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(articles[i].getPublishedAt()
@@ -61,7 +76,7 @@ public class NewsController {
             result = new StringBuilder();
         }
         offset += size;
-        if (offset == 35) {
+        if (offset == 20) {
             page++;
             offset = 0;
         }
