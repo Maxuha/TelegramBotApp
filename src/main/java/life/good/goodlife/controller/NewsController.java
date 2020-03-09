@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.news.Article;
+import life.good.goodlife.model.news.CategoryNews;
 import life.good.goodlife.model.news.News;
 import life.good.goodlife.service.news.NewsService;
 import org.slf4j.Logger;
@@ -35,11 +36,10 @@ public class NewsController {
     BaseRequest getNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{"Следущие 5 новостей"},
-                new String[]{"Главные", "Здоровье", "Наука", "Спорт", "Технологии"},
+                new String[]{"Музыка", "Здоровье", "Наука", "Спорт", "Технологии"},
                 new String[]{"Главное меню"})
-                .oneTimeKeyboard(true)
-                .resizeKeyboard(true);
-        if (sendFiveNews(chatId)) {
+                .resizeKeyboard(false);
+        if (sendFiveNews(chatId, CategoryNews.general)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
@@ -48,17 +48,129 @@ public class NewsController {
 
     @BotRequest("Следущие 5 новостей")
     BaseRequest getNextNews(Long chatId) {
-        if (sendFiveNews(chatId)) {
+        if (sendFiveNews(chatId, CategoryNews.none)) {
             return new SendMessage(chatId, "Приятного чтения ☕").disableNotification(true);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22");
         }
     }
 
-    private boolean sendFiveNews(Long chatId) {
+    @BotRequest("Главные")
+    BaseRequest getGeneralNews(Long chatId) {
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Музыка", "Здоровье", "Наука", "Спорт", "Технологии"},
+                new String[]{"Главное меню"})
+                .resizeKeyboard(false);
+        if (sendFiveNews(chatId, CategoryNews.general)) {
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        }
+    }
+
+    @BotRequest("Музыка")
+    BaseRequest getMusicNews(Long chatId) {
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Главные", "Здоровье", "Наука", "Спорт", "Технологии"},
+                new String[]{"Главное меню"})
+                .resizeKeyboard(false);
+        if (sendFiveNews(chatId, CategoryNews.music)) {
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        }
+    }
+
+    @BotRequest("Развлечение")
+    BaseRequest getEntertainmentNews(Long chatId) {
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Главные", "Здоровье", "Развлечение", "Спорт", "Технологии"},
+                new String[]{"Главное меню"})
+                .resizeKeyboard(false);
+        if (sendFiveNews(chatId, CategoryNews.entertainment)) {
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        }
+    }
+
+    @BotRequest("Здоровье")
+    BaseRequest getHealthNews(Long chatId) {
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Главные", "Бизнес", "Развлечение", "Спорт", "Технологии"},
+                new String[]{"Главное меню"})
+                .resizeKeyboard(false);
+        if (sendFiveNews(chatId, CategoryNews.health)) {
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        }
+    }
+
+    @BotRequest("Наука")
+    BaseRequest getScienceNews(Long chatId) {
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Музыка", "Здоровье", "Развлечение", "Спорт", "Технологии"},
+                new String[]{"Главное меню"})
+                .resizeKeyboard(false);
+        if (sendFiveNews(chatId, CategoryNews.science)) {
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        }
+    }
+
+    @BotRequest("Технологии")
+    BaseRequest getTechnologyNews(Long chatId) {
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Музыка", "Здоровье", "Развлечение", "Главные", "Спорт"},
+                new String[]{"Главное меню"})
+                .resizeKeyboard(false);
+        if (sendFiveNews(chatId, CategoryNews.technology)) {
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        }
+    }
+
+    @BotRequest("Спорт")
+    BaseRequest getSportNews(Long chatId) {
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Музыка", "Здоровье", "Развлечение", "Главные", "Технологии"},
+                new String[]{"Главное меню"})
+                .resizeKeyboard(false);
+        if (sendFiveNews(chatId, CategoryNews.sports)) {
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        }
+    }
+
+    @BotRequest("Бизнес")
+    BaseRequest getBusinessNews(Long chatId) {
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Музыка", "Здоровье", "Развлечение", "Главные", "Технологии"},
+                new String[]{"Главное меню"})
+                .resizeKeyboard(false);
+        if (sendFiveNews(chatId, CategoryNews.business)) {
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        }
+    }
+
+    private boolean sendFiveNews(Long chatId, CategoryNews category) {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         CompletionService<News> completionService = new ExecutorCompletionService<>(executorService);
-        Future<News> submit = completionService.submit(() -> newsService.getNews(page, "general"));
+        Future<News> submit = completionService.submit(() -> newsService.getNews(page, category.toString()));
 
         News news = null;
         try {
