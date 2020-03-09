@@ -24,7 +24,7 @@ public class NewsServiceImpl implements NewsService {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Api-Key", token);
         String data = Request.get("https://newsapi.org/v2/top-headlines?country=ua&category=" + category
-                + "&page=" + page, headers);
+                + "&page=" + page + "&pageSize=20", headers);
         Gson gson = new Gson();
         News news = gson.fromJson(data, News.class);
         return news.getArticles();
