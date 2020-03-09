@@ -33,6 +33,23 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .oneTimeKeyboard(true)
                 .resizeKeyboard(true);
+        sendFiveNews(chatId);
+        return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
+    }
+
+    @BotRequest("Следущие 5 новостей")
+    BaseRequest getNextNews(Long chatId) {
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Главные", "Здоровье", "Наука", "Спорт", "Технологии"},
+                new String[]{"Главное меню"})
+                .oneTimeKeyboard(true)
+                .resizeKeyboard(true);
+        sendFiveNews(chatId);
+        return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
+    }
+
+    private void sendFiveNews(Long chatId) {
         Article[] articles = newsService.getNews(size, offset, "general");
         StringBuilder result = new StringBuilder("Главные новости: \n");
         for (Article article : articles) {
@@ -43,6 +60,5 @@ public class NewsController {
             result = new StringBuilder();
             offset++;
         }
-        return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
     }
 }
