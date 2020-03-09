@@ -47,10 +47,7 @@ public class SystemController {
 
     @BotRequest("Главное меню")
     BaseRequest mainMenu(Long chatId) {
-        logger.info("Find command: 'Главное меню'");
-        Command command = commandService.findCommandsByName("Главное меню");
-        logger.info("Creating history command 'Главное меню'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "Главное меню", "");
         return mainMenuComponent.showMainMenu(chatId, "", null);
     }
 
@@ -61,10 +58,8 @@ public class SystemController {
         User user = userService.findByChatId(chatId);
         logger.info("Finding last history by user: {}", chatId);
         UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(user.getId());
-        logger.info("Find command: '/set_location'");
-        Command command = commandService.findCommandsByName("/set_location");
-        logger.info("Creating history command '/set_location'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        userHistoryService.findLastUserHistoryByUserId(user.getId());
+        userHistoryService.createUserHistory(user.getId(), "/set_phone", "");
         Location location = message.location();
         String response = "Локация не пригодилась.";
         if (userHistory.getCommandsId() == 10) {
@@ -87,14 +82,12 @@ public class SystemController {
 
     @BotRequest(messageType = MessageType.CONTACT)
     BaseRequest setNumberPhone(Long chatId, Message message) {
+        logger.info("Creating user {} (part: /set_phone)...", chatId);
         User user = userService.findByChatId(chatId);
         user.setPhone(message.contact().phoneNumber());
         userService.createUser(user);
         UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(user.getId());
-        logger.info("Find command: '/set_phone'");
-        Command command = commandService.findCommandsByName("/set_phone");
-        logger.info("Creating history command '/set_phone'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        userHistoryService.createUserHistory(user.getId(), "/set_phone", "");
         String msg = "Введите команду /set_email и через пробел введите ваш email. Если не хотите предоставлять почту " +
                 "отправьте пустую команду /set_email.";
         SendMessage sendMessage = new SendMessage(chatId, msg);
