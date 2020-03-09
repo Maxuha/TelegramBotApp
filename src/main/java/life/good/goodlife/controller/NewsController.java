@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.news.Article;
+import life.good.goodlife.model.news.News;
 import life.good.goodlife.service.news.NewsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,47 +39,52 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .oneTimeKeyboard(true)
                 .resizeKeyboard(true);
-        sendFiveNews(chatId);
-        return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
+        if (sendFiveNews(chatId)) {
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        }
     }
 
     @BotRequest("Следущие 5 новостей")
     BaseRequest getNextNews(Long chatId) {
-        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5 новостей"},
-                new String[]{"Главные", "Здоровье", "Наука", "Спорт", "Технологии"},
-                new String[]{"Главное меню"})
-                .oneTimeKeyboard(true)
-                .resizeKeyboard(true);
-        sendFiveNews(chatId);
-        return new SendMessage(chatId, "Приятного чтения ☕" + offset).replyMarkup(replyKeyboardMarkup);
+        if (sendFiveNews(chatId)) {
+            return new SendMessage(chatId, "Приятного чтения ☕");
+        } else {
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22");
+        }
     }
 
-    private void sendFiveNews(Long chatId) {
+    private boolean sendFiveNews(Long chatId) {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-        CompletionService<Article[]> completionService = new ExecutorCompletionService<>(executorService);
-        Future<Article[]> submit = completionService.submit(() -> newsService.getNews(page, "general"));
+        CompletionService<News> completionService = new ExecutorCompletionService<>(executorService);
+        Future<News> submit = completionService.submit(() -> newsService.getNews(page, "general"));
 
-        Article[] articles = new Article[0];
+        News news = null;
         try {
-            articles = submit.get();
+            news = submit.get();
         } catch (InterruptedException e) {
             logger.error("Interrupted thread - " + e.getMessage());
         } catch (ExecutionException e) {
             logger.error("Failed execution thread - " + e.getMessage());
         }
         StringBuilder result = new StringBuilder("Главные новости: \n");
-        for (int i = offset; i < size + offset; i++) {
-            result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(articles[i].getPublishedAt()
-                    .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
-                    .append("](").append(articles[i].getUrl()).append(")");
-            telegramBotExecuteComponent.sendMessageMarkdown(chatId, result.toString());
-            result = new StringBuilder();
-        }
-        offset += size;
-        if (offset == 20) {
-            page++;
-            offset = 0;
+        if (news != null && news.getArticles() != null && news.getArticles().length > 0) {
+            for (int i = offset; i < size + offset; i++) {
+                result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(news.getArticles()[i].getPublishedAt()
+                        .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
+                        .append("](").append(news.getArticles()[i].getUrl()).append(")");
+                telegramBotExecuteComponent.sendMessageMarkdown(chatId, result.toString());
+                result = new StringBuilder();
+            }
+            offset += size;
+            if (offset == news.getTotalResults()) {
+                page++;
+                offset = 0;
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 }

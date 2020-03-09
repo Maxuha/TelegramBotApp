@@ -1,7 +1,7 @@
 package life.good.goodlife.service.news;
 
-import life.good.goodlife.model.news.Article;
+import life.good.goodlife.model.news.News;
 
 public interface NewsService {
-    Article[] getNews(int page, String category);
+    News getNews(int page, String category);
 }
