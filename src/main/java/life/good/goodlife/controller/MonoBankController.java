@@ -120,7 +120,7 @@ public class MonoBankController {
         if (seconds == null || seconds == 0) {
             seconds = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         }
-        statementService.createStatements(token, seconds);
+        statementService.createStatements(token, accountId, seconds);
         msg = "Синхроннизация успешна";
         return new SendMessage(chatId, msg);
     }

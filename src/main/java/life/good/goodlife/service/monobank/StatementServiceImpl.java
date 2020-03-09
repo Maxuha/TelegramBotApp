@@ -43,7 +43,7 @@ public class StatementServiceImpl implements StatementService {
     }
 
     @Override
-    public void createStatements(String token, Long second) {
+    public void createStatements(String token, String accountId, Long second) {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Token", token);
         Long prevSecond = second;
@@ -56,10 +56,11 @@ public class StatementServiceImpl implements StatementService {
         while (response) {
             prevSecond -= 268200;
             logger.info("To request");
-            data = Request.get("https://api.monobank.ua/personal/statement/0/" + prevSecond + "/" + second, headers);
+            data = Request.get("https://api.monobank.ua/personal/statement/" + accountId + "/" + prevSecond + "/" + second, headers);
             gson = new Gson();
             statements = gson.fromJson(data, Statement[].class);
             for (Statement statement : statements) {
+                statement.setAccountId(accountId);
                 logger.info("Statement {} to database", statement);
                 statementRepository.save(statement);
             }

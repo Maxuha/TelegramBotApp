@@ -151,6 +151,14 @@ public class Statement {
         this.balanceCount = balanceCount;
     }
 
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
     @Override
     public String toString() {
         return "Statement{" +
