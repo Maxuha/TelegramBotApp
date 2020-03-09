@@ -181,8 +181,8 @@ public class NewsController {
             offset = 0;
         } else {
             String[] answers = userHistory.getAnswer().split("|");
-            page = Integer.parseInt(answers[0]);
-            offset = Integer.parseInt(answers[1]);
+            page = Integer.parseInt(answers[1]);
+            offset = Integer.parseInt(answers[0]);
         }
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         CompletionService<News> completionService = new ExecutorCompletionService<>(executorService);
