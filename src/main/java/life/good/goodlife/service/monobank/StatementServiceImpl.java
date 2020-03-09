@@ -70,7 +70,7 @@ public class StatementServiceImpl implements StatementService {
                 if (failedResponse >= 0)
                 failedResponse--;
             }
-            if (failedResponse == 5) {
+            if (failedResponse == 12) {
                 response = false;
             }
             logger.info("Failed response: " + failedResponse);
