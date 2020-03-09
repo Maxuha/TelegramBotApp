@@ -176,6 +176,7 @@ public class NewsController {
         UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(chatId);
         int page;
         int offset;
+        System.out.println(userHistory);
         if (userHistory == null) {
             page = 1;
             offset = 0;
@@ -183,6 +184,7 @@ public class NewsController {
             String[] answers = userHistory.getAnswer().split("\\|");
             page = Integer.parseInt(answers[1]);
             offset = Integer.parseInt(answers[0]);
+            System.out.println("page" + page + " offset: " + offset);
         }
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         CompletionService<News> completionService = new ExecutorCompletionService<>(executorService);
