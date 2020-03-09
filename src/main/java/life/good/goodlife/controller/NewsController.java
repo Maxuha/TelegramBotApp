@@ -29,6 +29,7 @@ public class NewsController {
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
     private final int size = 5;
 
+
     public NewsController(NewsService newsService, UserHistoryService userHistoryService, UserService userService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
         this.newsService = newsService;
         this.userHistoryService = userHistoryService;
@@ -38,7 +39,6 @@ public class NewsController {
 
     @BotRequest("Новости")
     BaseRequest getNews(Long chatId) {
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/news", "0|0");
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{"Следущие 5 новостей"},
                 new String[]{"Музыка", "Здоровье", "Наука", "Спорт", "Технологии"},
@@ -174,9 +174,16 @@ public class NewsController {
 
     private boolean sendFiveNews(Long chatId, CategoryNews category) {
         UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(chatId);
-        String[] answers = userHistory.getAnswer().split("|");
-        int page = Integer.parseInt(answers[0]);
-        int offset = Integer.parseInt(answers[1]);
+        int page;
+        int offset;
+        if (userHistory == null) {
+            page = 1;
+            offset = 0;
+        } else {
+            String[] answers = userHistory.getAnswer().split("|");
+            page = Integer.parseInt(answers[0]);
+            offset = Integer.parseInt(answers[1]);
+        }
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         CompletionService<News> completionService = new ExecutorCompletionService<>(executorService);
         int finalPage = page;
