@@ -28,9 +28,10 @@ public class NewsController {
                         new KeyboardButton("Здоровье"),
                         new KeyboardButton("Наука"),
                         new KeyboardButton("Спорт"),
-                        new KeyboardButton("Технологии")
+                        new KeyboardButton("Технологии"),
+                        new KeyboardButton("Глваное меню")
                 }
-        );
+        ).resizeKeyboard(true);
         String result = newsService.getNews(size, offset, "general");
         offset += size;
         return new SendMessage(chatId, "Главные новости: \n" + result).replyMarkup(replayKeyboard);
