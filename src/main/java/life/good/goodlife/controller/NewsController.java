@@ -180,7 +180,7 @@ public class NewsController {
             page = 1;
             offset = 0;
         } else {
-            String[] answers = userHistory.getAnswer().split("|");
+            String[] answers = userHistory.getAnswer().split("\\|");
             page = Integer.parseInt(answers[1]);
             offset = Integer.parseInt(answers[0]);
         }
