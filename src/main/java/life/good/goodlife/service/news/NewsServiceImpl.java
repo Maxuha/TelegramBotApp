@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 @Service
@@ -21,19 +20,13 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public String getNews(int count, int offset, String category) {
+    public Article[] getNews(int count, int offset, String category) {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Api-Key", token);
         String data = Request.get("https://newsapi.org/v2/top-headlines?country=ua&category=" + category +
                 "&pageSize=" + count + "&page=" + offset, headers);
         Gson gson = new Gson();
         News news = gson.fromJson(data, News.class);
-        StringBuilder result = new StringBuilder();
-        Article[] articles = news.getArticles();
-        for (Article article : articles) {
-            result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(article.getPublishedAt().replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm"))).append("](").append(article.getUrl()).append(")");
-        }
-        return result.toString();
-    }//DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm")
-                   // .parse(article.getPublishedAt())
+        return news.getArticles();
+    }
 }
