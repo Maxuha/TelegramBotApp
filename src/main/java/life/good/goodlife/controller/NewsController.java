@@ -17,8 +17,9 @@ import java.time.format.DateTimeFormatter;
 public class NewsController {
     private final NewsService newsService;
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
-    private final int size = 5;
+    private int page = 1;
     private int offset = 0;
+    private final int size = 5;
 
     public NewsController(NewsService newsService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
         this.newsService = newsService;
@@ -50,7 +51,7 @@ public class NewsController {
     }
 
     private void sendFiveNews(Long chatId) {
-        Article[] articles = newsService.getNews(size, 1, "general");
+        Article[] articles = newsService.getNews(1, "general");
         StringBuilder result = new StringBuilder("Главные новости: \n");
         for (int i = offset; i < size + offset; i++) {
             result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(articles[i].getPublishedAt()
@@ -60,5 +61,9 @@ public class NewsController {
             result = new StringBuilder();
         }
         offset += size;
+        if (offset == 35) {
+            page++;
+            offset = 0;
+        }
     }
 }
