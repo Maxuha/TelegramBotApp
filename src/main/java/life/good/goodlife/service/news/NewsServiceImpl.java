@@ -6,6 +6,7 @@ import life.good.goodlife.model.news.News;
 import life.good.goodlife.statics.Request;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
@@ -30,9 +31,9 @@ public class NewsServiceImpl implements NewsService {
         StringBuilder result = new StringBuilder();
         Article[] articles = news.getArticles();
         for (Article article : articles) {
-            result.append("[").append("Опубликовано: ").append(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm")
-                    .parse(article.getPublishedAt())).append("](").append(article.getUrl()).append(")");
+            result.append("[").append("Опубликовано: ").append(LocalDateTime.parse("2020-03-09T06:47:25Z")).append("](").append(article.getUrl()).append(")");
         }
         return result.toString();
-    }
+    }//DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm")
+                   // .parse(article.getPublishedAt())
 }
