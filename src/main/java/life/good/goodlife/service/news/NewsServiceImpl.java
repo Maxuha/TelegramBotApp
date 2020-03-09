@@ -30,8 +30,8 @@ public class NewsServiceImpl implements NewsService {
         StringBuilder result = new StringBuilder();
         Article[] articles = news.getArticles();
         for (Article article : articles) {
-            result.append("[").append("Опубликовано: ").append(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm",
-                    Locale.forLanguageTag("Ua")).parse(article.getPublishedAt())).append("](").append(article.getUrl()).append(")");
+            result.append("[").append("Опубликовано: ").append(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm")
+                    .parse(article.getPublishedAt())).append("](").append(article.getUrl()).append(")");
         }
         return result.toString();
     }
