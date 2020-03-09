@@ -52,13 +52,13 @@ public class NewsController {
     private void sendFiveNews(Long chatId) {
         Article[] articles = newsService.getNews(size, offset, "general");
         StringBuilder result = new StringBuilder("Главные новости: \n");
-        for (Article article : articles) {
-            result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(article.getPublishedAt()
+        for (int i = offset; i < size + offset; i++) {
+            result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(articles[i].getPublishedAt()
                     .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
-                    .append("](").append(article.getUrl()).append(")");
+                    .append("](").append(articles[i].getUrl()).append(")");
             telegramBotExecuteComponent.sendMessageMarkdown(chatId, result.toString());
             result = new StringBuilder();
-            offset++;
         }
+        offset += size;
     }
 }
