@@ -40,7 +40,7 @@ public class NewsController {
                 .oneTimeKeyboard(true)
                 .resizeKeyboard(true);
         if (sendFiveNews(chatId)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -49,7 +49,7 @@ public class NewsController {
     @BotRequest("Следущие 5 новостей")
     BaseRequest getNextNews(Long chatId) {
         if (sendFiveNews(chatId)) {
-            return new SendMessage(chatId, "Приятного чтения ☕");
+            return new SendMessage(chatId, "Приятного чтения ☕").disableNotification(true);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22");
         }
