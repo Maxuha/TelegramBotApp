@@ -43,11 +43,8 @@ public class WeatherController {
 
     @BotRequest("Погода")
     BaseRequest weather(Long chatId) {
-        logger.info("Find command: 'Погода'");
-        Command command = commandService.findCommandsByName("Погода");
         User user = userService.findByChatId(chatId);
-        logger.info("Creating history command 'Погода'");
-        userHistoryService.createUserHistory(user.getId(), command);
+        userHistoryService.createUserHistory(user.getId(), "Погода", "");
         String msg = commandService.findCommandsByName("Погода").getFullDescription();
         Location location = userLocationService.getUserLocationByUserId(user.getId());
         if (location != null) {
@@ -65,10 +62,8 @@ public class WeatherController {
 
     @BotRequest("/weather **")
     BaseRequest weatherByCity(Long chatId, String text) {
-        logger.info("Find command: '/weather'");
-        Command command = commandService.findCommandsByName("/weather");
-        logger.info("Creating history command '/weather'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        User user = userService.findByChatId(chatId);
+        userHistoryService.createUserHistory(user.getId(), "/weather", "");
         String[] results = text.split(" ");
         StringBuilder city = new StringBuilder();
         String response = "";
@@ -86,10 +81,7 @@ public class WeatherController {
 
     @BotRequest("/weather6 **")
     BaseRequest weatherFiveByCity(Long chatId, String text) {
-        logger.info("Find command: '/weather6'");
-        Command command = commandService.findCommandsByName("/weather6");
-        logger.info("Creating history command '/weather6'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/weather6", "");
         String[] results = text.split(" ");
         StringBuilder city = new StringBuilder();
         String[] data;

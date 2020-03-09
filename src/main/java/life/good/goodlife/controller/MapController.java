@@ -46,14 +46,10 @@ public class MapController {
 
     @BotRequest("Карта")
     BaseRequest mapBtn(Long chatId) {
-        logger.info("Find command: 'Карта'");
-        Command command = commandService.findCommandsByName("Карта");
         User user = userService.findByChatId(chatId);
-        logger.info("Creating history command 'Карта'");
-        userHistoryService.createUserHistory(user.getId(), command);
+        userHistoryService.createUserHistory(user.getId(), "Карта", "");
         String msg = commandService.findCommandsByName("Карта").getFullDescription();
         Location location = userLocationService.getUserLocationByUserId(user.getId());
-        KeyboardButton searchPlace;
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Поиск места"),
@@ -61,44 +57,32 @@ public class MapController {
                         new KeyboardButton("Главное меню")
                 }
         );
-
         return new SendMessage(chatId, msg).replyMarkup(replayKeyboard);
     }
 
     @BotRequest("/search_places **")
     BaseRequest getSearchPlace(Long chatId, String text) {
-        logger.info("Find command: '/search_places'");
-        Command command = commandService.findCommandsByName("/search_places");
-        logger.info("Creating history command '/search_places'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/search_places", "");
         StringBuilder place = new StringBuilder();
         String[] partPlace = text.split(" ");
         for (int i = 1; i < partPlace.length; i++) {
             place.append(partPlace[i]).append(" ");
         }
-
         logger.info("Get geo code");
         GeoCodeMain geoCodeMain = geoCodeService.getInfoPlace(place.toString());
-
         String[] data = geoCodeMain.toString().split("::");
-
         Location location;
-
         for (int i = 0; i < geoCodeMain.getResults().length; i++) {
             telegramBotExecuteComponent.sendMessage(chatId, data[i]);
             location = geoCodeMain.getResults()[i].getGeometry().getLocation();
             telegramBotExecuteComponent.sendLocation(chatId, location.getLat(), location.getLng());
         }
-
         return mainMenuComponent.showMainMenu(chatId, "", null);
     }
 
     @BotRequest("/nearby")
     BaseRequest getNearbyPlace(Long chatId) {
-        logger.info("Find command: '/nearby'");
-        Command command = commandService.findCommandsByName("/nearby");
-        logger.info("Creating history command '/nearby'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/nearby", "");
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Предоставить местоположение").requestLocation(true),

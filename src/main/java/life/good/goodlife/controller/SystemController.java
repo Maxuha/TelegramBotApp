@@ -58,7 +58,6 @@ public class SystemController {
         User user = userService.findByChatId(chatId);
         logger.info("Finding last history by user: {}", chatId);
         UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(user.getId());
-        userHistoryService.findLastUserHistoryByUserId(user.getId());
         userHistoryService.createUserHistory(user.getId(), "/set_phone", "");
         Location location = message.location();
         String response = "Локация не пригодилась.";

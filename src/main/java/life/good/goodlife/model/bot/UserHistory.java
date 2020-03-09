@@ -20,6 +20,9 @@ public class UserHistory {
     @Column
     private LocalDateTime date;
 
+    @Column
+    private String answer;
+
     public Long getId() {
         return id;
     }
@@ -50,5 +53,13 @@ public class UserHistory {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }

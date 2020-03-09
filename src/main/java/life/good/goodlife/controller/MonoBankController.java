@@ -71,10 +71,7 @@ public class MonoBankController {
     @BotRequest("Банкинг")
     BaseRequest bankBtn(Long chatId) {
         User user = userService.findByChatId(chatId);
-        logger.info("Find command: 'Банкинг'");
-        Command command = commandService.findCommandsByName("Банкинг");
-        logger.info("Creating history command 'Банкинг'");
-        userHistoryService.createUserHistory(user.getId(), command);
+        userHistoryService.createUserHistory(user.getId(), "Банкинг", "");
         String token = loginService.getToken(user.getId());
         String msg = "Перейдите по адресу https://api.monobank.ua/ и скопируйте токен, вставьте его командой /set_mono_token {token}";
         SendMessage sendMessage = new SendMessage(chatId, msg);
@@ -86,10 +83,7 @@ public class MonoBankController {
 
     @BotRequest("/set_mono_token **")
     BaseRequest setToken(Long chatId, String text) {
-        logger.info("Find command: '/set_mono_token'");
-        Command command = commandService.findCommandsByName("/set_mono_token");
-        logger.info("Creating history command '/set_mono_token'");
-        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), command);
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/set_mono_token", "");
         String token = text.split(" ")[1];
         logger.info("Creating user monobank");
         UserInfo userInfo = loginService.getUserInfo(token);
@@ -108,10 +102,7 @@ public class MonoBankController {
     @BotRequest("Синхроннизация выписки")
     BaseRequest synchronizeBtn(Long chatId, Message message) {
         User user = userService.findByChatId(chatId);
-        logger.info("Find command: 'Синхроннизация выписки'");
-        Command command = commandService.findCommandsByName("Синхроннизация выписки");
-        logger.info("Creating history command 'Синхроннизация выписки'");
-        userHistoryService.createUserHistory(user.getId(), command);
+        userHistoryService.createUserHistory(user.getId(), "Синхроннизация выписки", "");
         String token = loginService.getToken(user.getId());
         String msg = "Синхроннизация...";
         telegramBotExecuteComponent.sendMessage(chatId, msg);
@@ -127,7 +118,7 @@ public class MonoBankController {
 
 
     private SendMessage showMonoBankMenu(Long chatId) {
-        logger.info("Openning monobank menu");
+        logger.info("Opening monobank menu");
         String msg = commandService.findCommandsByName("Банкинг").getFullDescription();
         SendMessage sendMessage = new SendMessage(chatId, msg);
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
@@ -146,20 +137,14 @@ public class MonoBankController {
 
     private SendMessage showBalance(Long chatId) {
         User user = userService.findByChatId(chatId);
-        logger.info("Find command: '/balance'");
-        Command command = commandService.findCommandsByName("/balance");
-        logger.info("Creating history command '/balance'");
-        userHistoryService.createUserHistory(user.getId(), command);
+        userHistoryService.createUserHistory(user.getId(), "/balance", "");
         String msg = balanceService.balance(loginService.getToken(user.getId()));
         return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 
     private SendMessage showCurrency(Long chatId) {
         User user = userService.findByChatId(chatId);
-        logger.info("Find command: '/currency'");
-        Command command = commandService.findCommandsByName("/currency");
-        logger.info("Creating history command '/currency'");
-        userHistoryService.createUserHistory(user.getId(), command);
+        userHistoryService.createUserHistory(user.getId(), "/currency", "");
         String msg = currencyService.currency(loginService.getToken(user.getId()));
         return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }

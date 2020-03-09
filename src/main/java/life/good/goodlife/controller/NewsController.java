@@ -7,9 +7,11 @@ import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
-import life.good.goodlife.model.news.Article;
+import life.good.goodlife.model.bot.UserHistory;
 import life.good.goodlife.model.news.CategoryNews;
 import life.good.goodlife.model.news.News;
+import life.good.goodlife.service.bot.UserHistoryService;
+import life.good.goodlife.service.bot.UserService;
 import life.good.goodlife.service.news.NewsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,18 +24,21 @@ import java.util.concurrent.*;
 public class NewsController {
     private static Logger logger = LoggerFactory.getLogger(NewsController.class);
     private final NewsService newsService;
+    private final UserHistoryService userHistoryService;
+    private final UserService userService;
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
-    private int page = 1;
-    private int offset = 0;
     private final int size = 5;
 
-    public NewsController(NewsService newsService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
+    public NewsController(NewsService newsService, UserHistoryService userHistoryService, UserService userService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
         this.newsService = newsService;
+        this.userHistoryService = userHistoryService;
+        this.userService = userService;
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
     }
 
     @BotRequest("Новости")
     BaseRequest getNews(Long chatId) {
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/news", "0|0");
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{"Следущие 5 новостей"},
                 new String[]{"Музыка", "Здоровье", "Наука", "Спорт", "Технологии"},
@@ -168,10 +173,14 @@ public class NewsController {
     }
 
     private boolean sendFiveNews(Long chatId, CategoryNews category) {
+        UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(chatId);
+        String[] answers = userHistory.getAnswer().split("|");
+        int page = Integer.parseInt(answers[0]);
+        int offset = Integer.parseInt(answers[1]);
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         CompletionService<News> completionService = new ExecutorCompletionService<>(executorService);
-        Future<News> submit = completionService.submit(() -> newsService.getNews(page, category.toString()));
-
+        int finalPage = page;
+        Future<News> submit = completionService.submit(() -> newsService.getNews(finalPage, category.toString()));
         News news = null;
         try {
             news = submit.get();
@@ -194,6 +203,7 @@ public class NewsController {
                 page++;
                 offset = 0;
             }
+            userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/news", offset + "|" + page);
             return true;
         } else {
             return false;
