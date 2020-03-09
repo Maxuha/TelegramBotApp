@@ -4,12 +4,14 @@ import com.google.gson.Gson;
 import life.good.goodlife.model.news.Article;
 import life.good.goodlife.model.news.News;
 import life.good.goodlife.statics.Request;
+import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+@Service
 public class NewsServiceImpl implements NewsService {
     private final String token;
 
