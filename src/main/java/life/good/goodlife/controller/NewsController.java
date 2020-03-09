@@ -4,6 +4,7 @@ import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.KeyboardButton;
+import com.pengrad.telegrambot.model.request.KeyboardButtonPollType;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
@@ -21,19 +22,14 @@ public class NewsController {
 
     @BotRequest("Новости")
     BaseRequest getNews(Long chatId) {
-        Keyboard replayKeyboard = new ReplyKeyboardMarkup(
-                new KeyboardButton[] {
-                        new KeyboardButton("Загрузить следущие"),
-                        new KeyboardButton("Главные"),
-                        new KeyboardButton("Здоровье"),
-                        new KeyboardButton("Наука"),
-                        new KeyboardButton("Спорт"),
-                        new KeyboardButton("Технологии"),
-                        new KeyboardButton("Глваное меню")
-                }
-        ).resizeKeyboard(false);
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"Следущие 5 новостей"},
+                new String[]{"Главные", "Здоровье", "Наука", "Спорт", "Технологии"},
+                new String[]{"Главное меню"})
+                .oneTimeKeyboard(true)
+                .resizeKeyboard(true);
         String result = newsService.getNews(size, offset, "general");
         offset += size;
-        return new SendMessage(chatId, "Главные новости: \n" + result).replyMarkup(replayKeyboard);
+        return new SendMessage(chatId, "Главные новости: \n" + result).replyMarkup(replyKeyboardMarkup);
     }
 }
