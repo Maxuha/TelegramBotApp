@@ -46,11 +46,11 @@ public class NewsController {
                 .oneTimeKeyboard(true)
                 .resizeKeyboard(true);
         sendFiveNews(chatId);
-        return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
+        return new SendMessage(chatId, "Приятного чтения ☕" + offset).replyMarkup(replyKeyboardMarkup);
     }
 
     private void sendFiveNews(Long chatId) {
-        Article[] articles = newsService.getNews(size, offset, "general");
+        Article[] articles = newsService.getNews(size, 1, "general");
         StringBuilder result = new StringBuilder("Главные новости: \n");
         for (int i = offset; i < size + offset; i++) {
             result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(articles[i].getPublishedAt()
