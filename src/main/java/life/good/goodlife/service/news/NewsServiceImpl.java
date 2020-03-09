@@ -31,7 +31,7 @@ public class NewsServiceImpl implements NewsService {
         StringBuilder result = new StringBuilder();
         Article[] articles = news.getArticles();
         for (Article article : articles) {
-            result.append("[").append("Опубликовано: ").append(LocalDateTime.parse("2020-03-09T06:47:25Z")).append("](").append(article.getUrl()).append(")");
+            result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(article.getPublishedAt().replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm"))).append("](").append(article.getUrl()).append(")");
         }
         return result.toString();
     }//DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm")
