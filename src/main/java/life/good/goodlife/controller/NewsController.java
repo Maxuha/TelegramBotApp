@@ -69,7 +69,7 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.getNewsButton()[0]},
                 new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[7]},
-                new String[]{Buttons.getNewsButton()[2], null},
+                new String[]{Buttons.getNewsButton()[2]},
                 new String[]{Buttons.getNewsButton()[3], Buttons.getNewsButton()[5]},
                 new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
@@ -224,9 +224,17 @@ public class NewsController {
         StringBuilder result = new StringBuilder();
         if (news != null && news.getArticles() != null && news.getArticles().length > 0) {
             for (int i = offset; i < size + offset; i++) {
-                result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(news.getArticles()[i].getPublishedAt()
-                        .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
-                        .append("](").append(news.getArticles()[i].getUrl()).append(")");
+                result.append("<b>").append(news.getArticles()[i].getTitle()).append("</b>\n")
+                        .append(news.getArticles()[i].getDescription()).append("\n")
+                        .append("Опубликовано: <code>").append(LocalDateTime.parse(news.getArticles()[i].getPublishedAt()
+                                .replace("Z", "")))
+                        .append("</code>\n")
+                        .append("<i>")
+                        .append(news.getArticles()[i].getTitle())
+                        .append("</i>")
+                        .append("<a href=")
+                        .append(news.getArticles()[i].getUrl())
+                        .append(">Подробнее</a>");
                 telegramBotExecuteComponent.sendMessageHtml(chatId, result.toString(), true);
                 result = new StringBuilder();
             }
@@ -241,4 +249,10 @@ public class NewsController {
             return false;
         }
     }
+    /*
+    result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(news.getArticles()[i].getPublishedAt()
+                        .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
+                        .append("](").append(news.getArticles()[i].getUrl()).append(")");
+    */
+
 }
