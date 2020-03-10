@@ -47,9 +47,9 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.general)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(false);
         } else {
-            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup).disableNotification(false);
         }
     }
 

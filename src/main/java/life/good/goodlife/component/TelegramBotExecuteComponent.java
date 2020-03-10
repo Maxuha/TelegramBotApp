@@ -30,8 +30,8 @@ public class TelegramBotExecuteComponent {
         telegramBot.execute(sendMessage);
     }
 
-    public void sendMessageMarkdown(Long chatId, String message, boolean sound) {
-        sendMessage = new SendMessage(chatId, message).parseMode(ParseMode.Markdown).disableNotification(sound);
+    public void sendMessageMarkdown(Long chatId, String message, boolean disableNotification) {
+        sendMessage = new SendMessage(chatId, message).parseMode(ParseMode.Markdown).disableNotification(disableNotification);
         telegramBot.execute(sendMessage);
     }
 
