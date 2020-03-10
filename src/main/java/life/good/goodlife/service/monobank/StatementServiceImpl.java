@@ -3,6 +3,7 @@ package life.good.goodlife.service.monobank;
 import com.google.gson.Gson;
 import life.good.goodlife.model.monobonk.Currency;
 import life.good.goodlife.model.monobonk.Statement;
+import life.good.goodlife.model.monobonk.WebhookInfo;
 import life.good.goodlife.repos.monobank.StatementRepository;
 import life.good.goodlife.statics.Request;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class StatementServiceImpl implements StatementService {
     }
 
     @Override
-    public void createStatements(String token, String accountId, Long second) {
+    public void createStatementList(String token, String accountId, Long second) {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Token", token);
         Long prevSecond = second;
@@ -81,5 +82,12 @@ public class StatementServiceImpl implements StatementService {
             }
             second = prevSecond;
         }
+    }
+
+    @Override
+    public void createStatement(WebhookInfo webhookInfo) {
+        Statement statement = webhookInfo.getStatementItem();
+        statement.setAccountId(webhookInfo.getAccount());
+        statementRepository.save(statement);
     }
 }

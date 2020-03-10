@@ -1,6 +1,7 @@
 package life.good.goodlife.service.monobank;
 
+import life.good.goodlife.model.monobonk.Webhook;
+
 public interface WebhookService {
-    String createOperation(String data);
-    String getBalance();
+    Webhook createOperation(String data);
 }
