@@ -8,6 +8,7 @@ public class Article {
     private String urlToImage;
     private String publishedAt;
     private String content;
+    private Source source;
 
     public String getAuthor() {
         return author;
@@ -63,5 +64,13 @@ public class Article {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
     }
 }
