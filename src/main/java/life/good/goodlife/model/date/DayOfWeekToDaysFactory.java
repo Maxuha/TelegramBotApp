@@ -31,9 +31,9 @@ public class DayOfWeekToDaysFactory {
         DAYS days = null;
         if (LocalDate.now().equals(date)) {
             days = DAYS.Сегодня;
-        } else if (LocalDate.now().equals(date.minusDays(1))) {
+        } else if (LocalDate.now().minusDays(1).equals(date)) {
             days = DAYS.Вчера;
-        } else if (LocalDate.now().equals(date.minusDays(2))) {
+        } else if (LocalDate.now().minusDays(2).equals(date)) {
             days = DAYS.Позавчера;
         }
         return days;

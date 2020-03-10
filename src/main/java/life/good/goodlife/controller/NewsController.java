@@ -230,7 +230,7 @@ public class NewsController {
                         .append(localDateTime.format(DateTimeFormatter.ofPattern(", HH:mm")))
                         .append("</code>\n")
                         .append("<i>")
-                        .append(news.getArticles()[i].getAuthor())
+                        .append(news.getArticles()[i].getAuthor() == null ? news.getArticles()[1].getSource().getName() : news.getArticles()[i].getAuthor())
                         .append("</i>\n")
                         .append("<a href=\"")
                         .append(news.getArticles()[i].getUrlToImage())
