@@ -64,7 +64,7 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[2]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.general)) {
@@ -94,7 +94,7 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[8], Buttons.newsButton[5]},
+                new String[]{Buttons.newsButton[5], Buttons.newsButton[2]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.entertainment)) {
@@ -108,8 +108,8 @@ public class NewsController {
     BaseRequest getHealthNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
-                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.newsButton[1], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[2]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.health)) {
@@ -124,8 +124,7 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[2]},
-                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[2]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.science)) {
@@ -140,8 +139,7 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[2]},
-                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[2]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.technology)) {
@@ -155,8 +153,7 @@ public class NewsController {
     BaseRequest getSportNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
-                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[8]},
                 new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
@@ -172,7 +169,6 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[2]},
                 new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
