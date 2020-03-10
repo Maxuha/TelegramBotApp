@@ -190,12 +190,16 @@ public class NewsController {
             String[] answers = userHistory.getAnswer().split("\\|");
             page = Integer.parseInt(answers[1]);
             offset = Integer.parseInt(answers[0]);
+            if (CategoryNews.none.equals(category)) {
+                category = CategoryNews.valueOf(answers[2]);
+            }
             System.out.println("page" + page + " offset: " + offset);
         }
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         CompletionService<News> completionService = new ExecutorCompletionService<>(executorService);
         int finalPage = page;
-        Future<News> submit = completionService.submit(() -> newsService.getNews(finalPage, category.toString()));
+        CategoryNews finalCategory = category;
+        Future<News> submit = completionService.submit(() -> newsService.getNews(finalPage, finalCategory.toString()));
         News news = null;
         try {
             news = submit.get();
@@ -218,7 +222,7 @@ public class NewsController {
                 page++;
                 offset = 0;
             }
-            userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/news", offset + "|" + page);
+            userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/news", offset + "|" + page + "|" + category);
             return true;
         } else {
             return false;
