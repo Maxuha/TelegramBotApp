@@ -187,7 +187,7 @@ public class NewsController {
             page = 1;
             offset = 0;
         } else {
-            String[] answers = userHistory.getAnswer().split("\\|");
+            String[] answers = userHistory.getAnswer().split("::");
             page = Integer.parseInt(answers[1]);
             offset = Integer.parseInt(answers[0]);
             if (CategoryNews.none.equals(category)) {
@@ -222,7 +222,7 @@ public class NewsController {
                 page++;
                 offset = 0;
             }
-            userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/news", offset + "|" + page + "|" + category);
+            userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/news", offset + "::" + page + "::" + category);
             return true;
         } else {
             return false;
