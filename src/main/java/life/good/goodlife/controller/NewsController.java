@@ -210,8 +210,7 @@ public class NewsController {
                 localDateTime = LocalDateTime.parse(news.getArticles()[i].getPublishedAt().replace("Z", ""));
                 result.append("<b>").append(news.getArticles()[i].getTitle())
                         .append("</b>\n\n")
-                        .append(news.getArticles()[i].getDescription())
-                        .append("\n\n")
+                        .append(news.getArticles()[i].getDescription() == null ? "" : news.getArticles()[i].getDescription() + "\n\n")
                         .append("<code>Опубликовано: ")
                         .append(DayOfWeekToDaysFactory.getDaysByDate(localDateTime.toLocalDate()))
                         .append(localDateTime.format(DateTimeFormatter.ofPattern(", HH:mm")))
