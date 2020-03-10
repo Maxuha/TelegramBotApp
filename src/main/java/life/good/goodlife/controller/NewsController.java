@@ -47,7 +47,7 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.general)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -72,7 +72,7 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.general)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -86,7 +86,7 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.music)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -100,7 +100,7 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.entertainment)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -114,7 +114,7 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.health)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -128,7 +128,7 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.science)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -144,7 +144,7 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.technology)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -158,7 +158,7 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.sports)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -172,7 +172,7 @@ public class NewsController {
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.business)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(true);
+            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
             return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
         }
@@ -213,7 +213,7 @@ public class NewsController {
                 result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(news.getArticles()[i].getPublishedAt()
                         .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
                         .append("](").append(news.getArticles()[i].getUrl()).append(")");
-                telegramBotExecuteComponent.sendMessageMarkdown(chatId, result.toString());
+                telegramBotExecuteComponent.sendMessageMarkdown(chatId, result.toString(), true);
                 result = new StringBuilder();
             }
             offset += size;
