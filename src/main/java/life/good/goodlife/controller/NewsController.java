@@ -234,7 +234,9 @@ public class NewsController {
                         .append("</i>\n")
                         .append("<a href=\"")
                         .append(news.getArticles()[i].getUrlToImage())
-                        .append("\">.</a>\n");
+                        .append("\">&#12288\n" +
+                                "\n" +
+                                "Источник: https://zismo.biz/topic/879366-nevidimyj-znak-kotoryj-rabotaet-v-vk-i-na-liubom-f/</a>\n");
 
                 InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
                         new InlineKeyboardButton[]{
