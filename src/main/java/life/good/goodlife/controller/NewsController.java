@@ -233,7 +233,7 @@ public class NewsController {
                         .append("</i>\n")
                         .append("<a href=\"")
                         .append(news.getArticles()[i].getUrlToImage())
-                        .append("\"></a>\n");
+                        .append("\">.</a>\n");
 
                 InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
                         new InlineKeyboardButton[]{
