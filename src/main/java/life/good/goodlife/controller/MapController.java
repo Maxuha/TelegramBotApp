@@ -73,7 +73,7 @@ public class MapController {
         String[] data = geoCodeMain.toString().split("::");
         Location location;
         for (int i = 0; i < geoCodeMain.getResults().length; i++) {
-            telegramBotExecuteComponent.sendMessage(chatId, data[i]);
+            telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, data[i]));
             location = geoCodeMain.getResults()[i].getGeometry().getLocation();
             telegramBotExecuteComponent.sendLocation(chatId, location.getLat(), location.getLng());
         }
