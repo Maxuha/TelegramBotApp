@@ -105,7 +105,7 @@ public class MonoBankController {
         userHistoryService.createUserHistory(user.getId(), "Синхроннизация выписки", "");
         String token = loginService.getToken(user.getId());
         String msg = "Синхроннизация...";
-        telegramBotExecuteComponent.sendMessage(chatId, msg);
+        telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, msg));
         String accountId = "nHyoeYqk9ZM3lc8F2yKTLw";
         Long seconds = statementService.getLastTimeByAccountId(accountId);
         if (seconds == null || seconds == 0) {
