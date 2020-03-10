@@ -182,7 +182,7 @@ public class NewsController {
         UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(chatId);
         int page;
         int offset;
-        System.out.println(userHistory);
+        System.out.println("His: " + userHistory);
         if (userHistory == null) {
             page = 1;
             offset = 0;
