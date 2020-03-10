@@ -179,7 +179,7 @@ public class NewsController {
     }
 
     private boolean sendFiveNews(Long chatId, CategoryNews category) {
-        UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(chatId);
+        UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(userService.findByChatId(chatId).getId());
         int page;
         int offset;
         System.out.println("His: " + userHistory);
