@@ -232,10 +232,10 @@ public class NewsController {
                         .append("<i>")
                         .append(news.getArticles()[i].getAuthor())
                         .append("</i>\n")
-                        .append("<a href=")
+                        .append("<a href=\"")
                         .append(news.getArticles()[i].getUrl())
-                        .append(">Подробнее</a>\n");
-                telegramBotExecuteComponent.sendMessage(chatId, result.toString());
+                        .append("\">Подробнее</a>\n");
+                telegramBotExecuteComponent.sendMessageHtml(chatId, result.toString(), true);
                 result = new StringBuilder();
             }
             offset += size;
