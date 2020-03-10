@@ -25,8 +25,8 @@ public class TelegramBotExecuteComponent {
         telegramBot.execute(sendMessage);
     }
 
-    public void sendMessageHtml(Long chatId, String message) {
-        sendMessage = new SendMessage(chatId, message).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+    public void sendMessageHtml(Long chatId, String message, boolean disableNotification) {
+        sendMessage = new SendMessage(chatId, message).parseMode(ParseMode.HTML).disableWebPagePreview(true).disableNotification(disableNotification);
         telegramBot.execute(sendMessage);
     }
 

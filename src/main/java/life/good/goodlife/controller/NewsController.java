@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.UserHistory;
+import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.news.CategoryNews;
 import life.good.goodlife.model.news.News;
 import life.good.goodlife.service.bot.UserHistoryService;
@@ -30,7 +31,8 @@ public class NewsController {
     private final int size = 5;
 
 
-    public NewsController(NewsService newsService, UserHistoryService userHistoryService, UserService userService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
+    public NewsController(NewsService newsService, UserHistoryService userHistoryService, UserService userService,
+                          TelegramBotExecuteComponent telegramBotExecuteComponent) {
         this.newsService = newsService;
         this.userHistoryService = userHistoryService;
         this.userService = userService;
@@ -40,11 +42,11 @@ public class NewsController {
     @BotRequest("Новости")
     BaseRequest getNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5️⃣ новостей \uD83D\uDCF0"},
-                new String[]{"Здоровье \uD83C\uDFE5", "Спорт \uD83C\uDFC5"},
-                new String[]{"Музыка \uD83C\uDFB6"},
-                new String[]{"Развлечение \uD83D\uDD79", "Наука \uD83E\uDDEC"},
-                new String[]{"Главное меню"})
+                new String[]{Buttons.getNewsButton()[0]},
+                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
+                new String[]{Buttons.getNewsButton()[3]},
+                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
+                new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.general)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(false);
@@ -65,11 +67,11 @@ public class NewsController {
     @BotRequest("Главные")
     BaseRequest getGeneralNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5️⃣ новостей \uD83D\uDCF0"},
-                new String[]{"Здоровье \uD83C\uDFE5", "Спорт \uD83C\uDFC5"},
-                new String[]{"Музыка \uD83C\uDFB6"},
-                new String[]{"Развлечение \uD83D\uDD79", "Наука \uD83E\uDDEC"},
-                new String[]{"Главное меню"})
+                new String[]{Buttons.getNewsButton()[0]},
+                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
+                new String[]{Buttons.getNewsButton()[3]},
+                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
+                new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.general)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
@@ -81,9 +83,11 @@ public class NewsController {
     @BotRequest("Музыка \uD83C\uDFB6")
     BaseRequest getMusicNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5 новостей"},
-                new String[]{"Главные", "Здоровье", "Наука", "Спорт", "Технологии"},
-                new String[]{"Главное меню"})
+                new String[]{Buttons.getNewsButton()[0]},
+                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
+                new String[]{Buttons.getNewsButton()[3]},
+                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
+                new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.music)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
@@ -95,9 +99,11 @@ public class NewsController {
     @BotRequest("Развлечение \uD83D\uDD79")
     BaseRequest getEntertainmentNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5 новостей"},
-                new String[]{"Главные", "Здоровье", "Развлечение", "Спорт", "Технологии"},
-                new String[]{"Главное меню"})
+                new String[]{Buttons.getNewsButton()[0]},
+                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
+                new String[]{Buttons.getNewsButton()[3]},
+                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
+                new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.entertainment)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
@@ -109,9 +115,11 @@ public class NewsController {
     @BotRequest("Здоровье \uD83C\uDFE5")
     BaseRequest getHealthNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5 новостей"},
-                new String[]{"Главные", "Бизнес", "Развлечение", "Спорт", "Технологии"},
-                new String[]{"Главное меню"})
+                new String[]{Buttons.getNewsButton()[0]},
+                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
+                new String[]{Buttons.getNewsButton()[3]},
+                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
+                new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.health)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
@@ -123,9 +131,11 @@ public class NewsController {
     @BotRequest("Наука \uD83E\uDDEC")
     BaseRequest getScienceNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5 новостей"},
-                new String[]{"Музыка", "Здоровье", "Развлечение", "Спорт", "Технологии"},
-                new String[]{"Главное меню"})
+                new String[]{Buttons.getNewsButton()[0]},
+                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
+                new String[]{Buttons.getNewsButton()[3]},
+                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
+                new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.science)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
@@ -137,11 +147,11 @@ public class NewsController {
     @BotRequest("Технологии")
     BaseRequest getTechnologyNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5️⃣ новостей \uD83D\uDCF0"},
-                new String[]{"Здоровье \uD83C\uDFE5", "Спорт \uD83C\uDFC5"},
-                new String[]{"Музыка \uD83C\uDFB6"},
-                new String[]{"Развлечение \uD83D\uDD79", "Наука \uD83E\uDDEC"},
-                new String[]{"Главное меню"})
+                new String[]{Buttons.getNewsButton()[0]},
+                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
+                new String[]{Buttons.getNewsButton()[3]},
+                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
+                new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.technology)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
@@ -153,9 +163,11 @@ public class NewsController {
     @BotRequest("Спорт \uD83C\uDFC5")
     BaseRequest getSportNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5 новостей"},
-                new String[]{"Музыка", "Здоровье", "Развлечение", "Главные", "Технологии"},
-                new String[]{"Главное меню"})
+                new String[]{Buttons.getNewsButton()[0]},
+                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
+                new String[]{Buttons.getNewsButton()[3]},
+                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
+                new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.sports)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
@@ -167,9 +179,11 @@ public class NewsController {
     @BotRequest("Бизнес")
     BaseRequest getBusinessNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5 новостей"},
-                new String[]{"Музыка", "Здоровье", "Развлечение", "Главные", "Технологии"},
-                new String[]{"Главное меню"})
+                new String[]{Buttons.getNewsButton()[0]},
+                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
+                new String[]{Buttons.getNewsButton()[3]},
+                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
+                new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.business)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
@@ -207,13 +221,13 @@ public class NewsController {
         } catch (ExecutionException e) {
             logger.error("Failed execution thread - " + e.getMessage());
         }
-        StringBuilder result = new StringBuilder("Главные новости: \n");
+        StringBuilder result = new StringBuilder();
         if (news != null && news.getArticles() != null && news.getArticles().length > 0) {
             for (int i = offset; i < size + offset; i++) {
                 result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(news.getArticles()[i].getPublishedAt()
                         .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
                         .append("](").append(news.getArticles()[i].getUrl()).append(")");
-                telegramBotExecuteComponent.sendMessageMarkdown(chatId, result.toString(), true);
+                telegramBotExecuteComponent.sendMessageHtml(chatId, result.toString(), true);
                 result = new StringBuilder();
             }
             offset += size;
