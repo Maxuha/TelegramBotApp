@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.UserHistory;
 import life.good.goodlife.model.buttons.Buttons;
+import life.good.goodlife.model.date.DayOfWeekToDaysFactory;
 import life.good.goodlife.model.news.CategoryNews;
 import life.good.goodlife.model.news.News;
 import life.good.goodlife.service.bot.UserHistoryService;
@@ -222,11 +223,16 @@ public class NewsController {
         }
         StringBuilder result = new StringBuilder();
         if (news != null && news.getArticles() != null && news.getArticles().length > 0) {
+            LocalDateTime localDateTime;
             for (int i = offset; i < size + offset; i++) {
-                result.append("<b>").append(news.getArticles()[i].getTitle()).append("</b>\n\n")
-                        .append(news.getArticles()[i].getDescription()).append("\n\n")
-                        .append("Опубликовано: <code>").append(LocalDateTime.parse(news.getArticles()[i].getPublishedAt()
-                                .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
+                localDateTime = LocalDateTime.parse(news.getArticles()[i].getPublishedAt().replace("Z", ""));
+                result.append("<b>").append(news.getArticles()[i].getTitle())
+                        .append("</b>\n\n")
+                        .append(news.getArticles()[i].getDescription())
+                        .append("\n\n")
+                        .append("<code>Опубликовано: ")
+                        .append(DayOfWeekToDaysFactory.getDaysByDate(localDateTime.toLocalDate()))
+                        .append(localDateTime.format(DateTimeFormatter.ofPattern(", HH:mm")))
                         .append("</code>\n")
                         .append("<i>")
                         .append(news.getArticles()[i].getAuthor())
