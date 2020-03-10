@@ -42,17 +42,12 @@ public class NewsController {
     @BotRequest("Новости")
     BaseRequest getNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[1]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[2]},
-                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[2]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
-        if (sendFiveNews(chatId, CategoryNews.general)) {
-            return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(false);
-        } else {
-            return new SendMessage(chatId, "Нету новостей \uD83D\uDE22").replyMarkup(replyKeyboardMarkup).disableNotification(false);
-        }
+        return new SendMessage(chatId, "Выбери категорию \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
     }
 
     @BotRequest("Следущие 5️⃣ новостей \uD83D\uDCF0")
@@ -69,7 +64,6 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[2]},
                 new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
@@ -85,8 +79,7 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[2]},
-                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[6]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.music)) {
@@ -101,8 +94,7 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[2]},
-                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.newsButton[8], Buttons.newsButton[5]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.entertainment)) {
@@ -117,7 +109,6 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[0]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
-                new String[]{Buttons.newsButton[2]},
                 new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
