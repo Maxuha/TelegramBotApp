@@ -78,7 +78,7 @@ public class NewsController {
         }
     }
 
-    @BotRequest("Музыка")
+    @BotRequest("Музыка \uD83C\uDFB6")
     BaseRequest getMusicNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{"Следущие 5 новостей"},
@@ -92,7 +92,7 @@ public class NewsController {
         }
     }
 
-    @BotRequest("Развлечение")
+    @BotRequest("Развлечение \uD83D\uDD79")
     BaseRequest getEntertainmentNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{"Следущие 5 новостей"},
@@ -106,7 +106,7 @@ public class NewsController {
         }
     }
 
-    @BotRequest("Здоровье")
+    @BotRequest("Здоровье \uD83C\uDFE5")
     BaseRequest getHealthNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{"Следущие 5 новостей"},
@@ -120,7 +120,7 @@ public class NewsController {
         }
     }
 
-    @BotRequest("Наука")
+    @BotRequest("Наука \uD83E\uDDEC")
     BaseRequest getScienceNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{"Следущие 5 новостей"},
@@ -150,7 +150,7 @@ public class NewsController {
         }
     }
 
-    @BotRequest("Спорт")
+    @BotRequest("Спорт \uD83C\uDFC5")
     BaseRequest getSportNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{"Следущие 5 новостей"},
