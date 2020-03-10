@@ -42,11 +42,11 @@ public class NewsController {
     @BotRequest("Новости")
     BaseRequest getNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.getNewsButton()[0]},
-                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[7]},
-                new String[]{Buttons.getNewsButton()[2]},
-                new String[]{Buttons.getNewsButton()[3], Buttons.getNewsButton()[5]},
-                new String[]{Buttons.getMainButton()[0]})
+                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.general)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(false);
@@ -67,12 +67,12 @@ public class NewsController {
     @BotRequest("Главные")
     BaseRequest getGeneralNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.getNewsButton()[0]},
-                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[7]},
-                new String[]{Buttons.getNewsButton()[2]},
-                new String[]{Buttons.getNewsButton()[3], Buttons.getNewsButton()[5]},
-                new String[]{Buttons.getMainButton()[0]})
-                .resizeKeyboard(false);
+                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.mainButton[0]})
+                .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.general)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
@@ -83,12 +83,12 @@ public class NewsController {
     @BotRequest("Музыка \uD83C\uDFB6")
     BaseRequest getMusicNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.getNewsButton()[0]},
-                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
-                new String[]{Buttons.getNewsButton()[3]},
-                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
-                new String[]{Buttons.getMainButton()[0]})
-                .resizeKeyboard(false);
+                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.mainButton[0]})
+                .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.music)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
@@ -99,12 +99,12 @@ public class NewsController {
     @BotRequest("Развлечение \uD83D\uDD79")
     BaseRequest getEntertainmentNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.getNewsButton()[0]},
-                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
-                new String[]{Buttons.getNewsButton()[3]},
-                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
-                new String[]{Buttons.getMainButton()[0]})
-                .resizeKeyboard(false);
+                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.mainButton[0]})
+                .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.entertainment)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
@@ -115,12 +115,12 @@ public class NewsController {
     @BotRequest("Здоровье \uD83C\uDFE5")
     BaseRequest getHealthNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.getNewsButton()[0]},
-                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
-                new String[]{Buttons.getNewsButton()[3]},
-                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
-                new String[]{Buttons.getMainButton()[0]})
-                .resizeKeyboard(false);
+                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.mainButton[0]})
+                .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.health)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
@@ -131,12 +131,12 @@ public class NewsController {
     @BotRequest("Наука \uD83E\uDDEC")
     BaseRequest getScienceNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.getNewsButton()[0]},
-                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
-                new String[]{Buttons.getNewsButton()[3]},
-                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
-                new String[]{Buttons.getMainButton()[0]})
-                .resizeKeyboard(false);
+                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.mainButton[0]})
+                .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.science)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
@@ -147,12 +147,12 @@ public class NewsController {
     @BotRequest("Технологии")
     BaseRequest getTechnologyNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.getNewsButton()[0]},
-                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
-                new String[]{Buttons.getNewsButton()[3]},
-                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
-                new String[]{Buttons.getMainButton()[0]})
-                .resizeKeyboard(false);
+                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.mainButton[0]})
+                .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.technology)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
@@ -163,12 +163,12 @@ public class NewsController {
     @BotRequest("Спорт \uD83C\uDFC5")
     BaseRequest getSportNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.getNewsButton()[0]},
-                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
-                new String[]{Buttons.getNewsButton()[3]},
-                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
-                new String[]{Buttons.getMainButton()[0]})
-                .resizeKeyboard(false);
+                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.mainButton[0]})
+                .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.sports)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
@@ -179,12 +179,12 @@ public class NewsController {
     @BotRequest("Бизнес")
     BaseRequest getBusinessNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{Buttons.getNewsButton()[0]},
-                new String[]{Buttons.getNewsButton()[5], Buttons.getNewsButton()[8]},
-                new String[]{Buttons.getNewsButton()[3]},
-                new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[6]},
-                new String[]{Buttons.getMainButton()[0]})
-                .resizeKeyboard(false);
+                new String[]{Buttons.newsButton[0]},
+                new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
+                new String[]{Buttons.newsButton[2]},
+                new String[]{Buttons.newsButton[3], Buttons.newsButton[5]},
+                new String[]{Buttons.mainButton[0]})
+                .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.business)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup);
         } else {
@@ -256,10 +256,4 @@ public class NewsController {
             return false;
         }
     }
-    /*
-    result.append("[").append("Опубликовано: ").append(LocalDateTime.parse(news.getArticles()[i].getPublishedAt()
-                        .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
-                        .append("](").append(news.getArticles()[i].getUrl()).append(")");
-    */
-
 }

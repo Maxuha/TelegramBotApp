@@ -2,7 +2,6 @@ package life.good.goodlife.model.date;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class DayOfWeekToDaysFactory {
     public static DAYS getDaysByDayOfWeek(DayOfWeek dayOfWeek) {
