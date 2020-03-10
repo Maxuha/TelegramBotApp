@@ -100,13 +100,13 @@ public class MonoBankController {
         return showMonoBankMenu(chatId);
     }
     @BotRequest("Синхроннизация выписки")
-    BaseRequest synchronizeBtn(Long chatId, Message message) {
+    BaseRequest synchronizeBtn(Long chatId) {
         User user = userService.findByChatId(chatId);
         userHistoryService.createUserHistory(user.getId(), "Синхроннизация выписки", "");
         String token = loginService.getToken(user.getId());
         String msg = "Синхроннизация...";
         telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, msg));
-        String accountId = "nHyoeYqk9ZM3lc8F2yKTLw";
+        String accountId = "cF0-POVN4umkmK1vtoPXzw";
         Long seconds = statementService.getLastTimeByAccountId(accountId);
         if (seconds == null || seconds == 0) {
             seconds = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
