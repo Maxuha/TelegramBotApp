@@ -47,7 +47,7 @@ public class NewsController {
                 new String[]{Buttons.getNewsButton()[2]},
                 new String[]{Buttons.getNewsButton()[3], Buttons.getNewsButton()[5]},
                 new String[]{Buttons.getMainButton()[0]})
-                .resizeKeyboard(false);
+                .resizeKeyboard(true);
         if (sendFiveNews(chatId, CategoryNews.general)) {
             return new SendMessage(chatId, "Приятного чтения ☕").replyMarkup(replyKeyboardMarkup).disableNotification(false);
         } else {
