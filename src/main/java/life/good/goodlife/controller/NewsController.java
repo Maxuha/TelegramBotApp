@@ -5,7 +5,6 @@ import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.request.SendPhoto;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.UserHistory;
 import life.good.goodlife.model.buttons.Buttons;
@@ -224,24 +223,25 @@ public class NewsController {
         StringBuilder result = new StringBuilder();
         if (news != null && news.getArticles() != null && news.getArticles().length > 0) {
             for (int i = offset; i < size + offset; i++) {
-                result.append("<b>").append(news.getArticles()[i].getTitle()).append("</b>\n")
-                        .append(news.getArticles()[i].getDescription()).append("\n")
+                result.append("<b>").append(news.getArticles()[i].getTitle()).append("</b>\n\n")
+                        .append(news.getArticles()[i].getDescription()).append("\n\n")
                         .append("Опубликовано: <code>").append(LocalDateTime.parse(news.getArticles()[i].getPublishedAt()
                                 .replace("Z", "")).format(DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm")))
                         .append("</code>\n")
                         .append("<i>")
                         .append(news.getArticles()[i].getAuthor())
                         .append("</i>\n")
-                        ;
+                        .append("<a href=\"")
+                        .append(news.getArticles()[i].getUrlToImage())
+                        .append("\">.</a>\n");
 
                 InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
                         new InlineKeyboardButton[]{
                                 new InlineKeyboardButton("Посмотреть").url(news.getArticles()[i].getUrl())
                         });
 
-                SendPhoto sendPhoto = new SendPhoto(chatId, news.getArticles()[i].getUrlToImage());
-                sendPhoto.caption(result.toString());
-                telegramBotExecuteComponent.sendPhoto(sendPhoto);
+                telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString()).replyMarkup(inlineKeyboard)
+                        .parseMode(ParseMode.HTML).disableWebPagePreview(false));
                 result = new StringBuilder();
             }
             offset += size;
