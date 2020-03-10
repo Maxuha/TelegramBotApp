@@ -69,7 +69,7 @@ public class NewsController {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.getNewsButton()[0]},
                 new String[]{Buttons.getNewsButton()[4], Buttons.getNewsButton()[7]},
-                new String[]{Buttons.getNewsButton()[2]},
+                new String[]{Buttons.getNewsButton()[2], null},
                 new String[]{Buttons.getNewsButton()[3], Buttons.getNewsButton()[5]},
                 new String[]{Buttons.getMainButton()[0]})
                 .resizeKeyboard(false);
