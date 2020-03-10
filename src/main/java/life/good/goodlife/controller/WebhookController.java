@@ -1,5 +1,7 @@
 package life.good.goodlife.controller;
 
+import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.service.bot.UserService;
 import life.good.goodlife.service.monobank.WebhookServiceImpl;
@@ -37,7 +39,9 @@ public class WebhookController {
     public ResponseEntity <?> monobank(@RequestBody String raw, @RequestHeader("Content-Type") String type) {
         String info = webhookService.createOperation(raw);
         logger.info("Get webhook: {}", raw);
-        telegramBotExecuteComponent.sendMessageHtml(userService.findById(4).getChatId(), info, false);
+        SendMessage sendMessage = new SendMessage(userService.findById(4).getChatId(), info).disableNotification(true)
+                .disableWebPagePreview(true).parseMode(ParseMode.HTML);
+        telegramBotExecuteComponent.sendMessage(sendMessage);
         return ResponseEntity.ok("ok");
     }
 }

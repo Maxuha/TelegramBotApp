@@ -70,7 +70,7 @@ public class SystemController {
             String[] data = nearbyMain.toString().split("::");
             life.good.goodlife.model.map.Location locationPlace;
             for (int i = 0; i < nearbyMain.getResults().length; i++) {
-                telegramBotExecuteComponent.sendMessage(chatId, data[i]);
+                telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, data[i]));
                 locationPlace = nearbyMain.getResults()[i].getGeometry().getLocation();
                 telegramBotExecuteComponent.sendLocation(chatId, locationPlace.getLat(), locationPlace.getLng());
                 response = "";

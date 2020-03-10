@@ -2,8 +2,7 @@ package life.good.goodlife.controller;
 
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
-import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
+import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
@@ -233,9 +232,15 @@ public class NewsController {
                         .append(news.getArticles()[i].getAuthor())
                         .append("</i>\n")
                         .append("<a href=\"")
-                        .append(news.getArticles()[i].getUrl())
-                        .append("\">Подробнее</a>\n");
-                telegramBotExecuteComponent.sendMessageHtml(chatId, result.toString(), true);
+                        .append(news.getArticles()[i].getUrlToImage())
+                        .append("\"></a>\n");
+
+                InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
+                        new InlineKeyboardButton[]{
+                                new InlineKeyboardButton("Посмотреть").url(news.getArticles()[i].getUrl())
+                        });
+
+                telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString()).replyMarkup(inlineKeyboard));
                 result = new StringBuilder();
             }
             offset += size;

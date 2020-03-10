@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class TelegramBotExecuteComponent {
     TelegramBot telegramBot;
-    SendMessage sendMessage;
     SendLocation sendLocation;
     private final Environment environment;
 
@@ -20,18 +19,7 @@ public class TelegramBotExecuteComponent {
         telegramBot = new TelegramBot(environment.getProperty("telegram.bot.token"));
     }
 
-    public void sendMessage(Long chatId, String message) {
-        sendMessage = new SendMessage(chatId, message);
-        telegramBot.execute(sendMessage);
-    }
-
-    public void sendMessageHtml(Long chatId, String message, boolean disableNotification) {
-        sendMessage = new SendMessage(chatId, message).parseMode(ParseMode.HTML).disableWebPagePreview(true).disableNotification(disableNotification);
-        telegramBot.execute(sendMessage);
-    }
-
-    public void sendMessageMarkdown(Long chatId, String message, boolean disableNotification) {
-        sendMessage = new SendMessage(chatId, message).parseMode(ParseMode.Markdown).disableNotification(disableNotification);
+    public void sendMessage(SendMessage sendMessage) {
         telegramBot.execute(sendMessage);
     }
 

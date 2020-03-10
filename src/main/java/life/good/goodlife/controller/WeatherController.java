@@ -86,13 +86,15 @@ public class WeatherController {
         StringBuilder city = new StringBuilder();
         String[] data;
         String response = "";
+        SendMessage sendMessage;
         if (results.length >= 2) {
             for (int i = 1; i < results.length; i++) {
                 city.append(results[i]).append(" ");
             }
             data = weatherService.weatherFiveByCity(city.toString().trim());
             for (int i = 0; i < data.length; i++) {
-                telegramBotExecuteComponent.sendMessage(chatId, data[i]);
+                sendMessage = new SendMessage(chatId, data[i]);
+                telegramBotExecuteComponent.sendMessage(sendMessage);
             }
         } else {
             response = "Укажите город или предоставьте своё местопложение.";
