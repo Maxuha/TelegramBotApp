@@ -53,7 +53,7 @@ public class NewsController {
         }
     }
 
-    @BotRequest("Следущие 5 новостей")
+    @BotRequest("Следущие 5️⃣ новостей \uD83D\uDCF0")
     BaseRequest getNextNews(Long chatId) {
         if (sendFiveNews(chatId, CategoryNews.none)) {
             return new SendMessage(chatId, "Приятного чтения ☕").disableNotification(true);
