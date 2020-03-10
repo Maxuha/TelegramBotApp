@@ -65,8 +65,10 @@ public class NewsController {
     @BotRequest("Главные")
     BaseRequest getGeneralNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{"Следущие 5 новостей"},
-                new String[]{"Музыка", "Здоровье", "Наука", "Спорт", "Технологии"},
+                new String[]{"Следущие 5️⃣ новостей \uD83D\uDCF0"},
+                new String[]{"Здоровье \uD83C\uDFE5", "Спорт \uD83C\uDFC5"},
+                new String[]{"Музыка \uD83C\uDFB6"},
+                new String[]{"Развлечение \uD83D\uDD79", "Наука \uD83E\uDDEC"},
                 new String[]{"Главное меню"})
                 .resizeKeyboard(false);
         if (sendFiveNews(chatId, CategoryNews.general)) {
