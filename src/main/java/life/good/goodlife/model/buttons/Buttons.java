@@ -5,15 +5,15 @@ public class Buttons {
     private static String[] mainButton;
 
     /**
-     * 1 - Next five news
-     * 2 - General
-     * 3 - Music
-     * 4 - Entertainment
-     * 5 - Health
-     * 6 - Science
-     * 7 - Technology
-     * 8 - Sport
-     * 9 - Business
+     * 0 - Next five news
+     * 1 - General
+     * 2 - Music
+     * 3 - Entertainment
+     * 4 - Health
+     * 5 - Science
+     * 6 - Technology
+     * 7 - Sport
+     * 8 - Business
      * @return button
      */
     public static String[] getNewsButton() {
