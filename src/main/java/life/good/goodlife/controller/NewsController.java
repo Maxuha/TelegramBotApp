@@ -217,7 +217,7 @@ public class NewsController {
                 result = new StringBuilder();
             }
             offset += size;
-            if (offset == news.getTotalResults()) {
+            if (offset == 20) {
                 page++;
                 offset = 0;
             }
