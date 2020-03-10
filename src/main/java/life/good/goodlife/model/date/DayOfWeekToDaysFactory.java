@@ -1,6 +1,8 @@
 package life.good.goodlife.model.date;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DayOfWeekToDaysFactory {
     public static DAYS getDaysByDayOfWeek(DayOfWeek dayOfWeek) {
@@ -21,6 +23,18 @@ public class DayOfWeekToDaysFactory {
             case SUNDAY: days = DAYS.Вс;
                 break;
             default: days = null;
+        }
+        return days;
+    }
+
+    public static DAYS getDaysByDate(LocalDate date) {
+        DAYS days = null;
+        if (LocalDate.now().equals(date)) {
+            days = DAYS.Сегодня;
+        } else if (LocalDate.now().equals(date.minusDays(1))) {
+            days = DAYS.Вчера;
+        } else if (LocalDate.now().equals(date.minusDays(2))) {
+            days = DAYS.Позавчера;
         }
         return days;
     }
