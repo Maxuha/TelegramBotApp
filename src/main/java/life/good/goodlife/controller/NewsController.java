@@ -194,20 +194,15 @@ public class NewsController {
 
     private boolean sendFiveNews(Long chatId, CategoryNews category) {
         UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(userService.findByChatId(chatId).getId());
-        int page;
-        int offset;
-        if (userHistory.getAnswer() == null || userHistory.getAnswer().isEmpty()) {
-            page = 1;
-            offset = 0;
-        } else {
+        int page = 1;
+        int offset = 0;
+        if (CategoryNews.none.equals(category)) {
             String[] answers = userHistory.getAnswer().split("::");
             page = Integer.parseInt(answers[1]);
             offset = Integer.parseInt(answers[0]);
-            if (CategoryNews.none.equals(category)) {
-                category = CategoryNews.valueOf(answers[2]);
-            }
-            System.out.println("page" + page + " offset: " + offset);
+            category = CategoryNews.valueOf(answers[2]);
         }
+        System.out.println("page" + page + " offset: " + offset);
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         CompletionService<News> completionService = new ExecutorCompletionService<>(executorService);
         int finalPage = page;
