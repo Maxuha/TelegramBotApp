@@ -231,11 +231,11 @@ public class NewsController {
                         .append("</code>\n")
                         .append("<i>")
                         .append(news.getArticles()[i].getAuthor())
-                        .append("</i>")
+                        .append("</i>\n")
                         .append("<a href=")
                         .append(news.getArticles()[i].getUrl())
-                        .append(">Подробнее</a>");
-                telegramBotExecuteComponent.sendMessageHtml(chatId, result.toString(), true);
+                        .append(">Подробнее</a>\n");
+                telegramBotExecuteComponent.sendMessage(chatId, result.toString());
                 result = new StringBuilder();
             }
             offset += size;
