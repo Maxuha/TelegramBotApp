@@ -47,7 +47,7 @@ public class NewsController {
                 new String[]{Buttons.newsButton[3], Buttons.newsButton[2]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
-        return new SendMessage(chatId, "Выбери категорию \uD83D\uDE22").replyMarkup(replyKeyboardMarkup);
+        return new SendMessage(chatId, "Выбери категорию 📰").replyMarkup(replyKeyboardMarkup);
     }
 
     @BotRequest("Следущие 5️⃣ новостей \uD83D\uDCF0")
@@ -221,7 +221,6 @@ public class NewsController {
                         .append("<a href=\"")
                         .append(news.getArticles()[i].getUrlToImage())
                         .append("\">&#12288</a>\n");
-
                 InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
                         new InlineKeyboardButton[]{
                                 new InlineKeyboardButton("Посмотреть").url(news.getArticles()[i].getUrl())
