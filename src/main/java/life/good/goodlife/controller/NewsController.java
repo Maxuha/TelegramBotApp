@@ -240,7 +240,7 @@ public class NewsController {
                                 new InlineKeyboardButton("Посмотреть").url(news.getArticles()[i].getUrl())
                         });
 
-                telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString()).replyMarkup(inlineKeyboard));
+                telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString()).replyMarkup(inlineKeyboard).parseMode(ParseMode.HTML).disableWebPagePreview(true));
                 result = new StringBuilder();
             }
             offset += size;
