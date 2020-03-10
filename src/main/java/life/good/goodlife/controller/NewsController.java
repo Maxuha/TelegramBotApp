@@ -242,7 +242,7 @@ public class NewsController {
                         });
 
                 telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString()).replyMarkup(inlineKeyboard)
-                        .parseMode(ParseMode.HTML).disableWebPagePreview(false));
+                        .parseMode(ParseMode.HTML).disableWebPagePreview(false).disableNotification(true));
                 result = new StringBuilder();
             }
             offset += size;
