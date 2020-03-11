@@ -82,11 +82,7 @@ public class MonoBankController {
         return showMonoBankMenu(chatId);
     }
 
-    @BotRequest("Карта **")
-    BaseRequest chooseCartBtn(Long chatId) {
-        System.out.println("I work");
-        return showBalance(chatId);
-    }
+
 
     @BotRequest("/set_mono_token **")
     BaseRequest setToken(Long chatId, String text) {
