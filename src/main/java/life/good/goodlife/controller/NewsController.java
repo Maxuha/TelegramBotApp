@@ -224,7 +224,7 @@ public class NewsController {
                         .append("\">&#12288</a>\n");
                 InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
                         new InlineKeyboardButton[]{
-                                new InlineKeyboardButton("Посмотреть").url(news.getArticles()[i].getUrl())
+                                new InlineKeyboardButton("Посмотреть \uD83D\uDD0E").url(news.getArticles()[i].getUrl())
                         });
 
                 telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString()).replyMarkup(inlineKeyboard)
