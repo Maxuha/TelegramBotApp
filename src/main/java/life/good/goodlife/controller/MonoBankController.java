@@ -144,11 +144,11 @@ public class MonoBankController {
         List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
         //KeyboardButton[] accountButtons = new KeyboardButton[accounts.size()];
         //List<String, String> accountButtons = new ArrayList<>();
-        String[][] accountButtons = new String[1][accounts.size()];
+        String[][] accountButtons = new String[accounts.size()][1];
         int index = 0;
         for (Account account : accounts) {
             for (int i = 0; i < account.getMaskedPan().length; i++) {
-                accountButtons[0][index] = "Карта\n" + account.getType() + "\n" + account.getCurrencyCode() + "\n" + account.getMaskedPan()[i];
+                accountButtons[index][0] = "Карта\n" + account.getType() + "\n" + account.getCurrencyCode() + "\n" + account.getMaskedPan()[i];
                 index++;
             }
         }
