@@ -120,6 +120,11 @@ public class MonoBankController {
         return new SendMessage(chatId, msg);
     }
 
+    @BotRequest("Карта **")
+    BaseRequest chooseCartBtn(Long chatId) {
+        System.out.println("I work");
+        return showBalance(chatId);
+    }
 
     private SendMessage showMonoBankMenu(Long chatId) {
         logger.info("Opening monobank menu");
@@ -149,7 +154,7 @@ public class MonoBankController {
         int index = 0;
         for (Account account : accounts) {
             for (int i = 0; i < account.getMaskedPan().length; i++) {
-                accountButtons[index][0] = "Карта, " + account.getType() + ", " + account.getCurrencyCode() + "\n" + account.getMaskedPan()[i];
+                accountButtons[index][0] = "Карта " + account.getType() + " " + account.getCurrencyCode() + "\n" + account.getMaskedPan()[i];
                 index++;
             }
         }
