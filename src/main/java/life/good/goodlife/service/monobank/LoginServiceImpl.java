@@ -58,7 +58,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public UserMonobank getUserIdByClientId(String clientId) {
+    public UserMonobank getByClientId(String clientId) {
         return userMonobankRepository.findFirstByClientId(clientId);
     }
 

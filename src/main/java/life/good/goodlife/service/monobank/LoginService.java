@@ -10,6 +10,6 @@ public interface LoginService {
     String getToken(Long userId);
     UserInfo getUserInfo(String token);
     String getClientIdByUserId(Long userId);
-    UserMonobank getUserIdByClientId(String clientId);
+    UserMonobank getByClientId(String clientId);
     Account getAccountById(String id);
 }
