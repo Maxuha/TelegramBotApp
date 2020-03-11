@@ -53,8 +53,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String getClientIdByUserId(Long userId) {
-        return userMonobankRepository.findFirstByUserId(userId).getClientId();
+    public UserMonobank getByUserId(Long userId) {
+        return userMonobankRepository.findFirstByUserId(userId);
     }
 
     @Override
