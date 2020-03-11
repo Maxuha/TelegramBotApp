@@ -218,16 +218,16 @@ public class NewsController {
                         .append("<i>")
                         .append(news.getArticles()[i].getAuthor() == null ? news.getArticles()[1].getSource().getName() : news.getArticles()[i].getAuthor())
                         .append("</i>\n")
-                        .append(news.getArticles()[i].getUrl());
-                        /*.append("<a href=\"")
+                        //.append(news.getArticles()[i].getUrl());
+                        .append("<a href=\"")
                         .append(news.getArticles()[i].getUrlToImage())
-                        .append("\">&#12288</a>\n");*/
+                        .append("\">&#12288</a>\n");
                 InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
                         new InlineKeyboardButton[]{
                                 new InlineKeyboardButton("Посмотреть").url(news.getArticles()[i].getUrl())
                         });
 
-                telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString())
+                telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString()).replyMarkup(inlineKeyboard)
                         .parseMode(ParseMode.HTML).disableWebPagePreview(false).disableNotification(true));
                 result = new StringBuilder();
             }
