@@ -208,13 +208,26 @@ public class NewsController {
             LocalDateTime localDateTime;
             for (int i = offset; i < size + offset; i++) {
                 localDateTime = LocalDateTime.parse(news.getArticles()[i].getPublishedAt().replace("Z", ""));
-                result.append(news.getArticles()[i].getUrl());
+                result.append("<b>").append(news.getArticles()[i].getTitle())
+                        .append("</b>\n\n")
+                        .append(news.getArticles()[i].getDescription() == null ? "" : news.getArticles()[i].getDescription() + "\n\n")
+                        .append("<code>Опубликовано: ")
+                        .append(DayOfWeekToDaysFactory.getDaysByDate(localDateTime.toLocalDate()))
+                        .append(localDateTime.format(DateTimeFormatter.ofPattern(", HH:mm")))
+                        .append("</code>\n")
+                        .append("<i>")
+                        .append(news.getArticles()[i].getAuthor() == null ? news.getArticles()[1].getSource().getName() : news.getArticles()[i].getAuthor())
+                        .append("</i>\n")
+                        //.append(news.getArticles()[i].getUrl());
+                        .append("<a href=\"")
+                        .append(news.getArticles()[i].getUrlToImage())
+                        .append("\">&#12288</a>\n");
                 InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
                         new InlineKeyboardButton[]{
                                 new InlineKeyboardButton("Посмотреть").url(news.getArticles()[i].getUrl())
                         });
 
-                telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString())
+                telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, result.toString()).replyMarkup(inlineKeyboard)
                         .parseMode(ParseMode.HTML).disableWebPagePreview(false).disableNotification(true));
                 result = new StringBuilder();
             }
