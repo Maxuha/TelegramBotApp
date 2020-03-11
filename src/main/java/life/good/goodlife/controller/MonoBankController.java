@@ -10,6 +10,7 @@ import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.User;
+import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.monobonk.Account;
 import life.good.goodlife.model.monobonk.UserInfo;
 import life.good.goodlife.model.monobonk.UserMonobank;
@@ -20,6 +21,8 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.List;
 
 @BotController
 public class MonoBankController {
@@ -76,7 +79,8 @@ public class MonoBankController {
         if (token == null) {
             return sendMessage;
         }
-        return showMonoBankMenu(chatId);
+        //return showMonoBankMenu(chatId);
+        return showChooseCart(chatId);
     }
 
     @BotRequest("/set_mono_token **")
@@ -134,9 +138,24 @@ public class MonoBankController {
         return sendMessage;
     }
 
-    private void showChooseCart(Long chatId) {
+    private SendMessage showChooseCart(Long chatId) {
         User user = userService.findByChatId(chatId);
         UserMonobank userMonobank = loginService.getByUserId(user.getId());
+        List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
+        //KeyboardButton[] accountButtons = new KeyboardButton[accounts.size()];
+        //List<String, String> accountButtons = new ArrayList<>();
+        String[][] accountButtons = new String[1][accounts.size()];
+        int index = 0;
+        for (Account account : accounts) {
+            for (int i = 0; i < account.getMaskedPan().length; i++) {
+                accountButtons[0][index] = "Карта, " + account.getType() + account.getMaskedPan()[i];
+                index++;
+            }
+        }
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(accountButtons).resizeKeyboard(true);
+        SendMessage sendMessage = new SendMessage(chatId, "Выбери карту");
+        sendMessage.replyMarkup(replyKeyboardMarkup);
+        return sendMessage;
     }
 
     private SendMessage showBalance(Long chatId) {

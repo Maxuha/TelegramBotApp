@@ -10,6 +10,7 @@ import life.good.goodlife.statics.Request;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -65,5 +66,10 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Account getAccountById(String id) {
        return accountRepository.findFirstById(id);
+    }
+
+    @Override
+    public List<Account> getAllAccountByClientId(String clientId) {
+        return accountRepository.findByClientId(clientId);
     }
 }

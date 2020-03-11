@@ -4,6 +4,8 @@ import life.good.goodlife.model.monobonk.Account;
 import life.good.goodlife.model.monobonk.UserInfo;
 import life.good.goodlife.model.monobonk.UserMonobank;
 
+import java.util.List;
+
 public interface LoginService {
     void createUser(UserMonobank userMonobank);
     void createAccount(Account account);
@@ -12,4 +14,5 @@ public interface LoginService {
     UserMonobank getByUserId(Long userId);
     UserMonobank getByClientId(String clientId);
     Account getAccountById(String id);
+    List<Account> getAllAccountByClientId(String clientId);
 }
