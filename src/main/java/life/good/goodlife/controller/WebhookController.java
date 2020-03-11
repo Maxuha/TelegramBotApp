@@ -57,7 +57,7 @@ public class WebhookController {
         }
 
         String clientId = loginService.getAccountById(webhook.getData().getAccount()).getClientId();
-        System.out.println(loginService.getByClientId(clientId));
+        System.out.println("C: " + loginService.getByClientId(clientId));
         SendMessage sendMessage = new SendMessage(loginService.getByClientId(clientId).getUserId(), data).disableNotification(true)
                 .disableWebPagePreview(true).parseMode(ParseMode.HTML);
         telegramBotExecuteComponent.sendMessage(sendMessage);
