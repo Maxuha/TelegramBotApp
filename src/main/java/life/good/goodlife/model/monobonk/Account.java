@@ -22,9 +22,11 @@ public class Account {
     @Transient
     private Integer creditLimit;
 
-    //@Column(name = "masked_pan")
     @Transient
     private String[] maskedPan;
+
+    @Column(name = "masked_pan")
+    private String maskedPanBD = maskedPan[0];
 
     @Column
     private String type;
