@@ -7,4 +7,6 @@ public interface StatementRepository extends JpaRepository<Statement, String> {
     Statement findByAmount(String id);
 
     Statement findFirstByAccountIdOrderByTimeAsc(String accountId);
+
+    Statement findFirstById(String id);
 }

@@ -44,6 +44,11 @@ public class StatementServiceImpl implements StatementService {
     }
 
     @Override
+    public Statement findById(String id) {
+        return statementRepository.findFirstById(id);
+    }
+
+    @Override
     public void createStatementList(String token, String accountId, Long second) {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Token", token);

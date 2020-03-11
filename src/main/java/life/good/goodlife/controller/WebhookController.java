@@ -7,6 +7,7 @@ import life.good.goodlife.model.bank.CurrencyCodeFactory;
 import life.good.goodlife.model.monobonk.Balance;
 import life.good.goodlife.model.monobonk.Webhook;
 import life.good.goodlife.service.bot.UserService;
+import life.good.goodlife.service.monobank.LoginService;
 import life.good.goodlife.service.monobank.StatementService;
 import life.good.goodlife.service.monobank.WebhookServiceImpl;
 import org.slf4j.Logger;
@@ -22,13 +23,15 @@ public class WebhookController {
     private final UserService userService;
     private final WebhookServiceImpl webhookService;
     private final StatementService statementService;
+    private final LoginService loginService;
 
     public WebhookController(TelegramBotExecuteComponent telegramBotExecuteComponent, UserService userService,
-                             WebhookServiceImpl webhookService, StatementService statementService) {
+                             WebhookServiceImpl webhookService, StatementService statementService, LoginService loginService) {
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
         this.userService = userService;
         this.webhookService = webhookService;
         this.statementService = statementService;
+        this.loginService = loginService;
     }
 
     @RequestMapping(path = "test/get", method = RequestMethod.GET)
@@ -52,7 +55,9 @@ public class WebhookController {
         } else {
             data = writeOff(webhook);
         }
-        SendMessage sendMessage = new SendMessage(userService.findById(4).getChatId(), data).disableNotification(true)
+        String accountId = statementService.findById(webhook.getData().getAccount()).getId();
+        String clientId = loginService.getAccountById(accountId).getId();
+        SendMessage sendMessage = new SendMessage(loginService.getUserIdByClientId(clientId), data).disableNotification(true)
                 .disableWebPagePreview(true).parseMode(ParseMode.HTML);
         telegramBotExecuteComponent.sendMessage(sendMessage);
         return ResponseEntity.ok("ok");

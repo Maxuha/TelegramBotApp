@@ -32,6 +32,8 @@ public class LoginServiceImpl implements LoginService {
          accountRepository.save(account);
     }
 
+
+
     @Override
     public String getToken(Long userId) {
         UserMonobank user = userMonobankRepository.findByUserId(userId);
@@ -53,5 +55,15 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public String getClientIdByUserId(Long userId) {
         return userMonobankRepository.findFirstByUserId(userId).getClientId();
+    }
+
+    @Override
+    public UserMonobank getUserIdByClientId(String clientId) {
+        return userMonobankRepository.findFirstByClientId(clientId);
+    }
+
+    @Override
+    public Account getAccountById(String id) {
+       return accountRepository.findFirstById(id);
     }
 }
