@@ -61,7 +61,7 @@ public class MonoBankController {
         return showBalance(chatId);
     }
 
-    @BotRequest("Мой баланс **")
+    @BotRequest("Мой баланс")
     BaseRequest getBalanceBtn(Long chatId) {
         return showBalance(chatId);
     }
@@ -93,6 +93,7 @@ public class MonoBankController {
         loginService.createUser(userMonobank);
         Account[] accounts = userInfo.getAccounts();
         for (Account account : accounts) {
+            account.setClientId(userInfo.getClientId());
             loginService.createAccount(account);
         }
         return showMonoBankMenu(chatId);
@@ -121,7 +122,7 @@ public class MonoBankController {
         SendMessage sendMessage = new SendMessage(chatId, msg);
         Keyboard replayKeyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
-                        new KeyboardButton("Мой баланс fdfdf"),
+                        new KeyboardButton("Мой баланс"),
                         new KeyboardButton("Курс валют"),
                         new KeyboardButton("Выписка"),
                         new KeyboardButton("Контроль расходами"),
@@ -131,6 +132,11 @@ public class MonoBankController {
         );
         sendMessage.replyMarkup(replayKeyboard);
         return sendMessage;
+    }
+
+    private void showChooseCart(Long chatId) {
+        User user = userService.findByChatId(chatId);
+        UserMonobank userMonobank = loginService.getByUserId(user.getId());
     }
 
     private SendMessage showBalance(Long chatId) {
