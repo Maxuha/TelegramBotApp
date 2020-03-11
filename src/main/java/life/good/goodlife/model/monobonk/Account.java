@@ -25,9 +25,6 @@ public class Account {
     @Transient
     private String[] maskedPan;
 
-    @Column(name = "masked_pan")
-    private String maskedPanBD = maskedPan[0];
-
     @Column
     private String type;
 
@@ -96,13 +93,5 @@ public class Account {
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
-    }
-
-    public String getMaskedPanBD() {
-        return maskedPanBD;
-    }
-
-    public void setMaskedPanBD(String maskedPanBD) {
-        this.maskedPanBD = maskedPanBD;
     }
 }
