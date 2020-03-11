@@ -152,7 +152,7 @@ public class MonoBankController {
                 index++;
             }
         }
-        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(accountButtons).resizeKeyboard(true);
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(accountButtons).resizeKeyboard(false);
         SendMessage sendMessage = new SendMessage(chatId, "Выбери карту");
         sendMessage.replyMarkup(replyKeyboardMarkup);
         return sendMessage;
