@@ -55,11 +55,11 @@ public class WebhookController {
         } else {
             data = writeOff(webhook);
         }
-
+        System.out.println("Ac: " + webhook.getData().getAccount());
         String clientId = loginService.getAccountById(webhook.getData().getAccount()).getClientId();
         System.out.println("C: " + clientId);
         //Long userId = loginService.getByClientId(clientId).getUserId();
-        SendMessage sendMessage = new SendMessage(userService.findById(4).getChatId(), data).disableNotification(true)
+        SendMessage sendMessage = new SendMessage(userService.findById(4).getChatId(), data).disableNotification(false)
                 .disableWebPagePreview(true).parseMode(ParseMode.HTML);
         telegramBotExecuteComponent.sendMessage(sendMessage);
         return ResponseEntity.ok("ok");
