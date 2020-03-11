@@ -83,6 +83,11 @@ public class MonoBankController {
         return showChooseCart(chatId);
     }
 
+    @BotRequest("Карта, **")
+    BaseRequest chooseCartBtn(Long chatId) {
+        return showMonoBankMenu(chatId);
+    }
+
     @BotRequest("/set_mono_token **")
     BaseRequest setToken(Long chatId, String text) {
         userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/set_mono_token", "");
