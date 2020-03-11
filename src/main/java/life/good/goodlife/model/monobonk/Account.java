@@ -86,4 +86,12 @@ public class Account {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 }
