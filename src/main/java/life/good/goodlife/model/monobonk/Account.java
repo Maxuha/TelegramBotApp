@@ -22,7 +22,8 @@ public class Account {
     @Transient
     private Integer creditLimit;
 
-    @Column(name = "masked_pan")
+    //@Column(name = "masked_pan")
+    @Transient
     private String[] maskedPan;
 
     @Column
