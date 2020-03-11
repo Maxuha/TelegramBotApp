@@ -1,12 +1,13 @@
 package life.good.goodlife.model.monobonk;
 
 import life.good.goodlife.model.bank.CurrencyCodeFactory;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "monobank_account")
-public class Account {
+public class Account extends MaskedPan {
     @Id
     private String id;
 
@@ -22,7 +23,11 @@ public class Account {
     @Transient
     private Integer creditLimit;
 
-    @Column(name = "masked_pan")
+    @Type(type = "string-array")
+    @Column(
+            name = "masked_pan",
+            columnDefinition = "text[]"
+    )
     private String[] maskedPan;
 
     @Column
