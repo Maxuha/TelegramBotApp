@@ -83,7 +83,7 @@ public class MonoBankController {
         return showChooseCart(chatId);
     }
 
-    @BotRequest("Карта, **")
+    @BotRequest("Карта **")
     BaseRequest chooseCartBtn(Long chatId) {
         return showMonoBankMenu(chatId);
     }
