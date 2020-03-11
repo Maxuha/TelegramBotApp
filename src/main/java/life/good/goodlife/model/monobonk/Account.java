@@ -97,4 +97,12 @@ public class Account {
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
+
+    public String getMaskedPanBD() {
+        return maskedPanBD;
+    }
+
+    public void setMaskedPanBD(String maskedPanBD) {
+        this.maskedPanBD = maskedPanBD;
+    }
 }
