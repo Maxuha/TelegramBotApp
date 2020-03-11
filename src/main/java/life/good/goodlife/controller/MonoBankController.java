@@ -61,12 +61,12 @@ public class MonoBankController {
 
     @BotRequest("/balance")
     BaseRequest getBalance(Long chatId) {
-        return showBalance(chatId);
+        return showChooseCart(chatId);
     }
 
     @BotRequest("Мой баланс")
     BaseRequest getBalanceBtn(Long chatId) {
-        return showBalance(chatId);
+        return showChooseCart(chatId);
     }
 
     @BotRequest("Банкинг")
@@ -79,13 +79,13 @@ public class MonoBankController {
         if (token == null) {
             return sendMessage;
         }
-        //return showMonoBankMenu(chatId);
-        return showChooseCart(chatId);
+        return showMonoBankMenu(chatId);
     }
 
     @BotRequest("Карта **")
     BaseRequest chooseCartBtn(Long chatId) {
-        return showMonoBankMenu(chatId);
+        System.out.println("I work");
+        return showBalance(chatId);
     }
 
     @BotRequest("/set_mono_token **")
