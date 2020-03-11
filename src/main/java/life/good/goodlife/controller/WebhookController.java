@@ -55,7 +55,8 @@ public class WebhookController {
         } else {
             data = writeOff(webhook);
         }
-        String accountId = statementService.findById(webhook.getData().getAccount()).getId();
+        System.out.println("ac: " + webhook.getData().getAccount());
+        String accountId = statementService.findById(webhook.getData().getAccount()).getAccountId();
         String clientId = loginService.getAccountById(accountId).getId();
         SendMessage sendMessage = new SendMessage(loginService.getUserIdByClientId(clientId), data).disableNotification(true)
                 .disableWebPagePreview(true).parseMode(ParseMode.HTML);
