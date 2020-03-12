@@ -116,6 +116,12 @@
             <version>2.38.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.igor-suhorukov</groupId>
+            <artifactId>phantomjs-runner</artifactId>
+            <version>1.1</version>
+        </dependency>
+
     </dependencies>
 
 
