@@ -1,5 +1,9 @@
 package life.good.goodlife.controller;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.github.igorsuhorukov.phantomjs.PhantomJsDowloader;
 import life.good.goodlife.statics.Request;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,10 +34,17 @@ public class TestController {
     }
 
     @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public ResponseEntity <?> test3() throws IOException {
+    public ResponseEntity <?> test3() throws Exception {
         String result = "";
-        Document document = Jsoup.connect("https://jump-to-infinity.com/index5.php").timeout(10000).get();
-        System.out.println(document.text());
+        WebClient webClient = new WebClient(BrowserVersion.CHROME);
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+        HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
+        webClient.waitForBackgroundJavaScriptStartingBefore(200);
+        webClient.waitForBackgroundJavaScript(20000);
+        System.out.println(page.asXml());
+        //Document document = Jsoup.connect("https://jump-to-infinity.com/index5.php").timeout(10000).get();
+
         /*String response = Request.get("https://jump-to-infinity.com/index5.php");
         int indexStart = response.indexOf("<a id=\"download\" download=\"myImage.jpg\" href=\"");
         int indexFinish = response.indexOf("\">Download to myImage.jpg</a>");
