@@ -34,6 +34,7 @@ public class TestController {
                 .userAgent("Chrome/4.0.249.0 Safari/532.5")
                 .referrer("http://www.google.com")
                 .get();
+        System.out.println("Doc: " + doc.text());
         Elements elements = doc.select("a");
         String result = elements.first().attr("href");
         return ResponseEntity.ok(result);
