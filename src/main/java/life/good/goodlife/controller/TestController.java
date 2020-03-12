@@ -35,7 +35,7 @@ public class TestController {
                 .referrer("http://www.google.com")
                 .get();
         Elements elements = doc.select("a");
-        String result = elements.text();
+        String result = elements.first().attr("href");
         return ResponseEntity.ok(result);
     }
 }
