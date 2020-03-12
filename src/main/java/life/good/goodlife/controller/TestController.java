@@ -31,14 +31,17 @@ public class TestController {
 
     @RequestMapping(path = "/test", method = RequestMethod.GET)
     public ResponseEntity <?> test3() throws IOException {
-        String response = Request.get("https://jump-to-infinity.com/index5.php");
+        String result = "";
+        Document document = Jsoup.connect("https://jump-to-infinity.com/index5.php").timeout(10000).get();
+        System.out.println(document.text());
+        /*String response = Request.get("https://jump-to-infinity.com/index5.php");
         int indexStart = response.indexOf("<a id=\"download\" download=\"myImage.jpg\" href=\"");
         int indexFinish = response.indexOf("\">Download to myImage.jpg</a>");
         System.out.println(response);
         String result = response.substring(indexStart, indexFinish);
         System.out.println("Start: " + response.charAt(indexStart) + response.charAt(indexStart+1) + + response.charAt(indexFinish+2));
         System.out.println("Finish: " + response.charAt(indexFinish) + response.charAt(indexFinish+1) + response.charAt(indexFinish+2));
-        System.out.println("Start: " + indexStart + " Finish: " + indexFinish);
+        System.out.println("Start: " + indexStart + " Finish: " + indexFinish);*/
         return ResponseEntity.ok(result);
     }
 }
