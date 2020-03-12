@@ -121,7 +121,13 @@ public class MonoBankController {
 
     @BotRequest("Карта **")
     BaseRequest chooseCartBtn(Long chatId, String text) {
-        return showBalance(chatId, text.split(" ")[3]);
+        StringBuffer cart = new StringBuffer();
+        String[] result = text.split(" ");
+        for (int i = 3; i < 7; i++) {
+            cart.append(result[i]);
+        }
+        cart.delete(6, 10);
+        return showBalance(chatId, cart.toString());
     }
 
     private SendMessage showMonoBankMenu(Long chatId) {
