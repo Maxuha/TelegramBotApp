@@ -152,7 +152,7 @@ public class MonoBankController {
         for (Account account : accounts) {
             for (int i = 0; i < account.getMaskedPan().length; i++) {
                 cart = new StringBuffer(account.getMaskedPan()[i]);
-                cart.replace(6, 6, "******");
+                cart.replace(6, 6, "*****");
                 cart.insert(4, " ");
                 cart.insert(9, " ");
                 cart.insert(14, " ");
