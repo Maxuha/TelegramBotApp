@@ -35,7 +35,10 @@ public class TestController {
 
     @RequestMapping(path = "/test", method = RequestMethod.GET)
     public ResponseEntity <?> test3() throws Exception {
-        String result = "";
+        final WebClient webClient = new WebClient();
+        final HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
+        System.out.println(page.getHtmlElementById("download").getTextContent());
+       /* String result = "";
         WebClient webClient = new WebClient(BrowserVersion.CHROME);
         webClient.getOptions().setThrowExceptionOnScriptError(false);
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
@@ -48,7 +51,7 @@ public class TestController {
         for (Element image : images) {
             System.out.println("src : " + image.attr("src"));
         }
-        webClient.close();
+        webClient.close();*/
 
         //Document document = Jsoup.connect("https://jump-to-infinity.com/index5.php").timeout(10000).get();
 
@@ -60,6 +63,6 @@ public class TestController {
         System.out.println("Start: " + response.charAt(indexStart) + response.charAt(indexStart+1) + + response.charAt(indexFinish+2));
         System.out.println("Finish: " + response.charAt(indexFinish) + response.charAt(indexFinish+1) + response.charAt(indexFinish+2));
         System.out.println("Start: " + indexStart + " Finish: " + indexFinish);*/
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok("result");
     }
 }
