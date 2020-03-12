@@ -119,7 +119,7 @@ public class MonoBankController {
         return new SendMessage(chatId, msg);
     }
 
-    @BotRequest("Карта **")
+    @BotRequest("\uD83D\uDCB3 **")
     BaseRequest chooseCartBtn(Long chatId, String text) {
         StringBuffer cart = new StringBuffer();
         String[] result = text.split(" ");
@@ -163,7 +163,7 @@ public class MonoBankController {
                 cart.insert(4, " ");
                 cart.insert(9, " ");
                 cart.insert(14, " ");
-                accountButtons[index][0] = "Карта " + account.getType() + " " + account.getCurrencyCode() + " " + cart.toString();
+                accountButtons[index][0] = "\uD83D\uDCB3 " + account.getType() + " " + account.getCurrencyCode() + " " + cart.toString();
                 index++;
             }
         }
