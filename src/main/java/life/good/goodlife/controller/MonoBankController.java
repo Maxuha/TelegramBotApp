@@ -154,8 +154,8 @@ public class MonoBankController {
                 cart = new StringBuffer(account.getMaskedPan()[i]);
                 cart.replace(6, 6, "******");
                 cart.insert(4, " ");
-                cart.insert(8, " ");
-                cart.insert(12, " ");
+                cart.insert(9, " ");
+                cart.insert(14, " ");
                 accountButtons[index][0] = "Карта " + account.getType() + " " + account.getCurrencyCode() + " " + cart.toString();
                 index++;
             }
