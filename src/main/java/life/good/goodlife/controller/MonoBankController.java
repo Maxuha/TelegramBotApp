@@ -127,6 +127,7 @@ public class MonoBankController {
             cart.append(result[i]);
         }
         cart.delete(6, 10);
+        System.out.println(cart.toString());
         return showBalance(chatId, cart.toString());
     }
 
