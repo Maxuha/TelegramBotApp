@@ -1,4 +1,4 @@
-<jsp:useBean id="cart" scope="request" type=""/>
+<jsp:useBean id="balance" scope="request" type=""/>
 <!DOCTYPE html>
 <html>
 <body>
@@ -8,8 +8,8 @@
 <script type="text/javascript">
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
-    var ox = canvas.width / 2;
-    var oy = canvas.height / 2;
+    var ox = ${balance};
+    var oy = ${balance};
     ctx.font = "42px serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
