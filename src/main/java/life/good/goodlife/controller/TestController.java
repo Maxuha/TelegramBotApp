@@ -36,8 +36,12 @@ public class TestController {
     @RequestMapping(path = "/test", method = RequestMethod.GET)
     public ResponseEntity <?> test3() throws Exception {
         String result = "";
-        WebClient webClient = new WebClient();
+        WebClient webClient = new WebClient(BrowserVersion.CHROME);
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
         HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
+        webClient.waitForBackgroundJavaScriptStartingBefore(20000);
+        webClient.waitForBackgroundJavaScript(20000);
         System.out.println(page.asXml());
         //Document document = Jsoup.connect("https://jump-to-infinity.com/index5.php").timeout(10000).get();
 
