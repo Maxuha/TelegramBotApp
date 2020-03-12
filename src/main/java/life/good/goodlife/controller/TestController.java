@@ -34,6 +34,7 @@ public class TestController {
         String response = Request.get("https://jump-to-infinity.com/index5.php");
         int indexStart = response.indexOf("<a id=\"download\" download=\"myImage.jpg\" href=\"");
         int indexFinish = response.indexOf("\">Download to myImage.jpg</a>");
+        String result = response.substring(indexStart+58, indexFinish-1);
         System.out.println("Start: " + response.charAt(indexStart));
         System.out.println("Finish: " + response.charAt(indexFinish));
         System.out.println("Start: " + indexStart + " Finish: " + indexFinish);
