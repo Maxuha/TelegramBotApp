@@ -40,7 +40,7 @@ public class TestController {
         webClient.getOptions().setThrowExceptionOnScriptError(false);
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
         HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
-        webClient.waitForBackgroundJavaScriptStartingBefore(200);
+        webClient.waitForBackgroundJavaScriptStartingBefore(20000);
         webClient.waitForBackgroundJavaScript(20000);
         System.out.println(page.asXml());
         //Document document = Jsoup.connect("https://jump-to-infinity.com/index5.php").timeout(10000).get();
