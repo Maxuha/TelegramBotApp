@@ -37,6 +37,6 @@ public class TestController {
         System.out.println("Doc: " + doc.text());
         Elements elements = doc.select("a");
         String result = elements.first().attr("href");
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(elements.text());
     }
 }
