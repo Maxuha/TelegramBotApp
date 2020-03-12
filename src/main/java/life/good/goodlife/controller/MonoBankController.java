@@ -161,14 +161,13 @@ public class MonoBankController {
                 cart.insert(9, " ");
                 cart.insert(14, " ");
                 accountButtons[index][0] = "\uD83D\uDCB3" + MonobankFactory.getNameTypeCartByType(account.getType()) +
-                        ", " + CurrencyCodeFactory.getCartCurrencyNameByCurrencyCode(account.getCurrencyCode()) + ", <b>" +
-                        cart.toString() + "</b>";
+                        ", " + CurrencyCodeFactory.getCartCurrencyNameByCurrencyCode(account.getCurrencyCode()) + " " + cart.toString();
                 index++;
             }
         }
         accountButtons[accounts.size()][0] = Buttons.mainButton[1];
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(accountButtons).resizeKeyboard(true);
-        SendMessage sendMessage = new SendMessage(chatId, "Выбери карту").parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        SendMessage sendMessage = new SendMessage(chatId, "Выбери карту");
         sendMessage.replyMarkup(replyKeyboardMarkup);
         return sendMessage;
     }
