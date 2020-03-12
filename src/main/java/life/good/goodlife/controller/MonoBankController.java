@@ -161,7 +161,7 @@ public class MonoBankController {
                 cart.insert(9, " ");
                 cart.insert(14, " ");
                 accountButtons[index][0] = "\uD83D\uDCB3" + MonobankFactory.getNameTypeCartByType(account.getType()) +
-                        ", " + CurrencyCodeFactory.getCurrencyNameByCurrencyCode(account.getCurrencyCode()) + ", <b>" +
+                        ", " + CurrencyCodeFactory.getCartCurrencyNameByCurrencyCode(account.getCurrencyCode()) + ", <b>" +
                         cart.toString() + "</b>";
                 index++;
             }
