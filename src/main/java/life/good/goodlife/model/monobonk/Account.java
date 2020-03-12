@@ -1,6 +1,5 @@
 package life.good.goodlife.model.monobonk;
 
-import life.good.goodlife.model.bank.CurrencyCodeFactory;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;

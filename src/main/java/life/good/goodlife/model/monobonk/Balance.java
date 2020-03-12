@@ -1,7 +1,5 @@
 package life.good.goodlife.model.monobonk;
 
-import life.good.goodlife.model.bank.CurrencyCodeFactory;
-
 public class Balance {
     private String main;
     private String cent;

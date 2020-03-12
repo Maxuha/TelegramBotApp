@@ -11,10 +11,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.buttons.Buttons;
-import life.good.goodlife.model.monobonk.Account;
-import life.good.goodlife.model.monobonk.Balance;
-import life.good.goodlife.model.monobonk.UserInfo;
-import life.good.goodlife.model.monobonk.UserMonobank;
+import life.good.goodlife.model.monobonk.*;
 import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.monobank.*;
 import org.slf4j.Logger;
@@ -153,7 +150,7 @@ public class MonoBankController {
         User user = userService.findByChatId(chatId);
         UserMonobank userMonobank = loginService.getByUserId(user.getId());
         List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
-        String[][] accountButtons = new String[accounts.size()][1];
+        String[][] accountButtons = new String[accounts.size() + 1][1];
         int index = 0;
         StringBuffer cart;
         for (Account account : accounts) {
@@ -163,10 +160,13 @@ public class MonoBankController {
                 cart.insert(4, " ");
                 cart.insert(9, " ");
                 cart.insert(14, " ");
-                accountButtons[index][0] = "\uD83D\uDCB3 " + account.getType() + " " + account.getCurrencyCode() + " " + cart.toString();
+                accountButtons[index][0] = "\uD83D\uDCB3" + MonobankFactory.getNameTypeCartByType(account.getType()) +
+                        ", " + CurrencyCodeFactory.getCurrencyNameByCurrencyCode(account.getCurrencyCode()) + ", <b>" +
+                        cart.toString() + "</b>";
                 index++;
             }
         }
+        accountButtons[accounts.size()][1] = Buttons.mainButton[1];
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(accountButtons).resizeKeyboard(true);
         SendMessage sendMessage = new SendMessage(chatId, "Выбери карту");
         sendMessage.replyMarkup(replyKeyboardMarkup);

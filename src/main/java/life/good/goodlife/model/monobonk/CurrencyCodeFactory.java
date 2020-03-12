@@ -1,4 +1,4 @@
-package life.good.goodlife.model.bank;
+package life.good.goodlife.model.monobonk;
 
 public class CurrencyCodeFactory {
     public static String getFlagByCurrencyCode(int code) {
@@ -53,5 +53,19 @@ public class CurrencyCodeFactory {
             default: result = null;
         }
         return result;
+    }
+
+    public static CartCurrencyCode getCartCurrencyNameByCurrencyCode(int code) {
+        CartCurrencyCode cartCurrencyCode;
+        switch (code) {
+            case 980: cartCurrencyCode = CartCurrencyCode.гривневая;
+            break;
+            case 978: cartCurrencyCode = CartCurrencyCode.эвровая;
+            break;
+            case 840: cartCurrencyCode = CartCurrencyCode.долларовая;
+            break;
+            default:cartCurrencyCode = CartCurrencyCode.none;
+        }
+        return cartCurrencyCode;
     }
 }

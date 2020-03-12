@@ -1,8 +1,6 @@
 package life.good.goodlife.service.monobank;
 
 import com.google.gson.Gson;
-import life.good.goodlife.model.bank.CurrencyCodeFactory;
-import life.good.goodlife.model.monobonk.Balance;
 import life.good.goodlife.model.monobonk.Webhook;
 import org.springframework.stereotype.Service;
 

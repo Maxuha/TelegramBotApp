@@ -19,6 +19,6 @@ public class Buttons {
     /**
      * 0 - Main menu
      */
-    public final static String[] mainButton = new String[]{"Главное меню"};
+    public final static String[] mainButton = new String[]{"Главное меню", "Назад"};
 
 }

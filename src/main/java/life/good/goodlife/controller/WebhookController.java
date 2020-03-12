@@ -3,7 +3,7 @@ package life.good.goodlife.controller;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
-import life.good.goodlife.model.bank.CurrencyCodeFactory;
+import life.good.goodlife.model.monobonk.CurrencyCodeFactory;
 import life.good.goodlife.model.monobonk.Balance;
 import life.good.goodlife.model.monobonk.Webhook;
 import life.good.goodlife.service.bot.UserService;
