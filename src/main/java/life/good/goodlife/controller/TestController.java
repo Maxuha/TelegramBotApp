@@ -18,6 +18,6 @@ public class TestController {
 
     @RequestMapping(path = "/favicon.ico", method = RequestMethod.GET)
     public ResponseEntity <?> test2() throws IOException {
-        return ResponseEntity.ok(Objects.requireNonNull(TestController.class.getClassLoader().getResource("static/index.html")).getContent());
+        return ResponseEntity.ok(Objects.requireNonNull(TestController.class.getClassLoader().getResource("static/index.html")).getFile());
     }
 }
