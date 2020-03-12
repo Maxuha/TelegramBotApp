@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
@@ -34,10 +35,11 @@ public class TestController {
     }
 
     @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public ResponseEntity <?> test3() throws Exception {
-        final WebClient webClient = new WebClient();
+    public ResponseEntity <?> test3(@RequestParam String link) throws Exception {
+        System.out.println("link: " + link);
+        /*final WebClient webClient = new WebClient();
         final HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
-        System.out.println(page.getHtmlElementById("download").getTextContent());
+        System.out.println(page.getHtmlElementById("download").getTextContent());*/
        /* String result = "";
         WebClient webClient = new WebClient(BrowserVersion.CHROME);
         webClient.getOptions().setThrowExceptionOnScriptError(false);
