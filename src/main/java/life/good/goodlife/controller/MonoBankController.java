@@ -154,7 +154,7 @@ public class MonoBankController {
         int index = 0;
         for (Account account : accounts) {
             for (int i = 0; i < account.getMaskedPan().length; i++) {
-                accountButtons[index][0] = "Карта " + account.getType() + " " + account.getCurrencyCode() + "\n" + account.getMaskedPan()[i];
+                accountButtons[index][0] = "Карта " + account.getType() + " " + account.getCurrencyCode() + " " + account.getMaskedPan()[i];
                 index++;
             }
         }
