@@ -42,6 +42,7 @@ public class TestController {
         HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
         webClient.waitForBackgroundJavaScriptStartingBefore(20000);
         webClient.waitForBackgroundJavaScript(20000);
+        System.out.println(page.asXml());
         Document doc = Jsoup.parse(page.asXml());
         Elements images = doc.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
         for (Element image : images) {
