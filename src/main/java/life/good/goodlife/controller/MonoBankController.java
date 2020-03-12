@@ -83,8 +83,6 @@ public class MonoBankController {
         return showMonoBankMenu(chatId);
     }
 
-
-
     @BotRequest("/set_mono_token **")
     BaseRequest setToken(Long chatId, String text) {
         userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/set_mono_token", "");
@@ -148,17 +146,21 @@ public class MonoBankController {
         User user = userService.findByChatId(chatId);
         UserMonobank userMonobank = loginService.getByUserId(user.getId());
         List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
-        //KeyboardButton[] accountButtons = new KeyboardButton[accounts.size()];
-        //List<String, String> accountButtons = new ArrayList<>();
         String[][] accountButtons = new String[accounts.size()][1];
         int index = 0;
+        StringBuffer cart;
         for (Account account : accounts) {
             for (int i = 0; i < account.getMaskedPan().length; i++) {
-                accountButtons[index][0] = "Карта " + account.getType() + " " + account.getCurrencyCode() + " " + account.getMaskedPan()[i];
+                cart = new StringBuffer(account.getMaskedPan()[i]);
+                cart.replace(6, 6, "******");
+                cart.insert(4, " ");
+                cart.insert(8, " ");
+                cart.insert(12, " ");
+                accountButtons[index][0] = "Карта " + account.getType() + " " + account.getCurrencyCode() + " " + cart.toString();
                 index++;
             }
         }
-        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(accountButtons).resizeKeyboard(false);
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(accountButtons).resizeKeyboard(true);
         SendMessage sendMessage = new SendMessage(chatId, "Выбери карту");
         sendMessage.replyMarkup(replyKeyboardMarkup);
         return sendMessage;
