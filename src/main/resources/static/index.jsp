@@ -1,9 +1,10 @@
+<jsp:useBean id="cart" scope="request" type=""/>
 <!DOCTYPE html>
 <html>
 <body>
 <canvas id="canvas" width=500 height=500 style="background-color:#808080;">
 </canvas>
-<p></p>
+<p>${cart}</p>
 <a id="download" download="myImage.jpg" href="" onclick="download_img(this);">Download to myImage.jpg</a>
 <script type="text/javascript">
     var canvas = document.getElementById("canvas");
