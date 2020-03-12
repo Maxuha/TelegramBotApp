@@ -4,7 +4,6 @@
 <body>
 <canvas id="canvas" width=500 height=500 style="background-color:#808080;">
 </canvas>
-<p>${cart}</p>
 <a id="download" download="myImage.jpg" href="" onclick="download_img(this);">Download to myImage.jpg</a>
 <script type="text/javascript">
     var canvas = document.getElementById("canvas");
@@ -16,7 +15,6 @@
     ctx.textBaseline = "middle";
     ctx.fillStyle = "#800";
     ctx.fillRect(ox / 2, oy / 2, ox, oy);
-
     download_img = function(el) {
         var image = canvas.toDataURL("image/jpg");
         el.href = image;

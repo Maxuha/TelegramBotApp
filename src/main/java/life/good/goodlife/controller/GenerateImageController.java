@@ -19,8 +19,15 @@ public class GenerateImageController {
         InputStream inputStream = Objects.requireNonNull(TestController.class.getClassLoader().getResource("static/index.jsp")).openStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuffer html = new StringBuffer();
+        int i = 0;
+        String result;
         while (reader.ready()) {
-            html.append(reader.readLine());
+            result = reader.readLine();
+            if (i == 9) {
+                result = "    var ox = " + balance + ";";
+            }
+            html.append(result);
+            i++;
         }
         return ResponseEntity.ok(html);
     }
