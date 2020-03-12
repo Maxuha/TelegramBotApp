@@ -36,8 +36,8 @@ public class TestController {
         int indexFinish = response.indexOf("\">Download to myImage.jpg</a>");
         System.out.println(response);
         String result = response.substring(indexStart, indexFinish);
-        System.out.println("Start: " + response.charAt(indexStart) + response.charAt(indexStart+1));
-        System.out.println("Finish: " + response.charAt(indexFinish) + response.charAt(indexFinish+1));
+        System.out.println("Start: " + response.charAt(indexStart) + response.charAt(indexStart+1) + + response.charAt(indexFinish+2));
+        System.out.println("Finish: " + response.charAt(indexFinish) + response.charAt(indexFinish+1) + response.charAt(indexFinish+2));
         System.out.println("Start: " + indexStart + " Finish: " + indexFinish);
         return ResponseEntity.ok(result);
     }
