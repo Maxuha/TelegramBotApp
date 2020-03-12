@@ -14,6 +14,7 @@ import java.io.*;
 import java.util.Objects;
 
 import static org.apache.commons.io.FileUtils.getFile;
+import static org.apache.commons.io.FileUtils.sizeOf;
 
 @RestController
 public class TestController {
@@ -30,13 +31,10 @@ public class TestController {
 
     @RequestMapping(path = "/test", method = RequestMethod.GET)
     public ResponseEntity <?> test3() throws IOException {
-        Document doc = Jsoup.connect("https://jump-to-infinity.com/index5.php")
-                .userAgent("Chrome/4.0.249.0 Safari/532.5")
-                .referrer("http://www.google.com")
-                .get();
-        System.out.println("Doc: " + doc.text());
-        Elements elements = doc.select("a");
-        String result = elements.first().attr("href");
-        return ResponseEntity.ok(elements.text());
+        String response = Request.get("https://jump-to-infinity.com/index5.php");
+        int indexStart = response.indexOf("<a id=\"download\" download=\"myImage.jpg\" href=\"");
+        int indexFinish = response.indexOf("\">Download to myImage.jpg</a>");
+        System.out.println("Start: " + indexStart + " Finish: " + indexFinish);
+        return ResponseEntity.ok(response);
     }
 }
