@@ -11,4 +11,5 @@ public interface AccountRepository extends JpaRepository<Account, String> {
     Account findFirstByClientId(String clientId);
     Account findFirstById(String accountId);
     List<Account> findByClientId(String clientId);
+    Account findByMaskedPan(String[] maskedPan);
 }

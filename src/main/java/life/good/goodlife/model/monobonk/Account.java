@@ -17,10 +17,10 @@ public class Account extends MaskedPan {
     @Column(name = "cashback_type")
     private String cashbackType;
 
-    @Transient
+    @Column
     private Integer balance;
 
-    @Transient
+    @Column(name = "credit_limit")
     private Integer creditLimit;
 
     @Type(type = "string-array")

@@ -12,6 +12,7 @@ import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.monobonk.Account;
+import life.good.goodlife.model.monobonk.Balance;
 import life.good.goodlife.model.monobonk.UserInfo;
 import life.good.goodlife.model.monobonk.UserMonobank;
 import life.good.goodlife.service.bot.*;
@@ -120,10 +121,9 @@ public class MonoBankController {
         return new SendMessage(chatId, msg);
     }
 
-    @BotRequest("Карта **\n")
-    BaseRequest chooseCartBtn(Long chatId) {
-        System.out.println("I work");
-        return showBalance(chatId);
+    @BotRequest("Карта **")
+    BaseRequest chooseCartBtn(Long chatId, String text) {
+        return showBalance(chatId, text.split(" ")[3]);
     }
 
     private SendMessage showMonoBankMenu(Long chatId) {
@@ -154,7 +154,7 @@ public class MonoBankController {
         int index = 0;
         for (Account account : accounts) {
             for (int i = 0; i < account.getMaskedPan().length; i++) {
-                accountButtons[index][0] = "Карта " + account.getType() + " " + account.getCurrencyCode() + "\n" + account.getMaskedPan()[i];
+                accountButtons[index][0] = "Карта " + account.getType() + " " + account.getCurrencyCode() + " " + account.getMaskedPan()[i];
                 index++;
             }
         }
@@ -164,11 +164,15 @@ public class MonoBankController {
         return sendMessage;
     }
 
-    private SendMessage showBalance(Long chatId) {
+    private SendMessage showBalance(Long chatId, String cart) {
         User user = userService.findByChatId(chatId);
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
-        String msg = balanceService.balance(loginService.getToken(user.getId()));
-        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        Account account = balanceService.getBalance(new String[] {cart});
+        String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
+                "Тип: " + account.getType() + "\n" +
+                "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
+                "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";
+        return new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 
     private SendMessage showCurrency(Long chatId) {
