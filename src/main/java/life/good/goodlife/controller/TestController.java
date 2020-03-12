@@ -38,6 +38,6 @@ public class TestController {
         System.out.println("Start: " + response.charAt(indexStart));
         System.out.println("Finish: " + response.charAt(indexFinish));
         System.out.println("Start: " + indexStart + " Finish: " + indexFinish);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(result);
     }
 }
