@@ -23,7 +23,8 @@ public class GenerateImageController {
         String result;
         while (reader.ready()) {
             result = reader.readLine();
-            if (i == 9) {
+            System.out.println(result);
+            if (i == 10) {
                 result = "    var ox = " + balance + ";";
             }
             html.append(result);
