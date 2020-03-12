@@ -10,10 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.util.Objects;
@@ -34,8 +31,8 @@ public class TestController {
         return ResponseEntity.ok("OK");
     }
 
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public ResponseEntity <?> test3(@RequestParam String link) throws Exception {
+    @RequestMapping(path = "/test", method = RequestMethod.POST)
+    public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         System.out.println("link: " + link);
         /*final WebClient webClient = new WebClient();
         final HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
