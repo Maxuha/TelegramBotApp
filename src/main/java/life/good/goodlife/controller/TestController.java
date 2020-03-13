@@ -40,7 +40,7 @@ public class TestController {
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         StringBuilder linkBuffer = new StringBuilder(link);
         linkBuffer.delete(0, 5);
-        link = URLDecoder.decode(linkBuffer.toString(), "UTF-8");
+        //link = URLDecoder.decode(linkBuffer.toString(), "UTF-8");
         System.out.println("link: " + link);
         SendPhoto sendPhoto = new SendPhoto("593292108", link);
         telegramBotExecuteComponent.sendPhoto(sendPhoto);
