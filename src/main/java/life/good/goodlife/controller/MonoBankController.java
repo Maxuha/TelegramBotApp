@@ -1,5 +1,7 @@
 package life.good.goodlife.controller;
 
+import com.gargoylesoftware.htmlunit.HttpMethod;
+import com.gargoylesoftware.htmlunit.WebRequest;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
@@ -14,10 +16,11 @@ import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.monobonk.*;
 import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.monobank.*;
-import life.good.goodlife.statics.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -182,8 +185,16 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-
-        Request.get("http://jump-to-infinity.com/index5.php?cart=" + result.toString().trim());
+        //com.gargoylesoftware.htmlunit.javascript.host.fetch.Request request =
+       // WebClient webClient = new WebClient();
+        URL url = null;
+        try {
+            url = new URL("http://jump-to-infinity.com/index5.php?cart=5375");
+        } catch (MalformedURLException e) {
+            logger.error("Incorrectly url - " + e.getMessage());
+        }
+        WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
+        //Request.get("http://jump-to-infinity.com/index5.php?cart=" + result.toString().trim());
         /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
                 "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
