@@ -1,6 +1,8 @@
 package life.good.goodlife.controller;
 
 import com.gargoylesoftware.htmlunit.HttpMethod;
+import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
@@ -19,6 +21,7 @@ import life.good.goodlife.service.monobank.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -203,6 +206,12 @@ public class MonoBankController {
         requestSettings.setAdditionalHeader("X-Requested-With", "XMLHttpRequest");
         requestSettings.setAdditionalHeader("Cache-Control", "no-cache");
         requestSettings.setAdditionalHeader("Pragma", "no-cache");
+        WebClient webClient = new WebClient();
+        try {
+            Page redirectPage = webClient.getPage(requestSettings);
+        } catch (IOException e) {
+            logger.error("Error page");
+        }
         //Request.get("http://jump-to-infinity.com/index5.php?cart=" + result.toString().trim());
         /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
