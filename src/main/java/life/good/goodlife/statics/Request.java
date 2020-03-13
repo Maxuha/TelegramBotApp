@@ -84,12 +84,6 @@ public class Request {
         URL url = new URL(address);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Connection", "keep-alive");
-        connection.setRequestProperty("User-Agent",
-                "Mozilla/5.0 (Windows NT 6.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1");
-        connection.setRequestProperty("Accept",
-                " text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-        connection.setRequestProperty("Accept-Language", "en-us,en;q=0.5");
         reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String resultLine;
         result = new StringBuffer();
