@@ -43,8 +43,9 @@ public class TestController {
     @RequestMapping(path = "/test", method = RequestMethod.POST)
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         System.out.println("link: " + link);
-
-        URL url = new URL("http://" + link);
+        StringBuffer linkBuffer = new StringBuffer(link);
+        linkBuffer.delete(0, 5);
+        URL url = new URL("http://" + linkBuffer.toString());
         BufferedImage img = ImageIO.read(url);
         File file = new File("F:\\downloaded.jpg");
         ImageIO.write(img, "jpg", file);
