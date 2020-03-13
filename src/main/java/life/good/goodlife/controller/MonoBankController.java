@@ -1,9 +1,6 @@
 package life.good.goodlife.controller;
 
-import com.gargoylesoftware.htmlunit.HttpMethod;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebRequest;
+import com.gargoylesoftware.htmlunit.*;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
@@ -197,7 +194,17 @@ public class MonoBankController {
             logger.error("Incorrectly url - " + e.getMessage());
         }
         WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
-        WebClient webClient = new WebClient();
+        WebClient webClient = new WebClient(BrowserVersion.FIREFOX_68);
+        webClient.getOptions().setCssEnabled(true);
+        webClient.setCssErrorHandler(new SilentCssErrorHandler());
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.getOptions().setRedirectEnabled(false);
+        webClient.getOptions().setAppletEnabled(false);
+        webClient.getOptions().setJavaScriptEnabled(true);
+        webClient.getOptions().setPopupBlockerEnabled(true);
+        webClient.getOptions().setTimeout(5000);
+        webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         try {
             Page redirectPage = webClient.getPage(requestSettings);
             System.out.println(redirectPage.getUrl());
