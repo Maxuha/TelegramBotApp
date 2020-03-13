@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.github.igorsuhorukov.phantomjs.PhantomJsDowloader;
 import life.good.goodlife.statics.Request;
+import org.codehaus.plexus.util.Base64;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -42,10 +43,12 @@ public class TestController {
 
     @RequestMapping(path = "/test", method = RequestMethod.POST)
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
-        System.out.println("link: " + link);
-        StringBuffer linkBuffer = new StringBuffer(link);
+        StringBuilder linkBuffer = new StringBuilder(link);
         linkBuffer.delete(0, 5);
-        URL url = new URL("http://" + linkBuffer.toString());
+        byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
+        link = new String(linkBytes);
+        System.out.println("link: " + link);
+        URL url = new URL(link);
         BufferedImage img = ImageIO.read(url);
         File file = new File("F:\\downloaded.jpg");
         ImageIO.write(img, "jpg", file);
