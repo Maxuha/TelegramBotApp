@@ -55,7 +55,7 @@ public class TestController {
         /*GetStickerSet getStickerSet = new GetStickerSet(stickerSet);
         GetStickerSetResponse response = bot.execute(getStickerSet);
         StickerSet stickerSet = response.stickerSet();*/
-        SendSticker sendSticker = new SendSticker(593292108, link);
+        SendSticker sendSticker = new SendSticker(593292108, data);
         telegramBotExecuteComponent.sendSticker(sendSticker);
         SendPhoto sendPhoto = new SendPhoto(593292108, data);
         telegramBotExecuteComponent.sendPhoto(sendPhoto);
