@@ -201,7 +201,7 @@ public class MonoBankController {
         }
         WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
         WebClient webClient = new WebClient(BrowserVersion.BEST_SUPPORTED);
-        webClient.getOptions().setCssEnabled(true);
+        webClient.getOptions().setCssEnabled(false);
         webClient.setCssErrorHandler(new SilentCssErrorHandler());
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
         webClient.getOptions().setThrowExceptionOnScriptError(false);
@@ -209,7 +209,7 @@ public class MonoBankController {
         webClient.getOptions().setAppletEnabled(false);
         webClient.getOptions().setJavaScriptEnabled(true);
         webClient.getOptions().setPopupBlockerEnabled(true);
-        //webClient.getOptions().setTimeout(5000);
+        webClient.getOptions().setTimeout(5000);
         webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         try {
             //Page redirectPage = webClient.getPage(requestSettings);
