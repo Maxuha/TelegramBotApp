@@ -38,7 +38,7 @@ public class TestController {
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         StringBuilder linkBuffer = new StringBuilder(link);
         linkBuffer.delete(0, 5);
-        System.out.println("encode: " + link);
+        System.out.println("encode: " + linkBuffer.toString());
         byte[] decodedBytes = Base64.getUrlDecoder().decode(linkBuffer.toString());
         link = new String(decodedBytes);
         System.out.println(link);
