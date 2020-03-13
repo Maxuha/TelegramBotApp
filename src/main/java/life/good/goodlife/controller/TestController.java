@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
@@ -39,7 +40,7 @@ public class TestController {
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         StringBuilder linkBuffer = new StringBuilder(link);
         linkBuffer.delete(0, 5);
-        link = new String(linkBuffer.toString().getBytes(), StandardCharsets.UTF_8);
+        link = URLDecoder.decode(linkBuffer.toString(), "UTF-8");
         System.out.println("link: " + link);
         SendPhoto sendPhoto = new SendPhoto("593292108", link);
         telegramBotExecuteComponent.sendPhoto(sendPhoto);
