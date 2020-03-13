@@ -41,14 +41,13 @@ public class NewsController {
     }
 
     @BotRequest("Новости")
-    BaseRequest getNews(Long chatId, User user) {
+    BaseRequest getNews(Long chatId) {
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{Buttons.newsButton[1]},
                 new String[]{Buttons.newsButton[4], Buttons.newsButton[7]},
                 new String[]{Buttons.newsButton[3], Buttons.newsButton[2]},
                 new String[]{Buttons.mainButton[0]})
                 .resizeKeyboard(true);
-        System.out.println("id:" + user.id());
         return new SendMessage(chatId, "Выбери категорию 📰").replyMarkup(replyKeyboardMarkup);
     }
 
