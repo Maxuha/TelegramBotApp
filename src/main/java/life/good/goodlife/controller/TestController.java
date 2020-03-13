@@ -6,6 +6,7 @@ import life.good.goodlife.statics.Request;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -40,7 +41,25 @@ public class TestController {
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         StringBuilder linkBuffer = new StringBuilder(link);
         linkBuffer.delete(0, 5);
+        link = linkBuffer.toString();
+        String[] strings = link.split(",");
+        String extension;
+        switch (strings[0]) {//check image's extension
+            case "data:image/jpeg;base64":
+                extension = "jpeg";
+                break;
+            case "data:image/png;base64":
+                extension = "png";
+                break;
+            default://should write cases for more images types
+                extension = "jpg";
+                break;
+        }
+        //convert base64 string to binary data
+        byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
+        String path = "C:\\Users\\Ene\\Desktop\\test_image." + extension;
         //link = URLDecoder.decode(linkBuffer.toString(), "UTF-8");
+        link = new String(data);
         System.out.println("link: " + link);
         SendPhoto sendPhoto = new SendPhoto("593292108", link);
         telegramBotExecuteComponent.sendPhoto(sendPhoto);
