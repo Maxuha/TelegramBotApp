@@ -194,7 +194,7 @@ public class MonoBankController {
             logger.error("Incorrectly url - " + e.getMessage());
         }
         WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
-        WebClient webClient = new WebClient(BrowserVersion.FIREFOX_68);
+        WebClient webClient = new WebClient(BrowserVersion.CHROME);
         webClient.getOptions().setCssEnabled(true);
         webClient.setCssErrorHandler(new SilentCssErrorHandler());
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
@@ -207,7 +207,7 @@ public class MonoBankController {
         webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         try {
             Page redirectPage = webClient.getPage(requestSettings);
-            System.out.println(redirectPage.getUrl());
+            redirectPage.getUrl();
         } catch (IOException e) {
             logger.error("Error page");
         }
