@@ -1,6 +1,8 @@
 package life.good.goodlife.controller;
 
 import com.pengrad.telegrambot.request.SendPhoto;
+import com.pengrad.telegrambot.request.UploadStickerFile;
+import com.pengrad.telegrambot.response.GetFileResponse;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.statics.Request;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +47,11 @@ public class TestController {
         String[] strings = link.split(",");
         byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
         link = new String(data);
-        SendPhoto sendPhoto = new SendPhoto("593292108", data);
-        telegramBotExecuteComponent.sendPhoto(sendPhoto);
+        UploadStickerFile uploadStickerFile = new UploadStickerFile(593292108, link);
+        GetFileResponse response = telegramBotExecuteComponent.sendUploadStickerFile(uploadStickerFile);
+        System.out.println(response.toString());
+        //SendPhoto sendPhoto = new SendPhoto("593292108", data);
+        //telegramBotExecuteComponent.sendPhoto(sendPhoto);
         return ResponseEntity.ok(link);
     }
 }

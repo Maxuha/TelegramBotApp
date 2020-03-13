@@ -5,7 +5,9 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendLocation;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SendPhoto;
+import com.pengrad.telegrambot.request.UploadStickerFile;
 import com.pengrad.telegrambot.response.BaseResponse;
+import com.pengrad.telegrambot.response.GetFileResponse;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -31,5 +33,9 @@ public class TelegramBotExecuteComponent {
 
     public void sendPhoto(SendPhoto sendPhoto) {
         telegramBot.execute(sendPhoto);
+    }
+
+    public GetFileResponse sendUploadStickerFile(UploadStickerFile uploadStickerFile) {
+        return telegramBot.execute(uploadStickerFile);
     }
 }
