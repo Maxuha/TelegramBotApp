@@ -64,7 +64,7 @@ public class TestController {
         //link = URLDecoder.decode(linkBuffer.toString(), "UTF-8");
         link = new String(data);
         System.out.println("link: " + link);
-        SendPhoto sendPhoto = new SendPhoto("593292108", link);
+        SendPhoto sendPhoto = new SendPhoto("593292108", data);
         telegramBotExecuteComponent.sendPhoto(sendPhoto);
         return ResponseEntity.ok(link);
     }
