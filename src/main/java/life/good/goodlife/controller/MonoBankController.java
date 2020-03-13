@@ -192,7 +192,7 @@ public class MonoBankController {
        // WebClient webClient = new WebClient();
         URL url = null;
         try {
-            url = new URL("http://jump-to-infinity.com/index5.php?cart=5375");
+            url = new URL("http://jump-to-infinity.com/index5.php?cart=" + cart.toString());
         } catch (MalformedURLException e) {
             logger.error("Incorrectly url - " + e.getMessage());
         }
