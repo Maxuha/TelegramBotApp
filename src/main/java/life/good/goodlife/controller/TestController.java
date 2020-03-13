@@ -31,10 +31,16 @@ public class TestController {
         return ResponseEntity.ok("OK");
     }
 
+    @RequestMapping(path = "/test", method = RequestMethod.GET)
+    public ResponseEntity <?> test3Get() throws IOException {
+        String response = Request.get("https://jump-to-infinity.com/index5.php");
+        return ResponseEntity.ok(response);
+    }
+
     @RequestMapping(path = "/test", method = RequestMethod.POST)
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         System.out.println("link: " + link);
-        String response = Request.get("https://jump-to-infinity.com/index5.php");
+
         /*final WebClient webClient = new WebClient();
         final HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
         System.out.println(page.getHtmlElementById("download").getTextContent());*/
@@ -63,6 +69,6 @@ public class TestController {
         System.out.println("Start: " + response.charAt(indexStart) + response.charAt(indexStart+1) + + response.charAt(indexFinish+2));
         System.out.println("Finish: " + response.charAt(indexFinish) + response.charAt(indexFinish+1) + response.charAt(indexFinish+2));
         System.out.println("Start: " + indexStart + " Finish: " + indexFinish);*/
-        return ResponseEntity.ok(link + " " + response);
+        return ResponseEntity.ok(link);
     }
 }
