@@ -37,7 +37,7 @@ public class TestController {
 
     @RequestMapping(path = "/test", method = RequestMethod.GET)
     public ResponseEntity <?> test3Get() throws IOException {
-        String response = Request.get("https://jump-to-infinity.com/index5.php");
+        String response = Request.get("https://jump-to-infinity.com/index5.php?cart=5&balance=100");
         return ResponseEntity.ok(response);
     }
 
