@@ -209,6 +209,7 @@ public class MonoBankController {
         WebClient webClient = new WebClient();
         try {
             Page redirectPage = webClient.getPage(requestSettings);
+            System.out.println(redirectPage.getUrl());
         } catch (IOException e) {
             logger.error("Error page");
         }
