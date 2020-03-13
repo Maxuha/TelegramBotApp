@@ -43,6 +43,7 @@ public class TestController {
 
     @RequestMapping(path = "/test", method = RequestMethod.POST)
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
+        System.out.println("work");
         StringBuilder linkBuffer = new StringBuilder(link);
         linkBuffer.delete(0, 5);
         link = linkBuffer.toString();
