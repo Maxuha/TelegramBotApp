@@ -124,6 +124,7 @@ public class MonoBankController {
         for (int i = 3; i < result.length; i++) {
             cart[i-3] = result[i];
         }
+        System.out.println("cart: " + cart);
         return showBalance(chatId, cart);
     }
 
