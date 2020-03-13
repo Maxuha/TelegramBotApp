@@ -203,7 +203,7 @@ public class MonoBankController {
         webClient.getOptions().setAppletEnabled(false);
         webClient.getOptions().setJavaScriptEnabled(true);
         webClient.getOptions().setPopupBlockerEnabled(true);
-        webClient.getOptions().setTimeout(5000);
+        //webClient.getOptions().setTimeout(5000);
         webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         try {
             Page redirectPage = webClient.getPage(requestSettings);
