@@ -38,15 +38,17 @@ public class TestController {
 
     @RequestMapping(path = "/test", method = RequestMethod.POST)
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
-       // StringBuilder linkBuffer = new StringBuilder(link);
-       // linkBuffer.delete(0, 5);
-        //byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
+        StringBuilder linkBuffer = new StringBuilder(link);
+        linkBuffer.delete(0, 5);
+        byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
+        link = new String(linkBytes);
+        System.out.println(link);
         //byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
         //link = new String(linkBytes);
         //System.out.println("link: " + link);
         //URL url = new URL(link);
        // BufferedImage img = ImageIO.read(url);
-        SendPhoto sendPhoto = new SendPhoto("593292108", "https://i8.rozetka.ua/goods/14955796/67122447_images_14955796123.jpg");
+        SendPhoto sendPhoto = new SendPhoto("593292108", link);
         telegramBotExecuteComponent.sendPhoto(sendPhoto);
 
         /*final WebClient webClient = new WebClient();
