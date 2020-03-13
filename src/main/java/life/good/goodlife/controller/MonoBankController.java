@@ -215,7 +215,7 @@ public class MonoBankController {
             //Page redirectPage = webClient.getPage(requestSettings);
             HtmlPage page = webClient.getPage(requestSettings);
             page.executeJavaScript("createImage()");
-            HtmlImage img = (HtmlImage) page.getElementById("background_cart");
+            HtmlImage img = (HtmlImage) page.getElementById("download");
             InputStream is = img.getWebResponse(true).getContentAsStream();
             byte[] bytes = IOUtils.toByteArray(is);
             telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, bytes));
