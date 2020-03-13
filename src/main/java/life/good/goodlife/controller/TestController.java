@@ -43,6 +43,8 @@ public class TestController {
         linkBuffer.delete(0, 5);
         link = linkBuffer.toString();
         String[] strings = link.split(",");
+        System.out.println("S0: " + strings[0]);
+        System.out.println("S1: " + strings[1]);
         String extension;
         switch (strings[0]) {//check image's extension
             case "data:image/jpeg;base64":
