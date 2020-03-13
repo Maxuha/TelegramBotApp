@@ -12,7 +12,10 @@ import org.jsoup.select.Elements;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
 import java.util.Objects;
 
 import static org.apache.commons.io.FileUtils.getFile;
@@ -40,6 +43,11 @@ public class TestController {
     @RequestMapping(path = "/test", method = RequestMethod.POST)
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         System.out.println("link: " + link);
+
+        URL url = new URL(link);
+        BufferedImage img = ImageIO.read(url);
+        File file = new File("F:\\downloaded.jpg");
+        ImageIO.write(img, "jpg", file);
 
         /*final WebClient webClient = new WebClient();
         final HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
