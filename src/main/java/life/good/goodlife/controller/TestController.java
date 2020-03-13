@@ -44,7 +44,7 @@ public class TestController {
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         System.out.println("link: " + link);
 
-        URL url = new URL(link);
+        URL url = new URL("http://" + link);
         BufferedImage img = ImageIO.read(url);
         File file = new File("F:\\downloaded.jpg");
         ImageIO.write(img, "jpg", file);
