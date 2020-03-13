@@ -2,10 +2,7 @@ package life.good.goodlife.component;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.request.SendLocation;
-import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.request.SendPhoto;
-import com.pengrad.telegrambot.request.UploadStickerFile;
+import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.GetFileResponse;
 import org.springframework.core.env.Environment;
@@ -37,5 +34,9 @@ public class TelegramBotExecuteComponent {
 
     public GetFileResponse sendUploadStickerFile(UploadStickerFile uploadStickerFile) {
         return telegramBot.execute(uploadStickerFile);
+    }
+
+    public void sendSticker(SendSticker sendSticker) {
+        telegramBot.execute(sendSticker);
     }
 }
