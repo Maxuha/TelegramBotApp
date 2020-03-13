@@ -45,10 +45,10 @@ public class TestController {
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         StringBuilder linkBuffer = new StringBuilder(link);
         linkBuffer.delete(0, 5);
-        byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
-        link = new String(linkBytes);
-        System.out.println("link: " + link);
-        URL url = new URL(link);
+        //byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
+        //link = new String(linkBytes);
+        System.out.println("link: " + linkBuffer.toString());
+        URL url = new URL(linkBuffer.toString());
         BufferedImage img = ImageIO.read(url);
         File file = new File("F:\\downloaded.jpg");
         ImageIO.write(img, "jpg", file);
