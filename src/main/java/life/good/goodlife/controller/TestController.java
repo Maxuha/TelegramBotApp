@@ -36,7 +36,7 @@ public class TestController {
         return ResponseEntity.ok(response);
     }
 
-    @RequestMapping(path = "/test", method = RequestMethod.POST)
+    @RequestMapping(path = "/test", method = RequestMethod.OPTIONS)
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         StringBuilder linkBuffer = new StringBuilder(link);
         linkBuffer.delete(0, 5);
