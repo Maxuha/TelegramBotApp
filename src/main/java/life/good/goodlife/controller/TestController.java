@@ -40,8 +40,8 @@ public class TestController {
     public ResponseEntity <?> test3(@RequestBody String link) throws Exception {
         StringBuilder linkBuffer = new StringBuilder(link);
         linkBuffer.delete(0, 5);
-        byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
-        link = new String(linkBytes);
+        //byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
+        //link = new String(linkBytes);
         System.out.println(link);
         //byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
         //link = new String(linkBytes);
