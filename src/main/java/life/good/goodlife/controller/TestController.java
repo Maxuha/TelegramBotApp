@@ -1,15 +1,9 @@
 package life.good.goodlife.controller;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.github.igorsuhorukov.phantomjs.PhantomJsDowloader;
+import com.pengrad.telegrambot.request.SendPhoto;
+import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.statics.Request;
 import org.codehaus.plexus.util.Base64;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +11,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.util.Objects;
-
-import static org.apache.commons.io.FileUtils.getFile;
-import static org.apache.commons.io.FileUtils.sizeOf;
 
 @RestController
 public class TestController {
+    private final TelegramBotExecuteComponent telegramBotExecuteComponent;
+
+    public TestController(TelegramBotExecuteComponent telegramBotExecuteComponent) {
+        this.telegramBotExecuteComponent = telegramBotExecuteComponent;
+    }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ResponseEntity <?> test() {
@@ -49,10 +44,10 @@ public class TestController {
         //byte[] linkBytes = Base64.decodeBase64(linkBuffer.toString().getBytes());
         link = new String(linkBytes);
         System.out.println("link: " + link);
-        URL url = new URL(link);
-        BufferedImage img = ImageIO.read(url);
-        File file = new File("F:\\downloaded.jpg");
-        ImageIO.write(img, "jpg", file);
+        //URL url = new URL(link);
+       // BufferedImage img = ImageIO.read(url);
+        SendPhoto sendPhoto = new SendPhoto("593292108", link);
+        telegramBotExecuteComponent.sendPhoto(sendPhoto);
 
         /*final WebClient webClient = new WebClient();
         final HtmlPage page = webClient.getPage("https://jump-to-infinity.com/index5.php");
