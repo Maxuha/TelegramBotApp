@@ -178,7 +178,7 @@ public class MonoBankController {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < cartFull.length; i++) {
             cart.append(cartFull[i]);
-            result.append(cartFull[i]).append(" ");
+            result.append(cartFull[i]).append("%20");
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
