@@ -57,8 +57,6 @@ public class TestController {
         StickerSet stickerSet = response.stickerSet();*/
         SendSticker sendSticker = new SendSticker(593292108, data);
         telegramBotExecuteComponent.sendSticker(sendSticker);
-        SendPhoto sendPhoto = new SendPhoto(593292108, data);
-        telegramBotExecuteComponent.sendPhoto(sendPhoto);
         return ResponseEntity.ok(link);
     }
 }
