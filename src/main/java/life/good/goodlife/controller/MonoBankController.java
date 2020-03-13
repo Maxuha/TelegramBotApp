@@ -1,6 +1,8 @@
 package life.good.goodlife.controller;
 
 import com.gargoylesoftware.htmlunit.*;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
@@ -9,16 +11,20 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.request.SendSticker;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.monobonk.*;
 import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.monobank.*;
+import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -206,8 +212,13 @@ public class MonoBankController {
         //webClient.getOptions().setTimeout(5000);
         webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         try {
-            Page redirectPage = webClient.getPage(requestSettings);
-            redirectPage.getUrl();
+            //Page redirectPage = webClient.getPage(requestSettings);
+            HtmlPage page = webClient.getPage(requestSettings);
+            page.executeJavaScript("createImage()");
+            HtmlImage img = (HtmlImage) page.getElementById("background_cart");
+            InputStream is = img.getWebResponse(true).getContentAsStream();
+            byte[] bytes = IOUtils.toByteArray(is);
+            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, bytes));
         } catch (IOException e) {
             logger.error("Error page");
         }
