@@ -234,8 +234,16 @@ public class MonoBankController {
 
         Font font = new Font("Georgia", Font.ITALIC, 50);
 
-        BufferedImage image = new BufferedImage(415, 256,
-                BufferedImage.TYPE_INT_RGB);
+        //String backgrond = MonoBankController.class.re
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(MonoBankController.class.getResourceAsStream("image/BackgroundCart.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       // BufferedImage image = new BufferedImage(415, 256,
+            //    BufferedImage.TYPE_INT_RGB);
+        assert image != null;
         Graphics2D g1d = image.createGraphics();
         setRenderingHints(g1d);
         textLayout = new TextLayout(cart, font, g1d.getFontRenderContext());
