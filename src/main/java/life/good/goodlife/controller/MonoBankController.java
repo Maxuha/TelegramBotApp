@@ -203,10 +203,10 @@ public class MonoBankController {
         WebClient webClient = new WebClient();
         webClient.getOptions().setCssEnabled(true);
         webClient.setCssErrorHandler(new SilentCssErrorHandler());
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
+        webClient.getOptions().setThrowExceptionOnScriptError(true);
         webClient.getOptions().setRedirectEnabled(false);
-        webClient.getOptions().setAppletEnabled(false);
+        webClient.getOptions().setAppletEnabled(true);
         webClient.getOptions().setJavaScriptEnabled(true);
         webClient.waitForBackgroundJavaScript(10000);
         webClient.getOptions().setPopupBlockerEnabled(true);
