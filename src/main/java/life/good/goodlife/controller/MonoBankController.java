@@ -257,15 +257,16 @@ public class MonoBankController {
         textLayout.draw(g1d, x+3, y+3);
         g1d.dispose();
 
-        float[] kernel = {
+        /*float[] kernel = {
                 1f / 9f, 1f / 9f, 1f / 9f,
                 1f / 9f, 1f / 9f, 1f / 9f,
                 1f / 9f, 1f / 9f, 1f / 9f
         };
 
         ConvolveOp op =  new ConvolveOp(new Kernel(3, 3, kernel),
-                ConvolveOp.EDGE_NO_OP, null);
-        BufferedImage image2 = op.filter(image, null);
+                ConvolveOp.EDGE_NO_OP, null);*/
+        //op.filter(image, null)
+        BufferedImage image2 = image;
 
         Graphics2D g2d = image2.createGraphics();
         setRenderingHints(g2d);
