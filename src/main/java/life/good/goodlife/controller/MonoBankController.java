@@ -243,8 +243,9 @@ public class MonoBankController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        BufferedImage image = new BufferedImage(415, 256,
-                BufferedImage.TYPE_INT_ARGB);
+        assert src != null;
+        BufferedImage image = new BufferedImage(src.getWidth(), src.getHeight(),
+                BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g1d = image.createGraphics();
         setRenderingHints(g1d);
         //g1d.setPaint(Color.WHITE);
