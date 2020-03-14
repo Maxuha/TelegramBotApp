@@ -1,11 +1,7 @@
 package life.good.goodlife.controller;
 
 import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLImageElement;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLLinkElement;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
@@ -14,7 +10,6 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.request.SendPhoto;
 import com.pengrad.telegrambot.request.SendSticker;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.User;
@@ -22,23 +17,14 @@ import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.monobonk.*;
 import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.monobank.*;
-import life.good.goodlife.statics.Request;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
-
-import javax.imageio.ImageIO;
-import javax.xml.bind.DatatypeConverter;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
 
 @BotController
@@ -193,69 +179,16 @@ public class MonoBankController {
         User user = userService.findByChatId(chatId);
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
         StringBuilder cart = new StringBuilder();
-        StringBuilder result = new StringBuilder();
         for (int i = 0; i < cartFull.length; i++) {
             cart.append(cartFull[i]);
-            result.append(cartFull[i]).append("%20");
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        /*InputStream ismain = MonoBankController.class.getClassLoader().getResourceAsStream("image/BackgroundCat.png");
-        BufferedImage read = null;
-        try {
-            assert ismain != null;
-            read = ImageIO.read(ismain);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assert read != null;
-        Graphics g = read.getGraphics();
-        //g.setFont("Calibri");
-        g.setColor(Color.WHITE);
-        g.drawString("Hello world ",7, 55);
-        g.dispose();
-        File file = new File("image.png");
-        try {
-            ImageIO.write(read, "png", file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        //com.gargoylesoftware.htmlunit.javascript.host.fetch.Request request =
-        WebClient webClient = new WebClient();
-        URL url = null;
-        try {
-            url = new URL("http://jump-to-infinity.com/index5.php?cart=" + result.toString());
-        } catch (MalformedURLException e) {
-            logger.error("Incorrectly url - " + e.getMessage());
-        }
-        WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
-        webClient.getOptions().setJavaScriptEnabled(true);
-        try {
-            HtmlPage page = webClient.getPage(requestSettings);
-            webClient.waitForBackgroundJavaScript(10000);
-            String link = page.getElementById("download").getAttribute("href");
-            System.out.println("link: " + link);
-            String[] strings = link.split(",");;
-            //byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
-            byte[] data = Base64.decodeBase64(strings[1].getBytes());
-            OutputStream outputStream = new FileOutputStream("image1.png");
-            outputStream.write(data);
-            outputStream.flush();
-            outputStream.close();
-            File file = new File("image1.png");
-            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, file));
-        } catch (IOException e) {
-            logger.error("Error page");
-        } finally {
-            webClient.close();
-        }
-        //Request.get("http://jump-to-infinity.com/index5.php?cart=" + result.toString().trim());
-        /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
+        String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
                 "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
-                "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";*/
-        //new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true)
-        return null;
+                "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";
+        return new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 
     private SendMessage showCurrency(Long chatId) {
