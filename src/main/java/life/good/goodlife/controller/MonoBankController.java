@@ -201,6 +201,7 @@ public class MonoBankController {
             logger.error("Incorrectly url - " + e.getMessage());
         }
         WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
+        requestSettings.setAdditionalHeader("Content-Type", "text/javascript");
         WebClient webClient = new WebClient(BrowserVersion.CHROME);
         webClient.getOptions().setCssEnabled(true);
         webClient.setCssErrorHandler(new SilentCssErrorHandler());
