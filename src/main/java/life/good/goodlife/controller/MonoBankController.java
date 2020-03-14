@@ -242,6 +242,7 @@ public class MonoBankController {
             HtmlPage page = webClient.getPage(requestSettings);
             webClient.waitForBackgroundJavaScript(10000);
             String link = page.getElementById("download").getAttribute("href");
+            System.out.println("link: " + link);
             String[] strings = link.split(",");;
             byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
             OutputStream outputStream = new FileOutputStream("image1.png");
