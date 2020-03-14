@@ -219,10 +219,9 @@ public class MonoBankController {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-        telegramBotExecuteComponent.sendPhoto(new SendPhoto(chatId, "https://mumotiki.ru/download_tmp/quote-2020-03-14-1584199499.jpg"));
         //com.gargoylesoftware.htmlunit.javascript.host.fetch.Request request =
-       // WebClient webClient = new WebClient();
-        /*URL url = null;
+        WebClient webClient = new WebClient();
+        URL url = null;
         try {
             url = new URL("http://jump-to-infinity.com/index5.php?cart=" + result.toString());
         } catch (MalformedURLException e) {
@@ -230,7 +229,6 @@ public class MonoBankController {
         }
         WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
         requestSettings.setAdditionalHeader("Content-Type", "text/javascript");
-        WebClient webClient = new WebClient(BrowserVersion.BEST_SUPPORTED);
         webClient.getOptions().setCssEnabled(true);
         webClient.setCssErrorHandler(new SilentCssErrorHandler());
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
@@ -251,13 +249,12 @@ public class MonoBankController {
             outputStream.flush();
             outputStream.close();
             File file = new File("image1.png");
-            //telegramBotExecuteComponent.sendMessage(new SendMessage(chatId, strings[1]));
             telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, file));
         } catch (IOException e) {
             logger.error("Error page");
         } finally {
             webClient.close();
-        }*/
+        }
         //Request.get("http://jump-to-infinity.com/index5.php?cart=" + result.toString().trim());
         /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
