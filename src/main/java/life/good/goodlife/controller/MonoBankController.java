@@ -200,7 +200,7 @@ public class MonoBankController {
             logger.error("Incorrectly url - " + e.getMessage());
         }
         WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
-        WebClient webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
+        WebClient webClient = new WebClient();
         webClient.getOptions().setCssEnabled(true);
         webClient.setCssErrorHandler(new SilentCssErrorHandler());
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
