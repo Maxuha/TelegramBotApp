@@ -30,6 +30,7 @@ import org.springframework.util.Assert;
 
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
@@ -198,9 +199,30 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
+        InputStream ismain = MonoBankController.class.getClassLoader().getResourceAsStream("image/BackgroundCat.png");
+        BufferedImage read = null;
+        try {
+            assert ismain != null;
+            read = ImageIO.read(ismain);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert read != null;
+        Graphics g = read.getGraphics();
+        //g.setFont("Calibri");
+        g.setColor(Color.WHITE);
+        g.drawString("Hello world ",7, 55);
+        g.dispose();
+        File file = new File("image.png");
+        try {
+            ImageIO.write(read, "png", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, file));
         //com.gargoylesoftware.htmlunit.javascript.host.fetch.Request request =
        // WebClient webClient = new WebClient();
-        URL url = null;
+        /*URL url = null;
         try {
             url = new URL("http://jump-to-infinity.com/index5.php?cart=" + result.toString());
         } catch (MalformedURLException e) {
@@ -235,7 +257,7 @@ public class MonoBankController {
             logger.error("Error page");
         } finally {
             webClient.close();
-        }
+        }*/
         //Request.get("http://jump-to-infinity.com/index5.php?cart=" + result.toString().trim());
         /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
