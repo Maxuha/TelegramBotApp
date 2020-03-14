@@ -237,7 +237,7 @@ public class MonoBankController {
         //String backgrond = MonoBankController.class.re
         BufferedImage image = null;
         try {
-            image = ImageIO.read(MonoBankController.class.getResourceAsStream("image/Cart.png"));
+            image = ImageIO.read(new File("Cart.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
