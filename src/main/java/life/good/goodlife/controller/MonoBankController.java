@@ -2,7 +2,10 @@ package life.good.goodlife.controller;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLImageElement;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLLinkElement;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
@@ -23,7 +26,6 @@ import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-import org.w3c.dom.html.HTMLLinkElement;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -217,11 +219,11 @@ public class MonoBankController {
             HtmlPage page = webClient.getPage(requestSettings);
             webClient.waitForBackgroundJavaScript(10000);
            // page.executeJavaScript("createImage()");
-            HTMLLinkElement img = (HTMLLinkElement) page.getElementById("download");
+            HtmlLink img = (HtmlLink) page.getElementById("download");
             //InputStream is = img.getWebResponse(true).getContentAsStream();
-            System.out.println(img.getHref());
+            System.out.println(img.getHrefAttribute());
             //byte[] bytes = IOUtils.toByteArray(is);
-            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, img.getHref()));
+            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, img.getHrefAttribute()));
         } catch (IOException e) {
             logger.error("Error page");
         } finally {
