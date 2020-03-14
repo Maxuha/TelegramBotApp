@@ -235,15 +235,14 @@ public class MonoBankController {
         Font font = new Font("Georgia", Font.ITALIC, 50);
 
         //String backgrond = MonoBankController.class.re
-        BufferedImage image = null;
+        BufferedImage src = null;
         try {
-            image = ImageIO.read(new File("Cart.png"));
+            src = ImageIO.read(new File("Cart.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-       // BufferedImage image = new BufferedImage(415, 256,
-            //    BufferedImage.TYPE_INT_RGB);
-        assert image != null;
+        BufferedImage image = new BufferedImage(415, 256,
+                BufferedImage.TYPE_INT_RGB);
         Graphics2D g1d = image.createGraphics();
         setRenderingHints(g1d);
         textLayout = new TextLayout(cart, font, g1d.getFontRenderContext());
@@ -251,6 +250,7 @@ public class MonoBankController {
         g1d.fillRect(0, 0, 415, 256);
 
         g1d.setPaint(new Color(150, 150, 150));
+        g1d.drawImage(src, 0, 0, 415, 256, null);
         textLayout.draw(g1d, x+3, y+3);
         g1d.dispose();
 
