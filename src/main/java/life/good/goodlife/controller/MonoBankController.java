@@ -198,8 +198,8 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        /*System.out.println("Path: " + MonoBankController.class.getResource("image/BackgroundCart.png").getFile());
-        String path = MonoBankController.class.getResource("image/BackgroundCart.png").getFile();
+        /*System.out.println("Path: " + MonoBankController.class.getResource("image/.png").getFile());
+        String path = MonoBankController.class.getResource("image/.png").getFile();
         Mat matrix = Imgcodecs.imread(path);
         Imgproc.putText(matrix,
                 cart.toString(),
@@ -237,7 +237,7 @@ public class MonoBankController {
         //String backgrond = MonoBankController.class.re
         BufferedImage image = null;
         try {
-            image = ImageIO.read(MonoBankController.class.getResourceAsStream("image/BackgroundCart.png"));
+            image = ImageIO.read(MonoBankController.class.getResourceAsStream("image/Cart.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
