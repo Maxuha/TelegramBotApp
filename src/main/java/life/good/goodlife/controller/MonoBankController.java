@@ -27,6 +27,13 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.font.TextLayout;
+import java.awt.image.BufferedImage;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -191,7 +198,7 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        System.out.println("Path: " + MonoBankController.class.getResource("image/BackgroundCart.png").getFile());
+        /*System.out.println("Path: " + MonoBankController.class.getResource("image/BackgroundCart.png").getFile());
         String path = MonoBankController.class.getResource("image/BackgroundCart.png").getFile();
         Mat matrix = Imgcodecs.imread(path);
         Imgproc.putText(matrix,
@@ -203,14 +210,68 @@ public class MonoBankController {
                 5);
         ;
         Imgcodecs.imwrite(path.split("\\.")[0] + "1.png", matrix);
-        File file = new File(path.split("\\.")[0] + "1.png");
-        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, file));
+        File file = new File(path.split("\\.")[0] + "1.png");*/
+        BufferedImage image = createImage(cart.toString());
+        File outputfile = new File("image15645.png");
+        try {
+            ImageIO.write(image, "png", outputfile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, outputfile));
         /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
                 "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
                 "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";
         return new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true);*/
         return null;
+    }
+
+    private BufferedImage createImage(String cart)  {
+        int x = 10;
+        int y = 100;
+        TextLayout textLayout;
+
+        Font font = new Font("Georgia", Font.ITALIC, 50);
+
+        BufferedImage image = new BufferedImage(415, 256,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D g1d = image.createGraphics();
+        setRenderingHints(g1d);
+        textLayout = new TextLayout(cart, font, g1d.getFontRenderContext());
+        g1d.setPaint(Color.WHITE);
+        g1d.fillRect(0, 0, 415, 256);
+
+        g1d.setPaint(new Color(150, 150, 150));
+        textLayout.draw(g1d, x+3, y+3);
+        g1d.dispose();
+
+        float[] kernel = {
+                1f / 9f, 1f / 9f, 1f / 9f,
+                1f / 9f, 1f / 9f, 1f / 9f,
+                1f / 9f, 1f / 9f, 1f / 9f
+        };
+
+        ConvolveOp op =  new ConvolveOp(new Kernel(3, 3, kernel),
+                ConvolveOp.EDGE_NO_OP, null);
+        BufferedImage image2 = op.filter(image, null);
+
+        Graphics2D g2d = image2.createGraphics();
+        setRenderingHints(g2d);
+        g2d.setPaint(Color.BLACK);
+        textLayout.draw(g2d, x, y);
+
+        g2d.dispose();
+
+        return image2;
+    }
+
+    private void setRenderingHints(Graphics2D g) {
+
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+                RenderingHints.VALUE_FRACTIONALMETRICS_ON);
     }
 
     private SendMessage showCurrency(Long chatId) {
