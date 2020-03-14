@@ -202,7 +202,7 @@ public class MonoBankController {
         }
         WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
         requestSettings.setAdditionalHeader("Content-Type", "text/javascript");
-        WebClient webClient = new WebClient(BrowserVersion.CHROME);
+        WebClient webClient = new WebClient(BrowserVersion.BEST_SUPPORTED);
         webClient.getOptions().setCssEnabled(true);
         webClient.setCssErrorHandler(new SilentCssErrorHandler());
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
