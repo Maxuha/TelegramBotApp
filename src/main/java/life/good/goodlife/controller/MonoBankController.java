@@ -191,6 +191,7 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
+        System.out.println("Path: " + MonoBankController.class.getResource("image/BackgroundCart.png").getFile());
         String path = MonoBankController.class.getResource("image/BackgroundCart.png").getPath();
         Mat matrix = Imgcodecs.imread(path);
         Imgproc.putText(matrix,
