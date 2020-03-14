@@ -230,8 +230,8 @@ public class MonoBankController {
     }
 
     private BufferedImage createImage(String text)  {
-        int x = 20;
-        int y = 250;
+        int x = 40;
+        int y = 180;
         TextLayout textLayout;
 
         Font font = new Font("Calibri", Font.PLAIN, 28);
@@ -247,12 +247,12 @@ public class MonoBankController {
                 BufferedImage.TYPE_INT_ARGB);
         Graphics2D g1d = image.createGraphics();
         setRenderingHints(g1d);
-        textLayout = new TextLayout(text, font, g1d.getFontRenderContext());
-        g1d.setPaint(Color.WHITE);
-        g1d.fillRect(0, 0, 415, 256);
+        //g1d.setPaint(Color.WHITE);
+        //g1d.fillRect(0, 0, 415, 256);
 
-        g1d.setPaint(new Color(150, 150, 150));
+        //g1d.setPaint(new Color(150, 150, 150));
         g1d.drawImage(src, 0, 0, 415, 256, null);
+        textLayout = new TextLayout(text, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, x+3, y+3);
         g1d.dispose();
 
