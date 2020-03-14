@@ -251,7 +251,7 @@ public class MonoBankController {
         //g1d.fillRect(0, 0, 415, 256);
 
         //g1d.setPaint(new Color(150, 150, 150));
-        g1d.drawImage(src, 0, 0, 415, 256, null);
+        g1d.drawImage(src, 0, 0, null);
         textLayout = new TextLayout(text, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, x+3, y+3);
         g1d.dispose();
@@ -277,8 +277,9 @@ public class MonoBankController {
     }
 
     private void setRenderingHints(Graphics2D g) {
-        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         /*g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
