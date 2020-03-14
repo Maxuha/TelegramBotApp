@@ -208,13 +208,13 @@ public class MonoBankController {
         webClient.getOptions().setRedirectEnabled(false);
         webClient.getOptions().setAppletEnabled(true);
         webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.waitForBackgroundJavaScript(10000);
         webClient.getOptions().setPopupBlockerEnabled(true);
         webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         try {
             //Page redirectPage = webClient.getPage(requestSettings);
             HtmlPage page = webClient.getPage(requestSettings);
             page.executeJavaScript("createImage()");
+            webClient.waitForBackgroundJavaScript(10000);
             HtmlImage img = (HtmlImage) page.getElementById("background_cart");
             InputStream is = img.getWebResponse(true).getContentAsStream();
             byte[] bytes = IOUtils.toByteArray(is);
