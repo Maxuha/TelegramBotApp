@@ -229,16 +229,7 @@ public class MonoBankController {
             logger.error("Incorrectly url - " + e.getMessage());
         }
         WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
-        requestSettings.setAdditionalHeader("Content-Type", "text/javascript");
-        webClient.getOptions().setCssEnabled(true);
-        webClient.setCssErrorHandler(new SilentCssErrorHandler());
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
-        webClient.getOptions().setRedirectEnabled(false);
-        webClient.getOptions().setAppletEnabled(false);
         webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.getOptions().setPopupBlockerEnabled(true);
-        webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         try {
             HtmlPage page = webClient.getPage(requestSettings);
             webClient.waitForBackgroundJavaScript(10000);
