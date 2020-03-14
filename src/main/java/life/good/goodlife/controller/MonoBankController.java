@@ -227,7 +227,7 @@ public class MonoBankController {
             String[] strings = link.split(",");
             byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
             link = new String(data);
-            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, link));
+            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, data));
         } catch (IOException e) {
             logger.error("Error page");
         } finally {
