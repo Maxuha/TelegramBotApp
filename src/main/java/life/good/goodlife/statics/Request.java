@@ -2,6 +2,7 @@ package life.good.goodlife.statics;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
@@ -90,5 +91,27 @@ public class Request {
         while ((resultLine = reader.readLine()) != null) {
             result.append(resultLine);
         }
+    }
+
+    public static InputStream getImageStream(String url) {
+        InputStream in = null;
+        try {
+            URL connection = new URL(url);
+            HttpURLConnection urlConnection = (HttpURLConnection) connection.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setConnectTimeout(500);
+            urlConnection.setReadTimeout(5000);
+            urlConnection.addRequestProperty("User-Agent",
+                    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
+            urlConnection.connect();
+            if (HttpURLConnection.HTTP_OK == urlConnection.getResponseCode()) {
+                in = urlConnection.getInputStream();
+            } else {
+                System.out.println("Error: " + urlConnection.getResponseCode());
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to load image - " + e.getMessage());
+        }
+        return in;
     }
 }
