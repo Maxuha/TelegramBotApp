@@ -189,12 +189,14 @@ public class MonoBankController {
         return sendMessage;
     }
 
-    private SendMessage showBalance(Long chatId, String[] cartFull) {
+    private SendMessage showBalance(Long chatId, String[] cartPartFull) {
         User user = userService.findByChatId(chatId);
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
         StringBuilder cart = new StringBuilder();
-        for (int i = 0; i < cartFull.length; i++) {
-            cart.append(cartFull[i]);
+        StringBuilder cartFull = new StringBuilder();
+        for (int i = 0; i < cartPartFull.length; i++) {
+            cart.append(cartPartFull[i]);
+            cartFull.append(cartPartFull[i] + " ");
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
@@ -211,7 +213,7 @@ public class MonoBankController {
         ;
         Imgcodecs.imwrite(path.split("\\.")[0] + "1.png", matrix);
         File file = new File(path.split("\\.")[0] + "1.png");*/
-        BufferedImage image = createImage(cart.toString());
+        BufferedImage image = createImage(cartFull.toString());
         File outputfile = new File("image15645.png");
         try {
             ImageIO.write(image, "png", outputfile);
@@ -227,12 +229,12 @@ public class MonoBankController {
         return null;
     }
 
-    private BufferedImage createImage(String cart)  {
-        int x = 10;
-        int y = 100;
+    private BufferedImage createImage(String text)  {
+        int x = 20;
+        int y = 250;
         TextLayout textLayout;
 
-        Font font = new Font("Georgia", Font.ITALIC, 50);
+        Font font = new Font("Calibri", Font.PLAIN, 28);
 
         //String backgrond = MonoBankController.class.re
         BufferedImage src = null;
@@ -242,10 +244,10 @@ public class MonoBankController {
             e.printStackTrace();
         }
         BufferedImage image = new BufferedImage(415, 256,
-                BufferedImage.TYPE_INT_RGB);
+                BufferedImage.TYPE_INT_ARGB);
         Graphics2D g1d = image.createGraphics();
         setRenderingHints(g1d);
-        textLayout = new TextLayout(cart, font, g1d.getFontRenderContext());
+        textLayout = new TextLayout(text, font, g1d.getFontRenderContext());
         g1d.setPaint(Color.WHITE);
         g1d.fillRect(0, 0, 415, 256);
 
