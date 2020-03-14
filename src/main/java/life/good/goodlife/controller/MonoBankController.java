@@ -217,7 +217,7 @@ public class MonoBankController {
             HtmlPage page = webClient.getPage(requestSettings);
             webClient.waitForBackgroundJavaScript(10000);
            // page.executeJavaScript("createImage()");
-            HTMLLinkElement img = (HTMLLinkElement) page.getElementById("background_cart");
+            HTMLLinkElement img = (HTMLLinkElement) page.getElementById("download");
             //InputStream is = img.getWebResponse(true).getContentAsStream();
             System.out.println(img.getHref());
             //byte[] bytes = IOUtils.toByteArray(is);
