@@ -23,6 +23,7 @@ import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
+import org.w3c.dom.html.HTMLLinkElement;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -216,10 +217,11 @@ public class MonoBankController {
             HtmlPage page = webClient.getPage(requestSettings);
             webClient.waitForBackgroundJavaScript(10000);
            // page.executeJavaScript("createImage()");
-            HtmlImage img = (HtmlImage) page.getElementById("background_cart");
-            InputStream is = img.getWebResponse(true).getContentAsStream();
-            byte[] bytes = IOUtils.toByteArray(is);
-            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, bytes));
+            HTMLLinkElement img = (HTMLLinkElement) page.getElementById("background_cart");
+            //InputStream is = img.getWebResponse(true).getContentAsStream();
+            System.out.println(img.getHref());
+            //byte[] bytes = IOUtils.toByteArray(is);
+            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, img.getHref()));
         } catch (IOException e) {
             logger.error("Error page");
         } finally {
