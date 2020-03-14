@@ -244,12 +244,7 @@ public class MonoBankController {
             String link = page.getElementById("download").getAttribute("href");
             String[] strings = link.split(",");;
             byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
-            OutputStream outputStream = new FileOutputStream("image1.png");
-            outputStream.write(data);
-            outputStream.flush();
-            outputStream.close();
-            File file = new File("image1.png");
-            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, file));
+            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, data));
         } catch (IOException e) {
             logger.error("Error page");
         } finally {
