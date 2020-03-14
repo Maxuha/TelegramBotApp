@@ -110,11 +110,13 @@
             <version>2.38.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>3.2.0-0</version>
         </dependency>
+
 
     </dependencies>
 

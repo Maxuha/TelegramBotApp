@@ -15,9 +15,16 @@ import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.monobonk.*;
+import life.good.goodlife.repos.bot.CommandsRepository;
 import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.monobank.*;
 import org.apache.commons.codec.binary.Base64;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.*;
@@ -184,11 +191,25 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
+        String path = MonoBankController.class.getResource("image/BackgroundCart.png").getPath();
+        Mat matrix = Imgcodecs.imread(path);
+        Imgproc.putText(matrix,
+                cart.toString(),
+                new Point(100, 200),
+                Core.FONT_HERSHEY_SIMPLEX,
+                1,
+                new Scalar(1, 1, 1),
+                5);
+        ;
+        Imgcodecs.imwrite(path.split("\\.")[0] + "1.png", matrix);
+        File file = new File(path.split("\\.")[0] + "1.png");
+        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, file));
+        /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
                 "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
                 "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";
-        return new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        return new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true);*/
+        return null;
     }
 
     private SendMessage showCurrency(Long chatId) {
