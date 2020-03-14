@@ -23,6 +23,7 @@ import life.good.goodlife.model.monobonk.*;
 import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.monobank.*;
 import life.good.goodlife.statics.Request;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -244,7 +245,8 @@ public class MonoBankController {
             String link = page.getElementById("download").getAttribute("href");
             System.out.println("link: " + link);
             String[] strings = link.split(",");;
-            byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
+            //byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
+            byte[] data = Base64.decodeBase64(strings[1].getBytes());
             OutputStream outputStream = new FileOutputStream("image1.png");
             outputStream.write(data);
             outputStream.flush();
