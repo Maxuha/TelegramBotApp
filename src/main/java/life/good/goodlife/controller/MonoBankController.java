@@ -219,11 +219,11 @@ public class MonoBankController {
             HtmlPage page = webClient.getPage(requestSettings);
             webClient.waitForBackgroundJavaScript(10000);
            // page.executeJavaScript("createImage()");
-            HtmlLink img = (HtmlLink) page.getElementById("download");
+            String link = page.getElementById("download").getAttribute("href");
             //InputStream is = img.getWebResponse(true).getContentAsStream();
-            System.out.println(img.getHrefAttribute());
+            System.out.println(link);
             //byte[] bytes = IOUtils.toByteArray(is);
-            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, img.getHrefAttribute()));
+            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, link));
         } catch (IOException e) {
             logger.error("Error page");
         } finally {
