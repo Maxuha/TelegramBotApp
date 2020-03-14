@@ -199,7 +199,7 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        InputStream ismain = MonoBankController.class.getClassLoader().getResourceAsStream("image/BackgroundCat.png");
+        /*InputStream ismain = MonoBankController.class.getClassLoader().getResourceAsStream("image/BackgroundCat.png");
         BufferedImage read = null;
         try {
             assert ismain != null;
@@ -218,8 +218,8 @@ public class MonoBankController {
             ImageIO.write(read, "png", file);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, file));
+        }*/
+        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, "https://mumotiki.ru/download_tmp/quote-2020-03-14-1584199499.jpg"));
         //com.gargoylesoftware.htmlunit.javascript.host.fetch.Request request =
        // WebClient webClient = new WebClient();
         /*URL url = null;
