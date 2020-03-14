@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -223,6 +224,9 @@ public class MonoBankController {
             //InputStream is = img.getWebResponse(true).getContentAsStream();
             System.out.println(link);
             //byte[] bytes = IOUtils.toByteArray(is);
+            String[] strings = link.split(",");
+            byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
+            link = new String(data);
             telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, link));
         } catch (IOException e) {
             logger.error("Error page");
