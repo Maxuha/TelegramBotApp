@@ -11,6 +11,7 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.request.SendPhoto;
 import com.pengrad.telegrambot.request.SendSticker;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.User;
@@ -218,6 +219,7 @@ public class MonoBankController {
             HtmlImage img = (HtmlImage) page.getElementById("background_cart");
             InputStream is = img.getWebResponse(true).getContentAsStream();
             byte[] bytes = IOUtils.toByteArray(is);
+            telegramBotExecuteComponent.sendPhoto(new SendPhoto(chatId, bytes));
             telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, bytes));
         } catch (IOException e) {
             logger.error("Error page");
