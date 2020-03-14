@@ -219,7 +219,7 @@ public class MonoBankController {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, "https://mumotiki.ru/download_tmp/quote-2020-03-14-1584199499.jpg"));
+        telegramBotExecuteComponent.sendPhoto(new SendPhoto(chatId, "https://mumotiki.ru/download_tmp/quote-2020-03-14-1584199499.jpg"));
         //com.gargoylesoftware.htmlunit.javascript.host.fetch.Request request =
        // WebClient webClient = new WebClient();
         /*URL url = null;
