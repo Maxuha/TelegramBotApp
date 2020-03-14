@@ -224,10 +224,7 @@ public class MonoBankController {
             String link = page.getElementById("download").getAttribute("href");
             String[] strings = link.split(",");
             byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
-            InputStream is = Request.getImageStream(new String(data));
-            File file = new File("image228.png");
-            copyInputStreamToFile(is, file);
-            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId,file));
+            telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, data));
         } catch (IOException e) {
             logger.error("Error page");
         } finally {
@@ -240,25 +237,6 @@ public class MonoBankController {
                 "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";*/
         //new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true)
         return null;
-    }
-
-    private void copyInputStreamToFile(InputStream inputStream, File file)
-            throws IOException {
-
-        try (FileOutputStream outputStream = new FileOutputStream(file)) {
-
-            int read;
-            byte[] bytes = new byte[1024];
-
-            while ((read = inputStream.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, read);
-            }
-
-            // commons-io
-            //IOUtils.copy(inputStream, outputStream);
-
-        }
-
     }
 
     private SendMessage showCurrency(Long chatId) {
