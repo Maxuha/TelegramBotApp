@@ -212,14 +212,12 @@ public class MonoBankController {
         webClient.getOptions().setPopupBlockerEnabled(true);
         webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         try {
-            //Page redirectPage = webClient.getPage(requestSettings);
             HtmlPage page = webClient.getPage(requestSettings);
             webClient.waitForBackgroundJavaScript(10000);
-            page.executeJavaScript("createImage()");
+           // page.executeJavaScript("createImage()");
             HtmlImage img = (HtmlImage) page.getElementById("background_cart");
             InputStream is = img.getWebResponse(true).getContentAsStream();
             byte[] bytes = IOUtils.toByteArray(is);
-            telegramBotExecuteComponent.sendPhoto(new SendPhoto(chatId, bytes));
             telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, bytes));
         } catch (IOException e) {
             logger.error("Error page");
