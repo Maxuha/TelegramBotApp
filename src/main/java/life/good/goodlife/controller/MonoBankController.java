@@ -201,6 +201,16 @@ public class MonoBankController {
         }
         WebRequest requestSettings = new WebRequest(url, HttpMethod.GET);
         WebClient webClient = new WebClient();
+        webClient.getOptions().setCssEnabled(true);
+        webClient.setCssErrorHandler(new SilentCssErrorHandler());
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.getOptions().setRedirectEnabled(false);
+        webClient.getOptions().setAppletEnabled(false);
+        webClient.getOptions().setJavaScriptEnabled(true);
+        webClient.waitForBackgroundJavaScript(10000);
+        webClient.getOptions().setPopupBlockerEnabled(true);
+        webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         try {
             //Page redirectPage = webClient.getPage(requestSettings);
             HtmlPage page = webClient.getPage(requestSettings);
@@ -211,6 +221,8 @@ public class MonoBankController {
             telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, bytes));
         } catch (IOException e) {
             logger.error("Error page");
+        } finally {
+            webClient.close();
         }
         //Request.get("http://jump-to-infinity.com/index5.php?cart=" + result.toString().trim());
         /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
