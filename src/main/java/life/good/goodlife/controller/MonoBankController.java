@@ -251,7 +251,7 @@ public class MonoBankController {
         //g1d.setPaint(Color.WHITE);
         //g1d.fillRect(0, 0, 415, 256);
 
-        //g1d.setPaint(new Color(150, 150, 150));
+        g1d.setPaint(new Color(255, 255, 255, 128));
         g1d.drawImage(src, 0, 0, null);
         textLayout = new TextLayout(text, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, x+3, y-3);
