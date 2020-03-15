@@ -220,7 +220,7 @@ public class MonoBankController {
         int cartX = 50;
         int cartY = 170;
         int balanceX = 100;
-        int balanceY = 145;
+        int balanceY = 125;
         int creditX = 60;
         int creditY = 160;
         TextLayout textLayout;
