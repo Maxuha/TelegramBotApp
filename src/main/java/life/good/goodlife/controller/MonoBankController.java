@@ -230,8 +230,8 @@ public class MonoBankController {
     }
 
     private BufferedImage createImage(String text)  {
-        int x = 40;
-        int y = 180;
+        int x = 50;
+        int y = 170;
         TextLayout textLayout;
 
         Font font = new Font("Calibri", Font.PLAIN, 28);
@@ -254,7 +254,7 @@ public class MonoBankController {
         //g1d.setPaint(new Color(150, 150, 150));
         g1d.drawImage(src, 0, 0, null);
         textLayout = new TextLayout(text, font, g1d.getFontRenderContext());
-        textLayout.draw(g1d, x+3, y+3);
+        textLayout.draw(g1d, x+3, y-3);
         g1d.dispose();
 
         /*float[] kernel = {
