@@ -200,7 +200,7 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        BufferedImage image = createImage(cartFull.toString(), account.getBalance());
+        BufferedImage image = createImage(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()).toString());
         File outputfile = new File("image15645.png");
         try {
             ImageIO.write(image, "png", outputfile);
@@ -216,7 +216,7 @@ public class MonoBankController {
         return null;
     }
 
-    private BufferedImage createImage(String cart, Integer balance)  {
+    private BufferedImage createImage(String cart, String balance)  {
         int cartX = 50;
         int cartY = 170;
         int balanceX = 60;
@@ -247,7 +247,7 @@ public class MonoBankController {
         textLayout.draw(g2d, cartX, cartY);
         textLayout = new TextLayout("Баланс: " + balance, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, balanceX+3, balanceY-3);
-        textLayout.draw(g2d, balanceX, balanceX);
+        textLayout.draw(g2d, balanceX, balanceY);
         g1d.dispose();
         g2d.dispose();
         return image2;
