@@ -200,20 +200,7 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        /*System.out.println("Path: " + MonoBankController.class.getResource("image/.png").getFile());
-        String path = MonoBankController.class.getResource("image/.png").getFile();
-        Mat matrix = Imgcodecs.imread(path);
-        Imgproc.putText(matrix,
-                cart.toString(),
-                new Point(100, 200),
-                Core.FONT_HERSHEY_SIMPLEX,
-                1,
-                new Scalar(1, 1, 1),
-                5);
-        ;
-        Imgcodecs.imwrite(path.split("\\.")[0] + "1.png", matrix);
-        File file = new File(path.split("\\.")[0] + "1.png");*/
-        BufferedImage image = createImage(cartFull.toString());
+        BufferedImage image = createImage(cartFull.toString(), account.getBalance());
         File outputfile = new File("image15645.png");
         try {
             ImageIO.write(image, "png", outputfile);
@@ -229,14 +216,15 @@ public class MonoBankController {
         return null;
     }
 
-    private BufferedImage createImage(String text)  {
-        int x = 50;
-        int y = 170;
+    private BufferedImage createImage(String cart, Integer balance)  {
+        int cartX = 50;
+        int cartY = 170;
+        int balanceX = 60;
+        int balanceY = 150;
+        int creditX = 60;
+        int creditY = 160;
         TextLayout textLayout;
-
         Font font = new Font("Calibri", Font.PLAIN, 28);
-
-        //String backgrond = MonoBankController.class.re
         BufferedImage src = null;
         try {
             src = ImageIO.read(new File("Cart.png"));
@@ -248,33 +236,20 @@ public class MonoBankController {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g1d = image.createGraphics();
         setRenderingHints(g1d);
-        //g1d.setPaint(Color.WHITE);
-        //g1d.fillRect(0, 0, 415, 256);
-
         g1d.setPaint(new Color(255, 255, 255, 128));
         g1d.drawImage(src, 0, 0, null);
-        textLayout = new TextLayout(text, font, g1d.getFontRenderContext());
-        textLayout.draw(g1d, x+3, y-3);
-        g1d.dispose();
-
-        /*float[] kernel = {
-                1f / 9f, 1f / 9f, 1f / 9f,
-                1f / 9f, 1f / 9f, 1f / 9f,
-                1f / 9f, 1f / 9f, 1f / 9f
-        };
-
-        ConvolveOp op =  new ConvolveOp(new Kernel(3, 3, kernel),
-                ConvolveOp.EDGE_NO_OP, null);*/
-        //op.filter(image, null)
+        textLayout = new TextLayout(cart, font, g1d.getFontRenderContext());
+        textLayout.draw(g1d, cartX+3, cartY-3);
         BufferedImage image2 = image;
-
         Graphics2D g2d = image2.createGraphics();
         setRenderingHints(g2d);
         g2d.setPaint(Color.BLACK);
-        textLayout.draw(g2d, x, y);
-
+        textLayout.draw(g2d, cartX, cartY);
+        textLayout = new TextLayout("Баланс: " + balance, font, g1d.getFontRenderContext());
+        textLayout.draw(g1d, balanceX+3, balanceY-3);
+        textLayout.draw(g2d, balanceX, balanceX);
+        g1d.dispose();
         g2d.dispose();
-
         return image2;
     }
 
@@ -295,3 +270,13 @@ public class MonoBankController {
         return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 }
+
+//        /*float[] kernel = {
+//                1f / 9f, 1f / 9f, 1f / 9f,
+//                1f / 9f, 1f / 9f, 1f / 9f,
+//                1f / 9f, 1f / 9f, 1f / 9f
+//        };
+//
+//        ConvolveOp op =  new ConvolveOp(new Kernel(3, 3, kernel),
+//                ConvolveOp.EDGE_NO_OP, null);*/
+//        //op.filter(image, null)
