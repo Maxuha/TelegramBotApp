@@ -219,8 +219,8 @@ public class MonoBankController {
     private BufferedImage createImage(String cart, String balance)  {
         int cartX = 50;
         int cartY = 170;
-        int balanceX = 90;
-        int balanceY = 175;
+        int balanceX = 100;
+        int balanceY = 145;
         int creditX = 60;
         int creditY = 160;
         TextLayout textLayout;
