@@ -217,12 +217,12 @@ public class MonoBankController {
     }
 
     private BufferedImage getStickerBalance(String cart, String balance, String creditLimit)  {
-        int cartX = 50;
-        int cartY = 170;
+        int cartX = 40;
+        int cartY = 165;
         int balanceX = 100;
-        int balanceY = 125;
+        int balanceY = 120;
         int creditX = 60;
-        int creditY = 160;
+        int creditY = 220;
         TextLayout textLayout;
         Font font = new Font("Arial", Font.PLAIN, 36);
         BufferedImage src = null;
@@ -236,14 +236,14 @@ public class MonoBankController {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g1d = image.createGraphics();
         setRenderingHints(g1d);
-        g1d.setPaint(new Color(255, 255, 255, 128));
+        g1d.setPaint(new Color(255, 255, 255, 255));
         g1d.drawImage(src, 0, 0, null);
         textLayout = new TextLayout(cart, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, cartX, cartY);
-        font = new Font("Arial", Font.PLAIN, 30);
-        textLayout = new TextLayout(balance, font, g1d.getFontRenderContext());
+        font = new Font("Arial", Font.PLAIN, 28);
+        textLayout = new TextLayout("Баланс: " + balance, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, balanceX, balanceY);
-        textLayout = new TextLayout(creditLimit, font, g1d.getFontRenderContext());
+        textLayout = new TextLayout("Кредитный лимит: " + creditLimit, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, creditX, creditY);
         g1d.dispose();
         return image;
