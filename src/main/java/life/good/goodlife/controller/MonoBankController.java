@@ -243,9 +243,9 @@ public class MonoBankController {
         BufferedImage image2 = image;
         Graphics2D g2d = image2.createGraphics();
         setRenderingHints(g2d);
-        g2d.setPaint(Color.BLACK);
+        g2d.setPaint(Color.WHITE);
         textLayout.draw(g2d, cartX, cartY);
-        textLayout = new TextLayout("Баланс: " + balance, font, g1d.getFontRenderContext());
+        textLayout = new TextLayout(balance, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, balanceX+3, balanceY-3);
         textLayout.draw(g2d, balanceX, balanceY);
         g1d.dispose();
