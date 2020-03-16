@@ -217,11 +217,11 @@ public class MonoBankController {
     }
 
     private BufferedImage getStickerBalance(String cart, String balance, String creditLimit)  {
-        int cartX = 40;
+        int cartX = 35;
         int cartY = 165;
-        int balanceX = 100;
-        int balanceY = 120;
-        int creditX = 60;
+        int balanceX = 70;
+        int balanceY = 110;
+        int creditX = 70;
         int creditY = 220;
         TextLayout textLayout;
         Font font = new Font("Arial", Font.PLAIN, 36);
@@ -243,6 +243,7 @@ public class MonoBankController {
         font = new Font("Arial", Font.PLAIN, 28);
         textLayout = new TextLayout("Баланс: " + balance, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, balanceX, balanceY);
+        font = new Font("Arial", Font.PLAIN, 18);
         textLayout = new TextLayout("Кредитный лимит: " + creditLimit, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, creditX, creditY);
         g1d.dispose();
