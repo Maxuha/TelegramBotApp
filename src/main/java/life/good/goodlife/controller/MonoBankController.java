@@ -227,7 +227,7 @@ public class MonoBankController {
         Font font = new Font("Calibri", Font.PLAIN, 28);
         BufferedImage src = null;
         try {
-            src = ImageIO.read(new File("Cart.png"));
+            src = ImageIO.read(new File("BackgroundCart.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
