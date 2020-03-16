@@ -200,7 +200,7 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        BufferedImage image = createImage(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()).toString());
+        BufferedImage image = getStickerBalance(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()).toString(), Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()).toString());
         File outputfile = new File("image15645.png");
         try {
             ImageIO.write(image, "png", outputfile);
@@ -216,7 +216,7 @@ public class MonoBankController {
         return null;
     }
 
-    private BufferedImage createImage(String cart, String balance)  {
+    private BufferedImage getStickerBalance(String cart, String balance, String creditLimit)  {
         int cartX = 50;
         int cartY = 170;
         int balanceX = 100;
@@ -224,7 +224,7 @@ public class MonoBankController {
         int creditX = 60;
         int creditY = 160;
         TextLayout textLayout;
-        Font font = new Font("Calibri", Font.PLAIN, 28);
+        Font font = new Font("Arial", Font.PLAIN, 36);
         BufferedImage src = null;
         try {
             src = ImageIO.read(new File("BackgroundCart.png"));
@@ -239,18 +239,14 @@ public class MonoBankController {
         g1d.setPaint(new Color(255, 255, 255, 128));
         g1d.drawImage(src, 0, 0, null);
         textLayout = new TextLayout(cart, font, g1d.getFontRenderContext());
-        textLayout.draw(g1d, cartX+3, cartY-3);
-        BufferedImage image2 = image;
-        Graphics2D g2d = image2.createGraphics();
-        setRenderingHints(g2d);
-        g2d.setPaint(Color.WHITE);
-        textLayout.draw(g2d, cartX, cartY);
+        textLayout.draw(g1d, cartX, cartY);
+        font = new Font("Arial", Font.PLAIN, 30);
         textLayout = new TextLayout(balance, font, g1d.getFontRenderContext());
-        textLayout.draw(g1d, balanceX+3, balanceY-3);
-        textLayout.draw(g2d, balanceX, balanceY);
+        textLayout.draw(g1d, balanceX, balanceY);
+        textLayout = new TextLayout(creditLimit, font, g1d.getFontRenderContext());
+        textLayout.draw(g1d, creditX, creditY);
         g1d.dispose();
-        g2d.dispose();
-        return image2;
+        return image;
     }
 
     private void setRenderingHints(Graphics2D g) {
