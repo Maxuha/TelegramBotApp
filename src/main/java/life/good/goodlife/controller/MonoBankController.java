@@ -200,7 +200,8 @@ public class MonoBankController {
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
-        BufferedImage image = getStickerBalance(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()).toString(), Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()).toString());
+        BufferedImage image = getStickerBalance(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(),
+                account.getCurrencyCode()).toString(), Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()).toString());
         File outputfile = new File("image15645.png");
         try {
             ImageIO.write(image, "png", outputfile);
@@ -227,7 +228,7 @@ public class MonoBankController {
         Font font = new Font("Arial", Font.PLAIN, 36);
         BufferedImage src = null;
         try {
-            src = ImageIO.read(new File("BackgroundCart.png"));
+            src = ImageIO.read(MonoBankController.class.getClassLoader().getResourceAsStream("image/BackgroundCart.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -254,10 +255,10 @@ public class MonoBankController {
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        /*g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
-                RenderingHints.VALUE_FRACTIONALMETRICS_ON);*/
+                RenderingHints.VALUE_FRACTIONALMETRICS_ON);
     }
 
     private SendMessage showCurrency(Long chatId) {
