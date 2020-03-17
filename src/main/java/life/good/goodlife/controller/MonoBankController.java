@@ -2,9 +2,8 @@ package life.good.goodlife.controller;
 
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
-import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
+import com.google.gson.Gson;
+import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SendSticker;
@@ -109,7 +108,19 @@ public class MonoBankController {
         }
         Map<String, String> body = new HashMap<>();
         body.put("raw", "{\"webHookUrl\": \"https://goodlifeapplication.herokuapp.com/webhook/monobank\"}");
-        Request.post("https://api.monobank.ua/personal/webhook", body);
+        Map<String, String> header = new HashMap<>();
+        body.put("X-Token", token);
+        String response = Request.post("https://api.monobank.ua/personal/webhook", header, body);
+        ResponseWebhook responseWebhook = new Gson().fromJson(response, ResponseWebhook.class);
+        if ("ok".equals(responseWebhook.getStatus())) {
+            InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
+                    new InlineKeyboardButton[]{
+                            new InlineKeyboardButton("Отменить").callbackData("notificationMonoBankOff"),
+                    });
+            SendMessage sendMessage = new SendMessage(chatId, "Оповещения о платежах успешно установлены");
+            sendMessage.replyMarkup(inlineKeyboard);
+            telegramBotExecuteComponent.sendMessage(sendMessage);
+        }
         return monoBankComponent.showMonoBankMenu(chatId);
     }
     @BotRequest("Синхроннизация выписки")
