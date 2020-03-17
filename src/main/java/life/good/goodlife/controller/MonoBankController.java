@@ -211,8 +211,8 @@ public class MonoBankController {
         int balanceY = 110;
         int creditX = 30;
         int creditY = 240;
-        int modX = 300;
-        int modY = 30;
+        int modX = 400;
+        int modY = 45;
         Color color;
         String pathToCart = "image/";
         if (type.equals("white")) {
@@ -254,11 +254,12 @@ public class MonoBankController {
         if (currencyCode == 840) {
             g1d.setPaint(new Color(255, 255, 255, 128));
             textLayout = new TextLayout("USD", font, g1d.getFontRenderContext());
+            textLayout.draw(g1d, modX, modY);
         } else if (currencyCode == 978){
             g1d.setPaint(new Color(255, 255, 255, 128));
             textLayout = new TextLayout("EUR", font, g1d.getFontRenderContext());
+            textLayout.draw(g1d, modX, modY);
         }
-        textLayout.draw(g1d, modX, modY);
         g1d.dispose();
         return image;
     }
