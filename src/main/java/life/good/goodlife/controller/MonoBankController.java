@@ -211,7 +211,7 @@ public class MonoBankController {
         int balanceY = 110;
         int creditX = 30;
         int creditY = 240;
-        int modX = 400;
+        int modX = 370;
         int modY = 45;
         Color color;
         String pathToCart = "image/";
