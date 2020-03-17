@@ -112,14 +112,13 @@ public class MonoBankController {
         header.put("X-Token", token);
         String response = Request.post("https://api.monobank.ua/personal/webhook", header, body, "raw");
         ResponseWebhook responseWebhook = new Gson().fromJson(response, ResponseWebhook.class);
-        System.out.println(response);
         if ("ok".equals(responseWebhook.getStatus())) {
             logger.info("Notification monobank is ok {}", chatId);
             InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
                     new InlineKeyboardButton[]{
                             new InlineKeyboardButton("Отменить").callbackData("notificationMonoBankOff"),
                     });
-            SendMessage sendMessage = new SendMessage(chatId, response);
+            SendMessage sendMessage = new SendMessage(chatId, "Оповещения о платежах установлены");
             sendMessage.replyMarkup(inlineKeyboard);
             telegramBotExecuteComponent.sendMessage(sendMessage);
         }
