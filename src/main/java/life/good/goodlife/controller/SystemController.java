@@ -59,11 +59,12 @@ public class SystemController {
         User user = userService.findByChatId(chatId);
         logger.info("Finding last history by user: {}", chatId);
         UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(user.getId());
+        SendMessage sendMessage = null;
         if (userHistory.getCommandsId() == 28) {
-            monoBankComponent.showMonoBankMenu(chatId);
+            sendMessage = monoBankComponent.showMonoBankMenu(chatId);
         }
         userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "Назад", "");
-        return mainMenuComponent.showMainMenu(chatId, "", null);
+        return sendMessage;
     }
 
 
