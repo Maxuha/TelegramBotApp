@@ -22,6 +22,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -189,13 +190,7 @@ public class MonoBankController {
         BufferedImage image = getStickerBalance(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(),
                 account.getCurrencyCode()).toString(), Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()).toString(),
                 account.getType(), account.getCurrencyCode());
-        File outputfile = new File("image15645.png");
-        try {
-            ImageIO.write(image, "png", outputfile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, outputfile));
+        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, ((DataBufferByte)image.getData().getDataBuffer()).getData()));
         /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
                 "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
