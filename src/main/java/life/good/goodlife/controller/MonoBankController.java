@@ -1,7 +1,5 @@
 package life.good.goodlife.controller;
 
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
@@ -15,16 +13,8 @@ import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.monobonk.*;
-import life.good.goodlife.repos.bot.CommandsRepository;
 import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.monobank.*;
-import org.apache.commons.codec.binary.Base64;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,11 +22,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -201,7 +187,8 @@ public class MonoBankController {
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});
         BufferedImage image = getStickerBalance(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(),
-                account.getCurrencyCode()).toString(), Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()).toString());
+                account.getCurrencyCode()).toString(), Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()).toString(),
+                account.getType());
         File outputfile = new File("image15645.png");
         try {
             ImageIO.write(image, "png", outputfile);
@@ -217,18 +204,33 @@ public class MonoBankController {
         return null;
     }
 
-    private BufferedImage getStickerBalance(String cart, String balance, String creditLimit)  {
+    private BufferedImage getStickerBalance(String cart, String balance, String creditLimit, String type)  {
         int cartX = 30;
         int cartY = 165;
         int balanceX = 30;
         int balanceY = 110;
         int creditX = 30;
         int creditY = 220;
+        Color color;
+        String pathToCart = "image/";
+        if (type.equals("white")) {
+            color = new Color(0, 0, 0);
+            pathToCart += "WhiteCart.png";
+        } else if (type.equals("platinum")) {
+            color = new Color(0);
+            pathToCart += "PlatinumCart.png";
+        } else if (type.equals("gold")) {
+            color = new Color(0);
+            pathToCart += "GoldCart.png";
+        } else {
+            color = new Color(255, 255, 255, 255);
+            pathToCart += "BlackCart.png";
+        }
         TextLayout textLayout;
         Font font = new Font("Arial", Font.PLAIN, 36);
         BufferedImage src = null;
         try {
-            src = ImageIO.read(MonoBankController.class.getClassLoader().getResourceAsStream("image/BackgroundCart.png"));
+            src = ImageIO.read(MonoBankController.class.getClassLoader().getResourceAsStream(pathToCart));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -237,7 +239,7 @@ public class MonoBankController {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g1d = image.createGraphics();
         setRenderingHints(g1d);
-        g1d.setPaint(new Color(255, 255, 255, 255));
+        g1d.setPaint(color);
         g1d.drawImage(src, 0, 0, null);
         textLayout = new TextLayout(cart, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, cartX, cartY);
