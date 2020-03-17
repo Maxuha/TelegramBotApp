@@ -136,6 +136,7 @@ public class MonoBankController {
 
     private SendMessage showChooseCart(Long chatId) {
         User user = userService.findByChatId(chatId);
+        userHistoryService.createUserHistory(user.getId(), "/balance", "");
         UserMonobank userMonobank = loginService.getByUserId(user.getId());
         List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
         String[][] accountButtons = new String[accounts.size() + 1][1];
@@ -161,8 +162,6 @@ public class MonoBankController {
     }
 
     private SendMessage showBalance(Long chatId, String[] cartPartFull) {
-        User user = userService.findByChatId(chatId);
-        userHistoryService.createUserHistory(user.getId(), "/balance", "");
         StringBuilder cart = new StringBuilder();
         StringBuilder cartFull = new StringBuilder();
         for (int i = 0; i < cartPartFull.length; i++) {
