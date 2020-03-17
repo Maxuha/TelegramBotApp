@@ -210,7 +210,7 @@ public class MonoBankController {
         int balanceX = 30;
         int balanceY = 110;
         int creditX = 30;
-        int creditY = 220;
+        int creditY = 240;
         Color color;
         String pathToCart = "image/";
         if (type.equals("white")) {
