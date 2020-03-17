@@ -188,7 +188,7 @@ public class MonoBankController {
         Account account = balanceService.getBalance(new String[] {cart.toString()});
         BufferedImage image = getStickerBalance(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(),
                 account.getCurrencyCode()).toString(), Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()).toString(),
-                account.getType());
+                account.getType(), account.getCurrencyCode());
         File outputfile = new File("image15645.png");
         try {
             ImageIO.write(image, "png", outputfile);
@@ -204,13 +204,15 @@ public class MonoBankController {
         return null;
     }
 
-    private BufferedImage getStickerBalance(String cart, String balance, String creditLimit, String type)  {
+    private BufferedImage getStickerBalance(String cart, String balance, String creditLimit, String type, int currencyCode)  {
         int cartX = 30;
         int cartY = 165;
         int balanceX = 30;
         int balanceY = 110;
         int creditX = 30;
         int creditY = 240;
+        int modX = 300;
+        int modY = 30;
         Color color;
         String pathToCart = "image/";
         if (type.equals("white")) {
@@ -249,6 +251,14 @@ public class MonoBankController {
         font = new Font("Arial", Font.PLAIN, 18);
         textLayout = new TextLayout("Кредитные: " + creditLimit, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, creditX, creditY);
+        if (currencyCode == 840) {
+            g1d.setPaint(new Color(255, 255, 255, 128));
+            textLayout = new TextLayout("USD", font, g1d.getFontRenderContext());
+        } else if (currencyCode == 978){
+            g1d.setPaint(new Color(255, 255, 255, 128));
+            textLayout = new TextLayout("EUR", font, g1d.getFontRenderContext());
+        }
+        textLayout.draw(g1d, modX, modY);
         g1d.dispose();
         return image;
     }
