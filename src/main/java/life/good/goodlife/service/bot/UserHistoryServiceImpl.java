@@ -37,6 +37,11 @@ public class UserHistoryServiceImpl implements UserHistoryService {
 
     @Override
     public UserHistory findLastUserHistoryByUserId(Long userId) {
-        return userHistoryRepository.findLastUserHistoryByUserId(userId);
+        return userHistoryRepository.findLastUserHistoryByUserId(userId)[0];
+    }
+
+    @Override
+    public UserHistory findPreLastUserHistoryByUserId(Long userId) {
+        return userHistoryRepository.findLastUserHistoryByUserId(userId)[1];
     }
 }

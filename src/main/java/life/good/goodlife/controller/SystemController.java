@@ -9,8 +9,8 @@ import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import life.good.goodlife.component.MainMenuComponent;
+import life.good.goodlife.component.MonoBankComponent;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
-import life.good.goodlife.model.bot.Command;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.bot.UserHistory;
 import life.good.goodlife.model.map.NearbyMain;
@@ -32,10 +32,11 @@ public class SystemController {
     private final NearbyServiceImpl nearbyService;
     private final CommandService commandService;
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
+    private final MonoBankComponent monoBankComponent;
 
     public SystemController(UserHistoryService userHistoryService, MainMenuComponent mainMenuComponent,
                             UserService userService, WeatherServiceImpl weatherService, NearbyServiceImpl nearbyService,
-                            CommandService commandService, TelegramBotExecuteComponent telegramBotExecuteComponent) {
+                            CommandService commandService, TelegramBotExecuteComponent telegramBotExecuteComponent, MonoBankComponent monoBankComponent) {
         this.userHistoryService = userHistoryService;
         this.mainMenuComponent = mainMenuComponent;
         this.userService = userService;
@@ -43,6 +44,7 @@ public class SystemController {
         this.nearbyService = nearbyService;
         this.commandService = commandService;
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
+        this.monoBankComponent = monoBankComponent;
     }
 
     @BotRequest("Главное меню")
@@ -57,7 +59,9 @@ public class SystemController {
         User user = userService.findByChatId(chatId);
         logger.info("Finding last history by user: {}", chatId);
         UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(user.getId());
-
+        if (userHistory.getCommandsId() == 28) {
+            monoBankComponent.showMonoBankMenu(chatId);
+        }
         userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "Назад", "");
         return mainMenuComponent.showMainMenu(chatId, "", null);
     }
