@@ -109,7 +109,7 @@ public class MonoBankController {
         }
         Map<String, String> body = new HashMap<>();
         body.put("raw", "{\"webHookUrl\": \"https://goodlifeapplication.herokuapp.com/webhook/monobank\"}");
-        Request.post("api.monobank.ua/personal/webhook", body);
+        Request.post("https://api.monobank.ua/personal/webhook", body);
         return monoBankComponent.showMonoBankMenu(chatId);
     }
     @BotRequest("Синхроннизация выписки")

@@ -119,18 +119,18 @@ public class Request {
         return in;
     }
 
-    public static String post(String address, Map<String, String> body) {
+    public static String post(String address, Map<String, String> header, Map<String, String> body) {
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();
         for (Map.Entry<String, String> entry : body.entrySet()) {
             formBody.add(entry.getKey(), entry.getValue());
         }
         RequestBody requestBody = formBody.build();
-
-        okhttp3.Request request = new okhttp3.Request.Builder()
-                .url(address)
-                .post(requestBody)
-                .build();
+        okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder();
+        for (Map.Entry<String, String> entry : header.entrySet()) {
+            requestBuilder.addHeader(entry.getKey(), entry.getValue());
+        }
+        okhttp3.Request request = requestBuilder.url(address).post(requestBody).build();
         Call call = client.newCall(request);
         try {
             Response response = call.execute();
