@@ -3,12 +3,12 @@ package life.good.goodlife.controller;
 import com.github.telegram.mvc.api.BotController;
 import com.github.telegram.mvc.api.BotRequest;
 import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.KeyboardButton;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SendSticker;
+import life.good.goodlife.component.MonoBankComponent;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.model.bot.User;
 import life.good.goodlife.model.buttons.Buttons;
@@ -38,10 +38,11 @@ public class MonoBankController {
     private final LoginService loginService;
     private final TelegramBotExecuteComponent telegramBotExecuteComponent;
     private final StatementService statementService;
+    private final MonoBankComponent monoBankComponent;
 
     public MonoBankController(UserHistoryService userHistoryService, UserService userService,
                               CurrencyService currencyService, BalanceService balanceService, CommandService commandService,
-                              LoginService loginService, TelegramBotExecuteComponent telegramBotExecuteComponent, StatementService statementService) {
+                              LoginService loginService, TelegramBotExecuteComponent telegramBotExecuteComponent, StatementService statementService, MonoBankComponent monoBankComponent) {
         this.userHistoryService = userHistoryService;
         this.userService = userService;
         this.currencyService = currencyService;
@@ -50,6 +51,7 @@ public class MonoBankController {
         this.loginService = loginService;
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
         this.statementService = statementService;
+        this.monoBankComponent = monoBankComponent;
     }
 
     @BotRequest("/currency")
@@ -82,7 +84,7 @@ public class MonoBankController {
         if (token == null) {
             return sendMessage;
         }
-        return showMonoBankMenu(chatId);
+        return monoBankComponent.showMonoBankMenu(chatId);
     }
 
     @BotRequest("/set_mono_token **")
@@ -102,7 +104,7 @@ public class MonoBankController {
             account.setClientId(userInfo.getClientId());
             loginService.createAccount(account);
         }
-        return showMonoBankMenu(chatId);
+        return monoBankComponent.showMonoBankMenu(chatId);
     }
     @BotRequest("Синхроннизация выписки")
     BaseRequest synchronizeBtn(Long chatId) {
@@ -123,30 +125,13 @@ public class MonoBankController {
 
     @BotRequest("\uD83D\uDCB3 **")
     BaseRequest chooseCartBtn(Long chatId, String text) {
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "/select_cart", "");
         String[] result = text.split(" ");
         String[] cart = new String[4];
         for (int i = 3; i < result.length; i++) {
             cart[i-3] = result[i];
         }
         return showBalance(chatId, cart);
-    }
-
-    private SendMessage showMonoBankMenu(Long chatId) {
-        logger.info("Opening monobank menu");
-        String msg = commandService.findCommandsByName("Банкинг").getFullDescription();
-        SendMessage sendMessage = new SendMessage(chatId, msg);
-        Keyboard replayKeyboard = new ReplyKeyboardMarkup(
-                new KeyboardButton[] {
-                        new KeyboardButton("Мой баланс"),
-                        new KeyboardButton("Курс валют"),
-                        new KeyboardButton("Выписка"),
-                        new KeyboardButton("Контроль расходами"),
-                        new KeyboardButton("Синхроннизация выписки"),
-                        new KeyboardButton("Главное меню")
-                }
-        );
-        sendMessage.replyMarkup(replayKeyboard);
-        return sendMessage;
     }
 
     private SendMessage showChooseCart(Long chatId) {
@@ -182,7 +167,7 @@ public class MonoBankController {
         StringBuilder cartFull = new StringBuilder();
         for (int i = 0; i < cartPartFull.length; i++) {
             cart.append(cartPartFull[i]);
-            cartFull.append(cartPartFull[i] + " ");
+            cartFull.append(cartPartFull[i]).append(" ");
         }
         cart.delete(6, 11);
         Account account = balanceService.getBalance(new String[] {cart.toString()});

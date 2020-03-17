@@ -51,6 +51,17 @@ public class SystemController {
         return mainMenuComponent.showMainMenu(chatId, "", null);
     }
 
+    @BotRequest("Назад")
+    BaseRequest back(Long chatId) {
+        logger.info("Finding user by chatId: {}", chatId);
+        User user = userService.findByChatId(chatId);
+        logger.info("Finding last history by user: {}", chatId);
+        UserHistory userHistory = userHistoryService.findLastUserHistoryByUserId(user.getId());
+
+        userHistoryService.createUserHistory(userService.findByChatId(chatId).getId(), "Назад", "");
+        return mainMenuComponent.showMainMenu(chatId, "", null);
+    }
+
 
     @BotRequest(messageType = MessageType.LOCATION)
     BaseRequest location(Long chatId, Message message) {
