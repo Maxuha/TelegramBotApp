@@ -244,7 +244,7 @@ public class MonoBankController {
         textLayout = new TextLayout("Баланс: " + balance, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, balanceX, balanceY);
         font = new Font("Arial", Font.PLAIN, 18);
-        textLayout = new TextLayout("Кредитный лимит: " + creditLimit, font, g1d.getFontRenderContext());
+        textLayout = new TextLayout("Кредитные: " + creditLimit, font, g1d.getFontRenderContext());
         textLayout.draw(g1d, creditX, creditY);
         g1d.dispose();
         return image;
