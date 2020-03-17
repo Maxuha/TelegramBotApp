@@ -190,7 +190,7 @@ public class MonoBankController {
         BufferedImage image = getStickerBalance(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(),
                 account.getCurrencyCode()).toString(), Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()).toString(),
                 account.getType(), account.getCurrencyCode());
-        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, ((DataBufferByte)image.getData().getDataBuffer()).getData()));
+        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, (byte[]) image.getData().getDataElements(0, 0, image.getWidth(), image.getHeight(), null)));
         /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
                 "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
