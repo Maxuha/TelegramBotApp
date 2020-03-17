@@ -109,7 +109,7 @@ public class MonoBankController {
         Map<String, String> body = new HashMap<>();
         body.put("raw", "{\"webHookUrl\": \"https://goodlifeapplication.herokuapp.com/webhook/monobank\"}");
         Map<String, String> header = new HashMap<>();
-        body.put("X-Token", token);
+        header.put("X-Token", token);
         String response = Request.post("https://api.monobank.ua/personal/webhook", header, body);
         ResponseWebhook responseWebhook = new Gson().fromJson(response, ResponseWebhook.class);
         System.out.println(response);
