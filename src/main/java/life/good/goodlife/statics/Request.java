@@ -1,17 +1,21 @@
 package life.good.goodlife.statics;
 
+import okhttp3.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Map;
 
 public class Request {
     private static StringBuffer result;
     private static BufferedReader reader;
+    private static Logger logger = LoggerFactory.getLogger(Request.class);
 
     public static String get(String address, Map<String, String> headers) {
         try {
@@ -113,5 +117,28 @@ public class Request {
             System.out.println("Failed to load image - " + e.getMessage());
         }
         return in;
+    }
+
+    public static String post(String address, Map<String, String> body) {
+        OkHttpClient client = new OkHttpClient();
+        FormBody.Builder formBody = new FormBody.Builder();
+        for (Map.Entry<String, String> entry : body.entrySet()) {
+            formBody.add(entry.getKey(), entry.getValue());
+        }
+        RequestBody requestBody = formBody.build();
+
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(address)
+                .post(requestBody)
+                .build();
+        Call call = client.newCall(request);
+        try {
+            Response response = call.execute();
+            assert response.body() != null;
+            return response.body().string();
+        } catch (IOException e) {
+            logger.error("Request error - " + e.getMessage());
+        }
+        return null;
     }
 }

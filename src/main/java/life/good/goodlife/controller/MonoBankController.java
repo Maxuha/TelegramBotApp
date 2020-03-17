@@ -15,6 +15,7 @@ import life.good.goodlife.model.buttons.Buttons;
 import life.good.goodlife.model.monobonk.*;
 import life.good.goodlife.service.bot.*;
 import life.good.goodlife.service.monobank.*;
+import life.good.goodlife.statics.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,9 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @BotController
 public class MonoBankController {
@@ -104,6 +107,9 @@ public class MonoBankController {
             account.setClientId(userInfo.getClientId());
             loginService.createAccount(account);
         }
+        Map<String, String> body = new HashMap<>();
+        body.put("raw", "{\"webHookUrl\": \"https://goodlifeapplication.herokuapp.com/webhook/monobank\"}");
+        Request.post("api.monobank.ua/personal/webhook", body);
         return monoBankComponent.showMonoBankMenu(chatId);
     }
     @BotRequest("Синхроннизация выписки")
