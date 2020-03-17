@@ -117,7 +117,7 @@ public class MonoBankController {
                     new InlineKeyboardButton[]{
                             new InlineKeyboardButton("Отменить").callbackData("notificationMonoBankOff"),
                     });
-            SendMessage sendMessage = new SendMessage(chatId, "Оповещения о платежах успешно установлены");
+            SendMessage sendMessage = new SendMessage(chatId, response);
             sendMessage.replyMarkup(inlineKeyboard);
             telegramBotExecuteComponent.sendMessage(sendMessage);
         }
