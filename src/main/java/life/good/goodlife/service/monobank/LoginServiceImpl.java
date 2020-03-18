@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -32,8 +33,6 @@ public class LoginServiceImpl implements LoginService {
     public void createAccount(Account account) {
          accountRepository.save(account);
     }
-
-
 
     @Override
     public String getToken(Long userId) {
@@ -71,5 +70,15 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public List<Account> getAllAccountByClientId(String clientId) {
         return accountRepository.findByClientId(clientId);
+    }
+
+    @Override
+    public void updateBalance(String id, Integer balance) {
+         Optional<Account> account = accountRepository.findById(id);
+         if (account.isPresent()) {
+             Account accountElement = account.get();
+             accountElement.setBalance(balance);
+             accountRepository.save(accountElement);
+         }
     }
 }

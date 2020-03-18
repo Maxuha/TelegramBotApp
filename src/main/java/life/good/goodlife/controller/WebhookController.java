@@ -48,6 +48,7 @@ public class WebhookController {
     public ResponseEntity <?> monobank(@RequestBody String raw, @RequestHeader("Content-Type") String type) {
         Webhook webhook = webhookService.createOperation(raw);
         statementService.createStatement(webhook.getData());
+        loginService.updateBalance(webhook.getData().getAccount(), webhook.getData().getStatementItem().getBalance());
         logger.info("Get webhook: {}", raw);
         String data;
         if (webhook.getData().getStatementItem().getAmount() > 0) {

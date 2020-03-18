@@ -9,6 +9,7 @@ import java.util.List;
 public interface LoginService {
     void createUser(UserMonobank userMonobank);
     void createAccount(Account account);
+    void updateBalance(String id, Integer balance);
     String getToken(Long userId);
     UserInfo getUserInfo(String token);
     UserMonobank getByUserId(Long userId);
