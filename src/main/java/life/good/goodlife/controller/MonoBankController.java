@@ -157,7 +157,7 @@ public class MonoBankController {
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
         UserMonobank userMonobank = loginService.getByUserId(user.getId());
         List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
-        String[][] accountButtons = new String[accounts.size() + 1][2];
+        String[][] accountButtons = new String[accounts.size() + 2][2];
         int index = 0;
         StringBuffer cart;
         for (Account account : accounts) {
@@ -173,7 +173,7 @@ public class MonoBankController {
             }
         }
         accountButtons[accounts.size()][0] = Buttons.mainButton[1];
-        accountButtons[accounts.size()][1] = Buttons.mainButton[0];
+        accountButtons[accounts.size()+1][1] = Buttons.mainButton[0];
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(accountButtons).resizeKeyboard(true);
         SendMessage sendMessage = new SendMessage(chatId, "Выбери карту");
         sendMessage.replyMarkup(replyKeyboardMarkup);
