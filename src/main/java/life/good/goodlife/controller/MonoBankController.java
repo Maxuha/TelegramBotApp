@@ -285,7 +285,7 @@ public class MonoBankController {
     private SendMessage showCurrency(Long chatId) {
         User user = userService.findByChatId(chatId);
         userHistoryService.createUserHistory(user.getId(), "/currency", "");
-        String msg = currencyService.currency(loginService.getToken(user.getId()));
+        String msg = currencyService.currency();
         return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 }
