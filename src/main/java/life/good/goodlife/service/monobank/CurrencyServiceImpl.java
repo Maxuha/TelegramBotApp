@@ -42,14 +42,18 @@ public class CurrencyServiceImpl implements CurrencyService {
         Gson gson = new Gson();
         Currency[] currencies = gson.fromJson(data, Currency[].class);
         Currency tempCurrency;
+        String flag;
         for (Currency currency : currencies) {
-            tempCurrency = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateAsc(currency.getCurrencyCodeA(), currency.getCurrencyCodeB());
-            if (tempCurrency != null) {
-                if (!currency.getDate().equals(tempCurrency.getDate())) {
+            flag = CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA());
+            if (flag != null) {
+                tempCurrency = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateAsc(currency.getCurrencyCodeA(), currency.getCurrencyCodeB());
+                if (tempCurrency != null) {
+                    if (!currency.getDate().equals(tempCurrency.getDate())) {
+                        currencyRepository.save(currency);
+                    }
+                } else {
                     currencyRepository.save(currency);
                 }
-            } else {
-                currencyRepository.save(currency);
             }
         }
     }
