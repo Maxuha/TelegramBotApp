@@ -175,8 +175,8 @@ public class MonoBankController {
             }
         }
 
-        accountButtons[accounts.size()][0] = Buttons.mainButton[1];
-        accountButtons[accounts.size()][1] = Buttons.mainButton[0];
+        accountButtons[accounts.size()][0] = Buttons.mainButton[0];
+        accountButtons[accounts.size()][1] = Buttons.mainButton[1];
         System.out.println(Arrays.toString(accountButtons));
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 accountButtons).resizeKeyboard(true);
