@@ -298,11 +298,6 @@ public class MonoBankController {
        // StringBuilder msg = new StringBuilder("Курс валют\n\n            Покупка     Продажа\n");
         String flag;
         int index = 0;
-        BufferedImage image = null;
-        byte[] bytes = new byte[0];
-        for (Currency currency : currencies) {
-            flag = CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA());
-            image = getStickerCurrency(flag, String.format("%.2f", currency.getRateBuy()), String.format("%.2f", currency.getRateSell()), index);
             /*if (flag != null) {
                 flag += "    " + String.format("%.2f", currency.getRateBuy()) + "         " +
                         String.format("%.2f", currency.getRateSell());
@@ -310,8 +305,8 @@ public class MonoBankController {
                 flag = "";
             }
             msg.append(flag).append("\n");*/
-            index++;
-        }
+        BufferedImage image = getStickerCurrency(currencies);
+        byte[] bytes = new byte[0];
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             ImageIO.write(image, "png", byteArrayOutputStream);
@@ -324,17 +319,18 @@ public class MonoBankController {
         return new SendSticker(chatId, bytes);
     }
 
-    private BufferedImage getStickerCurrency(String flag, String buy, String sell, int index) {
+    private BufferedImage getStickerCurrency(Currency[] currencies) {
         int flagX = 30;
-        int flagY = 100 * index;
+        int flagY = 100;
         int buyX = 90;
-        int buyY = 100 * index;
+        int buyY = 100;
         int sellX = 150;
-        int sellY = 100 * index;
+        int sellY = 100;
+        int index = 1;
         Color color = new Color(255, 255, 255);
         String pathToCart = "image/BackgroundCurrency.png";
-        TextLayout textLayout;
-        Font font = new Font("Arial", Font.PLAIN, 36);
+        TextLayout[] textLayout = new TextLayout[18];
+        Font font = new Font("Arial", Font.PLAIN, 18);
         BufferedImage src = null;
         try {
             src = ImageIO.read(MonoBankController.class.getClassLoader().getResourceAsStream(pathToCart));
@@ -348,13 +344,18 @@ public class MonoBankController {
         setRenderingHints(g1d);
         g1d.setPaint(color);
         g1d.drawImage(src, 0, 0, null);
-        textLayout = new TextLayout(flag, font, g1d.getFontRenderContext());
-        textLayout.draw(g1d, flagX, flagY);
-        font = new Font("Arial", Font.PLAIN, 18);
-        textLayout = new TextLayout(buy, font, g1d.getFontRenderContext());
-        textLayout.draw(g1d, buyX, buyY);
-        textLayout = new TextLayout(sell, font, g1d.getFontRenderContext());
-        textLayout.draw(g1d, sellX, sellY);
+        for (Currency currency : currencies) {
+            flagY *= index;
+            buyY *= index;
+            sellY *= index;
+            textLayout[index] = new TextLayout(CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA()), font, g1d.getFontRenderContext());
+            textLayout[index].draw(g1d, flagX, flagY);
+            textLayout[index] = new TextLayout(String.format("%.2f", currency.getRateBuy()), font, g1d.getFontRenderContext());
+            textLayout[index].draw(g1d, buyX, buyY);
+            textLayout[index] = new TextLayout(String.format("%.2f", currency.getRateSell()), font, g1d.getFontRenderContext());
+            textLayout[index].draw(g1d, sellX, sellY);
+            index++;
+        }
         g1d.dispose();
         return image;
     }
