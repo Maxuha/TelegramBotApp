@@ -25,6 +25,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,7 +158,6 @@ public class MonoBankController {
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
         UserMonobank userMonobank = loginService.getByUserId(user.getId());
         List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
-        System.out.println(accounts.size());
         String[][] accountButtons = new String[accounts.size() + 1][1];
         int index = 0;
         StringBuffer cart;
@@ -173,6 +173,7 @@ public class MonoBankController {
                 index++;
             }
         }
+        System.out.println(Arrays.deepToString(accountButtons));
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 accountButtons).resizeKeyboard(true);
         SendMessage sendMessage = new SendMessage(chatId, "Выбери карту");
