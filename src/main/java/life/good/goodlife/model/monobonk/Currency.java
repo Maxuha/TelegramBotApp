@@ -9,19 +9,19 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(name = "currency_code_a")
     private Integer currencyCodeA;
 
-    @Column
+    @Column(name = "currency_code_b")
     private Integer currencyCodeB;
 
     @Column
     private Integer date;
 
-    @Column
+    @Column(name = "rate_buy")
     private Float rateBuy;
 
-    @Column
+    @Column(name = "rate_sell")
     private Float rateSell;
 
     public Integer getCurrencyCodeA() {
@@ -62,5 +62,13 @@ public class Currency {
 
     public void setRateSell(Float rateSell) {
         this.rateSell = rateSell;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
