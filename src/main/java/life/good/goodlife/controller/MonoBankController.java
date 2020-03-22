@@ -298,20 +298,11 @@ public class MonoBankController {
        // StringBuilder msg = new StringBuilder("Курс валют\n\n            Покупка     Продажа\n");
         String flag;
         int index = 0;
-        BufferedImage image;
+        BufferedImage image = null;
         byte[] bytes = new byte[0];
         for (Currency currency : currencies) {
             flag = CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA());
             image = getStickerCurrency(flag, String.format("%.2f", currency.getRateBuy()), String.format("%.2f", currency.getRateSell()), index);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            try {
-                ImageIO.write(image, "png", byteArrayOutputStream);
-                byteArrayOutputStream.flush();
-                bytes = byteArrayOutputStream.toByteArray();
-                byteArrayOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             /*if (flag != null) {
                 flag += "    " + String.format("%.2f", currency.getRateBuy()) + "         " +
                         String.format("%.2f", currency.getRateSell());
@@ -320,6 +311,15 @@ public class MonoBankController {
             }
             msg.append(flag).append("\n");*/
             index++;
+        }
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", byteArrayOutputStream);
+            byteArrayOutputStream.flush();
+            bytes = byteArrayOutputStream.toByteArray();
+            byteArrayOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return new SendSticker(chatId, bytes);
     }
