@@ -185,7 +185,7 @@ public class MonoBankController {
         return sendMessage;
     }
 
-    private SendMessage showBalance(Long chatId, String[] cartPartFull) {
+    private SendSticker showBalance(Long chatId, String[] cartPartFull) {
         StringBuilder cart = new StringBuilder();
         StringBuilder cartFull = new StringBuilder();
         for (int i = 0; i < cartPartFull.length; i++) {
@@ -197,19 +197,23 @@ public class MonoBankController {
         BufferedImage image = getStickerBalance(cartFull.toString(), Balance.getBalanceFactory(account.getBalance(),
                 account.getCurrencyCode()).toString(), Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()).toString(),
                 account.getType(), account.getCurrencyCode());
-        File outputfile = new File("image15645.png");
+        //File outputFile = new File("image15645.png");
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] bytes = new byte[0];
         try {
-            ImageIO.write(image, "png", outputfile);
+            ImageIO.write(image, "png", byteArrayOutputStream);
+            byteArrayOutputStream.flush();
+            bytes = byteArrayOutputStream.toByteArray();
+            byteArrayOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        telegramBotExecuteComponent.sendSticker(new SendSticker(chatId, outputfile));
         /*String result = "<b>Мой баланс: </b>\n\n" + "Карта: " + cart + "\n" +
                 "Тип: " + account.getType() + "\n" +
                 "Баланс: " + Balance.getBalanceFactory(account.getBalance(), account.getCurrencyCode()) + "\n" +
                 "Кредитный лимит: " + Balance.getBalanceFactory(account.getCreditLimit(), account.getCurrencyCode()) + "\n";
         return new SendMessage(chatId, result).parseMode(ParseMode.HTML).disableWebPagePreview(true);*/
-        return null;
+        return new SendSticker(chatId, bytes);
     }
 
     private BufferedImage getStickerBalance(String cart, String balance, String creditLimit, String type, int currencyCode)  {
@@ -223,18 +227,23 @@ public class MonoBankController {
         int modY = 45;
         Color color;
         String pathToCart = "image/";
-        if (type.equals("white")) {
-            color = new Color(0, 0, 0);
-            pathToCart += "WhiteCart.png";
-        } else if (type.equals("platinum")) {
-            color = new Color(0);
-            pathToCart += "PlatinumCart.png";
-        } else if (type.equals("gold")) {
-            color = new Color(0);
-            pathToCart += "GoldCart.png";
-        } else {
-            color = new Color(255, 255, 255, 255);
-            pathToCart += "BlackCart.png";
+        switch (type) {
+            case "white":
+                color = new Color(0, 0, 0);
+                pathToCart += "WhiteCart.png";
+                break;
+            case "platinum":
+                color = new Color(0);
+                pathToCart += "PlatinumCart.png";
+                break;
+            case "gold":
+                color = new Color(0);
+                pathToCart += "GoldCart.png";
+                break;
+            default:
+                color = new Color(255, 255, 255, 255);
+                pathToCart += "BlackCart.png";
+                break;
         }
         TextLayout textLayout;
         Font font = new Font("Arial", Font.PLAIN, 36);
@@ -282,25 +291,72 @@ public class MonoBankController {
                 RenderingHints.VALUE_FRACTIONALMETRICS_ON);
     }
 
-    private SendMessage showCurrency(Long chatId) {
+    private SendSticker showCurrency(Long chatId) {
         User user = userService.findByChatId(chatId);
         userHistoryService.createUserHistory(user.getId(), "/currency", "");
-        //String msg = currencyService.currency();
         Currency[] currencies = currencyService.getCurrency();
-        StringBuilder msg = new StringBuilder("Курс валют\n\n            Покупка     Продажа\n");
+       // StringBuilder msg = new StringBuilder("Курс валют\n\n            Покупка     Продажа\n");
         String flag;
+        int index = 0;
+        BufferedImage image;
+        byte[] bytes = new byte[0];
         for (Currency currency : currencies) {
-            System.out.println(currency);
             flag = CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA());
-            if (flag != null) {
+            image = getStickerCurrency(flag, String.format("%.2f", currency.getRateBuy()), String.format("%.2f", currency.getRateSell()), index);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            try {
+                ImageIO.write(image, "png", byteArrayOutputStream);
+                byteArrayOutputStream.flush();
+                bytes = byteArrayOutputStream.toByteArray();
+                byteArrayOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            /*if (flag != null) {
                 flag += "    " + String.format("%.2f", currency.getRateBuy()) + "         " +
                         String.format("%.2f", currency.getRateSell());
             } else {
                 flag = "";
             }
-            msg.append(flag).append("\n");
+            msg.append(flag).append("\n");*/
+            index++;
         }
-        return new SendMessage(chatId, msg.toString()).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        return new SendSticker(chatId, bytes);
+    }
+
+    private BufferedImage getStickerCurrency(String flag, String buy, String sell, int index) {
+        int flagX = 30;
+        int flagY = 100 * index;
+        int buyX = 90;
+        int buyY = 100 * index;
+        int sellX = 150;
+        int sellY = 100 * index;
+        Color color = new Color(255, 255, 255);
+        String pathToCart = "image/BackgroundCurrency.png";
+        TextLayout textLayout;
+        Font font = new Font("Arial", Font.PLAIN, 36);
+        BufferedImage src = null;
+        try {
+            src = ImageIO.read(MonoBankController.class.getClassLoader().getResourceAsStream(pathToCart));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert src != null;
+        BufferedImage image = new BufferedImage(src.getWidth(), src.getHeight(),
+                BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics2D g1d = image.createGraphics();
+        setRenderingHints(g1d);
+        g1d.setPaint(color);
+        g1d.drawImage(src, 0, 0, null);
+        textLayout = new TextLayout(flag, font, g1d.getFontRenderContext());
+        textLayout.draw(g1d, flagX, flagY);
+        font = new Font("Arial", Font.PLAIN, 18);
+        textLayout = new TextLayout(buy, font, g1d.getFontRenderContext());
+        textLayout.draw(g1d, buyX, buyY);
+        textLayout = new TextLayout(sell, font, g1d.getFontRenderContext());
+        textLayout.draw(g1d, sellX, sellY);
+        g1d.dispose();
+        return image;
     }
 }
 
