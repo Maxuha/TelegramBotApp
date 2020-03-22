@@ -158,7 +158,7 @@ public class MonoBankController {
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
         UserMonobank userMonobank = loginService.getByUserId(user.getId());
         List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
-        String[][] accountButtons = new String[accounts.size()+1][1];
+        String[][] accountButtons = new String[accounts.size()+1][2];
         int index = 0;
         StringBuffer cart;
         for (Account account : accounts) {
