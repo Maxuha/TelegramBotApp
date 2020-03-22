@@ -326,7 +326,7 @@ public class MonoBankController {
         int buyY = 100;
         int sellX = 180;
         int sellY = 100;
-        int index = 2;
+        int index = 1;
         Color color = new Color(255, 255, 255);
         String pathToCart = "image/BackgroundCurrency.png";
         TextLayout[] textLayout = new TextLayout[15];
@@ -348,12 +348,12 @@ public class MonoBankController {
             flagY = index * 100;
             buyY = index * 100;
             sellY = index * 100;
-            textLayout[index - 2] = new TextLayout(CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA()), font, g1d.getFontRenderContext());
-            textLayout[index - 2].draw(g1d, flagX, flagY);
-            textLayout[index - 2] = new TextLayout(String.format("%.2f", currency.getRateBuy()), font, g1d.getFontRenderContext());
-            textLayout[index - 2].draw(g1d, buyX, buyY);
-            textLayout[index - 2] = new TextLayout(String.format("%.2f", currency.getRateSell()), font, g1d.getFontRenderContext());
-            textLayout[index - 2].draw(g1d, sellX, sellY);
+            textLayout[index - 1] = new TextLayout(CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA()), font, g1d.getFontRenderContext());
+            textLayout[index - 1].draw(g1d, flagX, flagY);
+            textLayout[index - 1] = new TextLayout(String.format("%.2f", currency.getRateBuy()), font, g1d.getFontRenderContext());
+            textLayout[index - 1].draw(g1d, buyX, buyY);
+            textLayout[index - 1] = new TextLayout(String.format("%.2f", currency.getRateSell()), font, g1d.getFontRenderContext());
+            textLayout[index - 1].draw(g1d, sellX, sellY);
             index++;
         }
         g1d.dispose();
