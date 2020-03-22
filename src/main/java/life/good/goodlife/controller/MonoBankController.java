@@ -158,7 +158,7 @@ public class MonoBankController {
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
         UserMonobank userMonobank = loginService.getByUserId(user.getId());
         List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
-        String[] accountButtons = new String[accounts.size() + 1];
+        String[][] accountButtons = new String[accounts.size()][1];
         int index = 0;
         StringBuffer cart;
         for (Account account : accounts) {
@@ -168,12 +168,12 @@ public class MonoBankController {
                 cart.insert(4, " ");
                 cart.insert(9, " ");
                 cart.insert(14, " ");
-                accountButtons[index] = "\uD83D\uDCB3 " + MonobankFactory.getNameTypeCartByType(account.getType()) +
+                accountButtons[index][0] = "\uD83D\uDCB3 " + MonobankFactory.getNameTypeCartByType(account.getType()) +
                         ", " + CurrencyCodeFactory.getCartCurrencyNameByCurrencyCode(account.getCurrencyCode()) + " " + cart.toString();
                 index++;
             }
         }
-        accountButtons[accounts.size()] = Buttons.mainButton[0];
+
         System.out.println(Arrays.toString(accountButtons));
         Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 accountButtons).resizeKeyboard(true);
