@@ -157,7 +157,7 @@ public class MonoBankController {
         userHistoryService.createUserHistory(user.getId(), "/balance", "");
         UserMonobank userMonobank = loginService.getByUserId(user.getId());
         List<Account> accounts = loginService.getAllAccountByClientId(userMonobank.getClientId());
-        String[][] accountButtons = new String[accounts.size() + 2][2];
+        String[] accountButtons = new String[accounts.size() + 1];
         int index = 0;
         StringBuffer cart;
         for (Account account : accounts) {
@@ -167,14 +167,14 @@ public class MonoBankController {
                 cart.insert(4, " ");
                 cart.insert(9, " ");
                 cart.insert(14, " ");
-                accountButtons[index][0] = "\uD83D\uDCB3 " + MonobankFactory.getNameTypeCartByType(account.getType()) +
+                accountButtons[index] = "\uD83D\uDCB3 " + MonobankFactory.getNameTypeCartByType(account.getType()) +
                         ", " + CurrencyCodeFactory.getCartCurrencyNameByCurrencyCode(account.getCurrencyCode()) + " " + cart.toString();
                 index++;
             }
         }
-        accountButtons[accounts.size()][0] = Buttons.mainButton[1];
-        accountButtons[accounts.size()+1][1] = Buttons.mainButton[0];
-        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(accountButtons).resizeKeyboard(true);
+        Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                accountButtons,
+                new String[] { Buttons.mainButton[1], Buttons.mainButton[0] }).resizeKeyboard(true);
         SendMessage sendMessage = new SendMessage(chatId, "Выбери карту");
         sendMessage.replyMarkup(replyKeyboardMarkup);
         return sendMessage;
