@@ -71,4 +71,16 @@ public class Currency {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Currency{" +
+                "id=" + id +
+                ", currencyCodeA=" + currencyCodeA +
+                ", currencyCodeB=" + currencyCodeB +
+                ", date=" + date +
+                ", rateBuy=" + rateBuy +
+                ", rateSell=" + rateSell +
+                '}';
+    }
 }
