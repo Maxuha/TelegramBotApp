@@ -31,7 +31,7 @@ public class UserHistoryServiceImpl implements UserHistoryService {
         userHistory.setUserId(userId);
         userHistory.setDate(LocalDateTime.now());
         userHistory.setAnswer(answer);
-        logger.info("Creating history command '{}}'", command);
+        logger.info("Creating history command '{}'", command);
         userHistoryRepository.save(userHistory);
     }
 
