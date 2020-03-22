@@ -290,6 +290,7 @@ public class MonoBankController {
         StringBuilder msg = new StringBuilder("Курс валют\n\n            Покупка     Продажа\n");
         String flag;
         for (Currency currency : currencies) {
+            System.out.println(currency.getCurrencyCodeA());
             flag = CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA());
             if (flag != null) {
                 flag += "    " + String.format("%.2f", currency.getRateBuy()) + "         " +
