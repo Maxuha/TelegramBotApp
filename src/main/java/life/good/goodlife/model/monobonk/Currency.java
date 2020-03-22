@@ -1,10 +1,26 @@
 package life.good.goodlife.model.monobonk;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "monobank_currency")
 public class Currency {
+    @Column
     private Integer currencyCodeA;
+
+    @Column
     private Integer currencyCodeB;
-    private String date;
+
+    @Id
+    private Integer date;
+
+    @Column
     private Float rateBuy;
+
+    @Column
     private Float rateSell;
 
     public Integer getCurrencyCodeA() {
@@ -23,11 +39,11 @@ public class Currency {
         this.currencyCodeB = currencyCodeB;
     }
 
-    public String getDate() {
+    public Integer getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Integer date) {
         this.date = date;
     }
 
