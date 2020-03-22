@@ -322,11 +322,11 @@ public class MonoBankController {
     private BufferedImage getStickerCurrency(Currency[] currencies) {
         int flagX = 40;
         int flagY = 100;
-        int buyX = 110;
+        int buyX = 100;
         int buyY = 100;
-        int sellX = 170;
+        int sellX = 180;
         int sellY = 100;
-        int index = 1;
+        int index = 0;
         Color color = new Color(255, 255, 255);
         String pathToCart = "image/BackgroundCurrency.png";
         TextLayout[] textLayout = new TextLayout[18];
