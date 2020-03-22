@@ -1,20 +1,21 @@
 package life.good.goodlife.model.monobonk;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "monobank_currency")
 public class Currency {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @Column
     private Integer currencyCodeA;
 
     @Column
     private Integer currencyCodeB;
 
-    @Id
+    @Column
     private Integer date;
 
     @Column
