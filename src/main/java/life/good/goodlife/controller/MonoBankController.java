@@ -285,8 +285,21 @@ public class MonoBankController {
     private SendMessage showCurrency(Long chatId) {
         User user = userService.findByChatId(chatId);
         userHistoryService.createUserHistory(user.getId(), "/currency", "");
-        String msg = currencyService.currency();
-        return new SendMessage(chatId, msg).parseMode(ParseMode.HTML).disableWebPagePreview(true);
+        //String msg = currencyService.currency();
+        Currency[] currencies = currencyService.getCurrency();
+        StringBuilder msg = new StringBuilder("Курс валют\n\n            Покупка     Продажа\n");
+        String flag;
+        for (Currency currency : currencies) {
+            flag = CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA());
+            if (flag != null) {
+                flag += "    " + String.format("%.2f", currency.getRateBuy()) + "         " +
+                        String.format("%.2f", currency.getRateSell());
+            } else {
+                flag = "";
+            }
+            msg.append(flag).append("\n");
+        }
+        return new SendMessage(chatId, msg.toString()).parseMode(ParseMode.HTML).disableWebPagePreview(true);
     }
 }
 

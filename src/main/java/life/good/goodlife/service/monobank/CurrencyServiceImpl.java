@@ -8,6 +8,9 @@ import life.good.goodlife.statics.Request;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
     private final CurrencyRepository currencyRepository;
@@ -56,5 +59,16 @@ public class CurrencyServiceImpl implements CurrencyService {
                 }
             }
         }
+    }
+
+    @Override
+    public Currency[] getCurrency() {
+        Currency[] currencies = new Currency[5];
+        Integer[] from = new Integer[] { 840, 978, 643, 970, 985 };
+        Integer[] to = new Integer[] { 980, 980, 980, 840, 980 };
+        for (int i = 0; i < from.length; i++) {
+            currencies[i] = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateAsc(from[i], to[i]);
+        }
+        return currencies;
     }
 }
