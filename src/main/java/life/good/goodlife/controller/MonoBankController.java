@@ -345,9 +345,9 @@ public class MonoBankController {
         g1d.setPaint(color);
         g1d.drawImage(src, 0, 0, null);
         for (Currency currency : currencies) {
-            flagY += index * 20;
-            buyY += index * 20;
-            sellY += index * 20;
+            flagY = index * 100;
+            buyY = index * 100;
+            sellY = index * 100;
             textLayout[index] = new TextLayout(CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA()), font, g1d.getFontRenderContext());
             textLayout[index].draw(g1d, flagX, flagY);
             textLayout[index] = new TextLayout(String.format("%.2f", currency.getRateBuy()), font, g1d.getFontRenderContext());
