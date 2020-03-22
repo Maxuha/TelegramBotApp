@@ -44,8 +44,12 @@ public class CurrencyServiceImpl implements CurrencyService {
         Currency tempCurrency;
         for (Currency currency : currencies) {
             tempCurrency = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateAsc(currency.getCurrencyCodeA(), currency.getCurrencyCodeB());
-            if (!currency.getDate().equals(tempCurrency.getDate())) {
-                currencyRepository.save(tempCurrency);
+            if (tempCurrency != null) {
+                if (!currency.getDate().equals(tempCurrency.getDate())) {
+                    currencyRepository.save(currency);
+                }
+            } else {
+                currencyRepository.save(currency);
             }
         }
     }
