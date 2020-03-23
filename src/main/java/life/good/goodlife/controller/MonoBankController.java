@@ -322,7 +322,7 @@ public class MonoBankController {
     private BufferedImage getStickerCurrency(Currency[] currencies) {
         int buyX = 165;
         int buyY = 51;
-        int sellX = 255;
+        int sellX = 265;
         int sellY = 51;
         int index = 1;
         Color color = new Color(255, 255, 255);
@@ -356,9 +356,9 @@ public class MonoBankController {
     }
 
     private String getFormatValue(String src) {
-        StringBuffer dest = new StringBuffer(src);
+        StringBuilder dest = new StringBuilder(src);
         for (int i = src.length(); i < 7; i++) {
-            dest.insert(0, " ");
+            dest.insert(0, "  ");
         }
         return dest.toString();
     }
