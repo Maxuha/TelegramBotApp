@@ -361,24 +361,30 @@ public class MonoBankController {
         font = new Font("Calibri", Font.BOLD, 16);
         float diffBuy;
         float diffSell;
+        String diffBuyInfo;
+        String diffSellInfo;
         for (int i = 5; i < currencies.length; i++) {
             buyY += 57;
             sellY += 57;
             diffBuy = currencies[i - 5].getRateBuy() - currencies[i].getRateBuy();
             diffSell = currencies[i - 5].getRateSell() - currencies[i].getRateSell();
             if (diffBuy > 0) {
+                diffBuyInfo = "+" + diffBuy;
                 g1d.setPaint(red);
             } else {
+                diffBuyInfo = String.valueOf(diffBuy);
                 g1d.setPaint(blue);
             }
-            textLayout[index - 1] = new TextLayout(getFormatValue(diffBuy > 0 ?  "+" : "" + String.format("%.4f", diffBuy)), font, g1d.getFontRenderContext());
+            textLayout[index - 1] = new TextLayout(getFormatValue(diffBuyInfo), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, buyX, buyY);
             if (diffSell > 0) {
+                diffSellInfo = "+" + diffSell;
                 g1d.setPaint(blue);
             } else {
+                diffSellInfo = String.valueOf(diffSell);
                 g1d.setPaint(red);
             }
-            textLayout[index - 1] = new TextLayout(getFormatValue(diffSell > 0 ?  "+" + diffSell : "" + String.format("%.4f", diffSell)), font, g1d.getFontRenderContext());
+            textLayout[index - 1] = new TextLayout(getFormatValue(diffSellInfo), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, sellX, sellY);
             index++;
         }
