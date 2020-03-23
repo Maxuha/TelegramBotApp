@@ -328,7 +328,7 @@ public class MonoBankController {
         Color color = new Color(255, 255, 255);
         String pathToCart = "image/BackgroundCurrency.png";
         TextLayout[] textLayout = new TextLayout[15];
-        Font font = new Font("Arial", Font.PLAIN, 16);
+        Font font = new Font("Calibri", Font.PLAIN, 16);
         BufferedImage src = null;
         try {
             src = ImageIO.read(MonoBankController.class.getClassLoader().getResourceAsStream(pathToCart));
