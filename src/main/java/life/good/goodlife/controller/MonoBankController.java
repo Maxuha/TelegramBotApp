@@ -354,9 +354,11 @@ public class MonoBankController {
             index++;
         }
 
-        buyY = 61;
-        sellY = 61;
-        font = new Font("Calibri", Font.BOLD, 14);
+        buyY = 70;
+        sellY = 70;
+        buyX = 175;
+        sellX = 275;
+        font = new Font("Calibri", Font.BOLD, 16);
         float diffBuy;
         float diffSell;
         for (int i = 5; i < currencies.length; i++) {
