@@ -321,14 +321,14 @@ public class MonoBankController {
 
     private BufferedImage getStickerCurrency(Currency[] currencies) {
         int buyX = 160;
-        int buyY = 53;
+        int buyY = 52;
         int sellX = 250;
-        int sellY = 53;
+        int sellY = 52;
         int index = 1;
         Color color = new Color(255, 255, 255);
         String pathToCart = "image/BackgroundCurrency.png";
         TextLayout[] textLayout = new TextLayout[15];
-        Font font = new Font("Calibri", Font.PLAIN, 16);
+        Font font = new Font("Calibri", Font.BOLD, 16);
         BufferedImage src = null;
         try {
             src = ImageIO.read(MonoBankController.class.getClassLoader().getResourceAsStream(pathToCart));
