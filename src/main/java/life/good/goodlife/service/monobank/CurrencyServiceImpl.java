@@ -49,7 +49,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         for (Currency currency : currencies) {
             flag = CurrencyCodeFactory.getFlagByCurrencyCode(currency.getCurrencyCodeA());
             if (flag != null) {
-                tempCurrency = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateAsc(currency.getCurrencyCodeA(), currency.getCurrencyCodeB());
+                tempCurrency = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateDesc(currency.getCurrencyCodeA(), currency.getCurrencyCodeB());
                 if (tempCurrency != null) {
                     if (!currency.getDate().equals(tempCurrency.getDate())) {
                         currencyRepository.save(currency);
@@ -67,7 +67,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         Integer[] from = new Integer[] { 840, 978, 643, 978, 985 };
         Integer[] to = new Integer[] { 980, 980, 980, 840, 980 };
         for (int i = 0; i < from.length; i++) {
-            currencies[i] = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateAsc(from[i], to[i]);
+            currencies[i] = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateDesc(from[i], to[i]);
         }
         return currencies;
     }
