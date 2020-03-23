@@ -63,11 +63,12 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public Currency[] getCurrency() {
-        Currency[] currencies = new Currency[5];
+        Currency[] currencies = new Currency[10];
         Integer[] from = new Integer[] { 840, 978, 643, 978, 985 };
         Integer[] to = new Integer[] { 980, 980, 980, 840, 980 };
         for (int i = 0; i < from.length; i++) {
             currencies[i] = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateDesc(from[i], to[i]);
+            currencies[i + 5] = currencyRepository.findSecondByCurrencyCodeAAndCurrencyCodeBOrderByDateDesc(from[i], to[i]);
         }
         return currencies;
     }

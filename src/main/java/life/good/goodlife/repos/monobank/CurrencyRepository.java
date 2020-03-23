@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CurrencyRepository extends JpaRepository<Currency, Integer> {
     Currency findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateDesc(Integer currencyCodeA, Integer currencyCodeB);
+    Currency findSecondByCurrencyCodeAAndCurrencyCodeBOrderByDateDesc(Integer currencyCodeA, Integer currencyCodeB);
 }
