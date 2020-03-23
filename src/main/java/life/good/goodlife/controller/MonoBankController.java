@@ -320,10 +320,10 @@ public class MonoBankController {
     }
 
     private BufferedImage getStickerCurrency(Currency[] currencies) {
-        int buyX = 160;
-        int buyY = 52;
-        int sellX = 250;
-        int sellY = 52;
+        int buyX = 155;
+        int buyY = 51;
+        int sellX = 245;
+        int sellY = 51;
         int index = 1;
         Color color = new Color(255, 255, 255);
         String pathToCart = "image/BackgroundCurrency.png";
