@@ -328,7 +328,7 @@ public class MonoBankController {
         Color color = new Color(255, 255, 255);
         String pathToCart = "image/BackgroundCurrency.png";
         TextLayout[] textLayout = new TextLayout[15];
-        Font font = new Font("Arial", Font.PLAIN, 18);
+        Font font = new Font("Arial", Font.PLAIN, 16);
         BufferedImage src = null;
         try {
             src = ImageIO.read(MonoBankController.class.getClassLoader().getResourceAsStream(pathToCart));
@@ -343,8 +343,8 @@ public class MonoBankController {
         g1d.setPaint(color);
         g1d.drawImage(src, 0, 0, null);
         for (Currency currency : currencies) {
-            buyY += 60;
-            sellY += 60;
+            buyY += 55;
+            sellY += 55;
             textLayout[index - 1] = new TextLayout(String.format("%.4f", currency.getRateBuy()), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, buyX, buyY);
             textLayout[index - 1] = new TextLayout(String.format("%.4f", currency.getRateSell()), font, g1d.getFontRenderContext());
