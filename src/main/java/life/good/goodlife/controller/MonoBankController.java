@@ -326,6 +326,8 @@ public class MonoBankController {
         int sellY = 51;
         int index = 1;
         Color color = new Color(255, 255, 255);
+        Color red = new Color(255, 0, 0);
+        Color blue = new Color(0, 0, 255);
         String pathToCart = "image/BackgroundCurrency.png";
         TextLayout[] textLayout = new TextLayout[30];
         Font font = new Font("Calibri", Font.BOLD, 18);
@@ -351,15 +353,30 @@ public class MonoBankController {
             textLayout[index - 1].draw(g1d, sellX, sellY);
             index++;
         }
-        g1d.setPaint(new Color(255, 0, 0));
+
         buyY = 61;
         sellY = 61;
+        font = new Font("Calibri", Font.BOLD, 14);
+        float diffBuy;
+        float diffSell;
         for (int i = 5; i < currencies.length; i++) {
             buyY += 57;
             sellY += 57;
-            textLayout[index - 1] = new TextLayout(getFormatValue(String.format("%.4f", currencies[i - 5].getRateBuy() - currencies[i].getRateBuy())), font, g1d.getFontRenderContext());
+            diffBuy = currencies[i - 5].getRateBuy() - currencies[i].getRateBuy();
+            diffSell = currencies[i - 5].getRateSell() - currencies[i].getRateSell();
+            if (diffBuy > 0) {
+                g1d.setPaint(red);
+            } else {
+                g1d.setPaint(blue);
+            }
+            textLayout[index - 1] = new TextLayout(getFormatValue(diffBuy > 0 ?  "+" + diffBuy : "" + String.format("%.4f", diffBuy)), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, buyX, buyY);
-            textLayout[index - 1] = new TextLayout(getFormatValue(String.format("%.4f", currencies[i - 5].getRateSell() - currencies[i].getRateSell())), font, g1d.getFontRenderContext());
+            if (diffSell > 0) {
+                g1d.setPaint(blue);
+            } else {
+                g1d.setPaint(red);
+            }
+            textLayout[index - 1] = new TextLayout(getFormatValue(diffSell > 0 ?  "+" + diffSell : "" + String.format("%.4f", diffSell)), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, sellX, sellY);
             index++;
         }
