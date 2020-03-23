@@ -345,14 +345,22 @@ public class MonoBankController {
         for (Currency currency : currencies) {
             buyY += 57;
             sellY += 57;
-            textLayout[index - 1] = new TextLayout(String.format("%.4f", currency.getRateBuy()), font, g1d.getFontRenderContext());
+            textLayout[index - 1] = new TextLayout(getFormatValue(String.format("%.4f", currency.getRateBuy())), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, buyX, buyY);
-            textLayout[index - 1] = new TextLayout(String.format("%.4f", currency.getRateSell()), font, g1d.getFontRenderContext());
+            textLayout[index - 1] = new TextLayout(getFormatValue(String.format("%.4f", currency.getRateSell())), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, sellX, sellY);
             index++;
         }
         g1d.dispose();
         return image;
+    }
+
+    private String getFormatValue(String src) {
+        StringBuffer dest = new StringBuffer(src);
+        for (int i = src.length(); i < 7; i++) {
+            dest.insert(0, " ");
+        }
+        return dest.toString();
     }
 }
 
