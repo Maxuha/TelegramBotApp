@@ -320,9 +320,9 @@ public class MonoBankController {
     }
 
     private BufferedImage getStickerCurrency(Currency[] currencies) {
-        int buyX = 155;
+        int buyX = 165;
         int buyY = 51;
-        int sellX = 245;
+        int sellX = 255;
         int sellY = 51;
         int index = 1;
         Color color = new Color(255, 255, 255);
