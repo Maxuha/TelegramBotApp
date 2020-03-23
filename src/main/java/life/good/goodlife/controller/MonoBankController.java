@@ -352,8 +352,8 @@ public class MonoBankController {
             index++;
         }
         g1d.setPaint(new Color(255, 0, 0));
-        buyY = 55;
-        sellY = 55;
+        buyY = 61;
+        sellY = 61;
         for (int i = 5; i < currencies.length; i++) {
             buyY += 57;
             sellY += 57;
