@@ -68,7 +68,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         Integer[] to = new Integer[] { 980, 980, 980, 840, 980 };
         for (int i = 0; i < from.length; i++) {
             currencies[i] = currencyRepository.findFirstByCurrencyCodeAAndCurrencyCodeBOrderByDateDesc(from[i], to[i]);
-            currencies[i + 5] = currencyRepository.findSecondByCurrencyCodeAAndCurrencyCodeBOrderByDateDesc(from[i], to[i]);
+            currencies[i + 5] = currencyRepository.findLimitByCurrencyCodeAAndCurrencyCodeBOrderByDateDesc(from[i], to[i], 2)[1];
         }
         return currencies;
     }
