@@ -321,9 +321,9 @@ public class MonoBankController {
 
     private BufferedImage getStickerCurrency(Currency[] currencies) {
         int buyX = 155;
-        int buyY = 80;
+        int buyY = 60;
         int sellX = 235;
-        int sellY = 80;
+        int sellY = 60;
         int index = 1;
         Color color = new Color(255, 255, 255);
         String pathToCart = "image/BackgroundCurrency.png";
@@ -343,11 +343,11 @@ public class MonoBankController {
         g1d.setPaint(color);
         g1d.drawImage(src, 0, 0, null);
         for (Currency currency : currencies) {
-            buyY += 40;
-            sellY += 40;
-            textLayout[index - 1] = new TextLayout(String.format("%.2f", currency.getRateBuy()), font, g1d.getFontRenderContext());
+            buyY += 60;
+            sellY += 60;
+            textLayout[index - 1] = new TextLayout(String.format("%.4f", currency.getRateBuy()), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, buyX, buyY);
-            textLayout[index - 1] = new TextLayout(String.format("%.2f", currency.getRateSell()), font, g1d.getFontRenderContext());
+            textLayout[index - 1] = new TextLayout(String.format("%.4f", currency.getRateSell()), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, sellX, sellY);
             index++;
         }
