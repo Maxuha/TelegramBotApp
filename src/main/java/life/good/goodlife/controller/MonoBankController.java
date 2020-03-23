@@ -371,7 +371,7 @@ public class MonoBankController {
             } else {
                 g1d.setPaint(blue);
             }
-            textLayout[index - 1] = new TextLayout(getFormatValue(diffBuy > 0 ?  "+" + diffBuy : "" + String.format("%.4f", diffBuy)), font, g1d.getFontRenderContext());
+            textLayout[index - 1] = new TextLayout(getFormatValue(diffBuy > 0 ?  "+" : "" + String.format("%.4f", diffBuy)), font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, buyX, buyY);
             if (diffSell > 0) {
                 g1d.setPaint(blue);
