@@ -29,10 +29,7 @@ public class TestController {
         this.telegramBotExecuteComponent = telegramBotExecuteComponent;
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ResponseEntity <?> test() {
-        return ResponseEntity.ok("<b>OK<b/>");
-    }
+
 
     @RequestMapping(path = "/favicon.ico", method = RequestMethod.GET)
     public ResponseEntity <?> test2() {
