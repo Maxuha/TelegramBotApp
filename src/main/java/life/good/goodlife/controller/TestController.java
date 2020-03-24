@@ -5,6 +5,8 @@ import com.pengrad.telegrambot.request.SendPhoto;
 import com.pengrad.telegrambot.request.SendSticker;
 import com.pengrad.telegrambot.request.UploadStickerFile;
 import com.pengrad.telegrambot.response.GetFileResponse;
+import de.umass.lastfm.Authenticator;
+import de.umass.lastfm.Session;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.statics.Request;
 import org.springframework.http.ResponseEntity;
@@ -29,17 +31,7 @@ public class TestController {
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ResponseEntity <?> test() {
-        Map<String, String> body = new HashMap<>();
-        body.put("method", "track.love");
-        body.put("api_key", "88282ebe9151001b5e628ece502d82cb");
-        body.put("format", "json");
-        body.put("api_sig", "3483cf30fde9cca2c564b861f067e1a3");
-        body.put("sk", "s5udKmqjwuvHMCZ-TDmTxIUPBjG_lHWL");
-        body.put("track", "ON");
-        body.put("artist", "BTS");
-        String response = Request.post("http://ws.audioscrobbler.com/2.0/", null, body, null);
-        assert response != null;
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok("<b>OK<b/>");
     }
 
     @RequestMapping(path = "/favicon.ico", method = RequestMethod.GET)
@@ -75,5 +67,11 @@ public class TestController {
         SendSticker sendSticker = new SendSticker(593292108, data);
         telegramBotExecuteComponent.sendSticker(sendSticker);
         return ResponseEntity.ok(link);
+    }
+
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ResponseEntity <?> sessionMusic(@RequestParam String token) {
+        Session session = Authenticator.getSession(token, System.getenv().get("music_api_key"), System.getenv().get("music_secret"));
+        return ResponseEntity.ok(session);
     }
 }
