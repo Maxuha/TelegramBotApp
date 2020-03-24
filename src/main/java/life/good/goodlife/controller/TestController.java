@@ -27,16 +27,21 @@ public class TestController {
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ResponseEntity <?> test() {
-        return ResponseEntity.ok("google-site-verification: googlee3518009d066e9ef.html");
+        return ResponseEntity.ok("<b>OK<b/>");
     }
 
     @RequestMapping(path = "/favicon.ico", method = RequestMethod.GET)
-    public ResponseEntity <?> test2() throws IOException {
+    public ResponseEntity <?> test2() {
+        return ResponseEntity.ok("OK");
+    }
+
+    @RequestMapping(path = "/googlee3518009d066e9ef.html", method = RequestMethod.GET)
+    public ResponseEntity <?> test5() {
         return ResponseEntity.ok("google-site-verification: googlee3518009d066e9ef.html");
     }
 
     @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public ResponseEntity <?> test3Get() throws IOException {
+    public ResponseEntity <?> test3Get() {
         String response = Request.get("https://jump-to-infinity.com/index5.php?cart=5&balance=100");
         return ResponseEntity.ok(response);
     }
