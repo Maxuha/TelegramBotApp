@@ -369,22 +369,22 @@ public class MonoBankController {
             diffBuy = currencies[i - 5].getRateBuy() - currencies[i].getRateBuy();
             diffSell = currencies[i - 5].getRateSell() - currencies[i].getRateSell();
             if (diffBuy > 0) {
-                diffBuyInfo = "+" + diffBuy;
+                diffBuyInfo = "+" + String.format("%.4f", diffBuy);
                 g1d.setPaint(red);
             } else {
-                diffBuyInfo = String.valueOf(diffBuy);
+                diffBuyInfo = String.format("%.4f", diffBuy);
                 g1d.setPaint(blue);
             }
-            textLayout[index - 1] = new TextLayout(getFormatValue(diffBuyInfo), font, g1d.getFontRenderContext());
+            textLayout[index - 1] = new TextLayout(diffBuyInfo, font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, buyX, buyY);
             if (diffSell > 0) {
-                diffSellInfo = "+" + diffSell;
+                diffSellInfo = "+" + String.format("%.4f", diffSell);
                 g1d.setPaint(blue);
             } else {
-                diffSellInfo = String.valueOf(diffSell);
+                diffSellInfo = String.format("%.4f", diffSell);
                 g1d.setPaint(red);
             }
-            textLayout[index - 1] = new TextLayout(getFormatValue(diffSellInfo), font, g1d.getFontRenderContext());
+            textLayout[index - 1] = new TextLayout(diffSellInfo, font, g1d.getFontRenderContext());
             textLayout[index - 1].draw(g1d, sellX, sellY);
             index++;
         }
