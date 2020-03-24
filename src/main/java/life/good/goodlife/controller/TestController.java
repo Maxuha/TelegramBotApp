@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -27,7 +29,17 @@ public class TestController {
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ResponseEntity <?> test() {
-        return ResponseEntity.ok("<b>OK<b/>");
+        Map<String, String> body = new HashMap<>();
+        body.put("method", "track.love");
+        body.put("api_key", "88282ebe9151001b5e628ece502d82cb");
+        body.put("format", "json");
+        body.put("api_sig", "3483cf30fde9cca2c564b861f067e1a3");
+        body.put("sk", "s5udKmqjwuvHMCZ-TDmTxIUPBjG_lHWL");
+        body.put("track", "ON");
+        body.put("artist", "BTS");
+        String response = Request.post("http://ws.audioscrobbler.com/2.0/", null, body, null);
+        assert response != null;
+        return ResponseEntity.ok(response);
     }
 
     @RequestMapping(path = "/favicon.ico", method = RequestMethod.GET)

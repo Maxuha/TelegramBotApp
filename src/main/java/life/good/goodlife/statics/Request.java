@@ -133,8 +133,10 @@ public class Request {
             requestBody = formBody.build();
         }
         okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder();
-        for (Map.Entry<String, String> entry : header.entrySet()) {
-            requestBuilder.addHeader(entry.getKey(), entry.getValue());
+        if (header != null) {
+            for (Map.Entry<String, String> entry : header.entrySet()) {
+                requestBuilder.addHeader(entry.getKey(), entry.getValue());
+            }
         }
         okhttp3.Request request = requestBuilder.url(address).post(requestBody).build();
         Call call = client.newCall(request);
