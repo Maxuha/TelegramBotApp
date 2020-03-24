@@ -27,12 +27,12 @@ public class TestController {
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ResponseEntity <?> test() {
-        return ResponseEntity.ok("<b>OK<b/>");
+        return ResponseEntity.ok("google-site-verification: googlee3518009d066e9ef.html");
     }
 
     @RequestMapping(path = "/favicon.ico", method = RequestMethod.GET)
     public ResponseEntity <?> test2() throws IOException {
-        return ResponseEntity.ok("OK");
+        return ResponseEntity.ok("google-site-verification: googlee3518009d066e9ef.html");
     }
 
     @RequestMapping(path = "/test", method = RequestMethod.GET)
