@@ -7,6 +7,7 @@ import com.pengrad.telegrambot.request.UploadStickerFile;
 import com.pengrad.telegrambot.response.GetFileResponse;
 import de.umass.lastfm.Authenticator;
 import de.umass.lastfm.Session;
+import de.umass.lastfm.Track;
 import life.good.goodlife.component.TelegramBotExecuteComponent;
 import life.good.goodlife.statics.Request;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +70,7 @@ public class TestController {
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ResponseEntity <?> sessionMusic(@RequestParam String token) {
         Session session = Authenticator.getSession(token, System.getenv().get("music_api_key"), System.getenv().get("music_secret"));
+        Track.love("BTS", "ON", session);
         return ResponseEntity.ok(session);
     }
 }
